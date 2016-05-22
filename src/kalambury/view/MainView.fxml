@@ -4,13 +4,13 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="635.0" maxWidth="1000.0" minHeight="635.0" minWidth="1000.0" prefHeight="635.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="646.0" maxWidth="1364.0" minHeight="646.0" minWidth="1364.0" prefHeight="646.0" prefWidth="1364.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane disable="true" dividerPositions="0.66" layoutX="207.0" layoutY="191.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane disable="true" dividerPositions="0.76" layoutX="207.0" layoutY="191.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <Canvas height="628.0" width="655.0" />
+                  <Canvas height="650.0" width="787.0" />
                </children>
             </AnchorPane>
           <AnchorPane blendMode="DARKEN" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: rgb(153, 204, 238);" />

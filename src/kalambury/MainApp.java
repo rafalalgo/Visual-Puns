@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import kalambury.event.*;
 
 import java.io.IOException;
 
@@ -50,14 +51,6 @@ public class MainApp extends Application {
             MEHandler = event -> {
                 String name = ((MenuItem) event.getTarget()).getText();
 
-                if (name.equals("Graj od nowa")) {
-                    new handleGrajOdNowa().handleGrajOdNowa();
-                }
-
-                if (name.equals("Ranking")) {
-                    new handleRanking().handleRanking();
-                }
-
                 if (name.equals("Zakończ")) {
                     new handleZakoncz().zakoncz();
                 }
@@ -78,6 +71,9 @@ public class MainApp extends Application {
 
             rootLayout.setTop(mb);
             primaryStage.setScene(scene);
+            primaryStage.setX(0);
+            primaryStage.setMaximized(true);
+            primaryStage.setY(0);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,14 +82,10 @@ public class MainApp extends Application {
 
     void makeOpcjeMenu() {
         Menu opcjeMenu = new Menu("Opcje");
-        MenuItem grajOdNowa = new MenuItem("Graj od nowa");
-        MenuItem ranking = new MenuItem("Ranking");
         MenuItem zakoncz = new MenuItem("Zakończ");
 
-        opcjeMenu.getItems().addAll(grajOdNowa, ranking, zakoncz);
+        opcjeMenu.getItems().addAll(zakoncz);
 
-        grajOdNowa.setOnAction(MEHandler);
-        ranking.setOnAction(MEHandler);
         zakoncz.setOnAction(MEHandler);
 
         mb.getMenus().add(opcjeMenu);

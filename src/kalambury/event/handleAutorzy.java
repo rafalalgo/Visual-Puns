@@ -1,4 +1,4 @@
-package kalambury;
+package kalambury.event;
 
 /**
  * Created by rafalbyczek on 19.05.16.
