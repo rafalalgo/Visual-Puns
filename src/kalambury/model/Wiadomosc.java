@@ -1,10 +1,15 @@
 package kalambury.model;
 
+import kalambury.controller.Controller;
+import kalambury.event.Event;
+import kalambury.event.EventNotHandledException;
+import kalambury.view.View;
+
 /**
  * Created by rafalbyczek on 24.05.16.
  */
 
-public class Wiadomosc {
+public class Wiadomosc implements Model{
 
     private String user;
     private TYPE type;
@@ -30,6 +35,21 @@ public class Wiadomosc {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public void reactTo(Event e) throws EventNotHandledException {
+
+    }
+
+    @Override
+    public void setController(Controller c) {
+
+    }
+
+    @Override
+    public void registerView(View v) {
+
     }
 
     public static enum TYPE {
