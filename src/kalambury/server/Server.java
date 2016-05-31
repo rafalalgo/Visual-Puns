@@ -130,8 +130,10 @@ public class Server implements Runnable {
     }
 
     public void writeToAllSockets(String input) {
-        for (ClientThread clientThread : clientThreads) {
-            clientThread.writeToServer(input);
+        if(input != null && input != "null" && input.length() >= 2) {
+            for (ClientThread clientThread : clientThreads) {
+                clientThread.writeToServer(input);
+            }
         }
     }
 }

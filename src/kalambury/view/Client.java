@@ -3,6 +3,7 @@ package kalambury.view;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.net.SocketException;
 
 public class Client implements Runnable {
     public ObservableList<String> chatLog;
+    public ObservableList<Pair<String, Integer>> RankingTab;
     private Socket clientSocket;
     private BufferedReader serverToClientReader;
     private PrintWriter clientToServerWriter;
@@ -33,7 +35,7 @@ public class Client implements Runnable {
     }
 
     public void writeToServer(String input) {
-        if (input != null && input != "") {
+        if(input != null && input != "null" && input.length() >= 2) {
             clientToServerWriter.println(name + " : " + input);
         }
     }

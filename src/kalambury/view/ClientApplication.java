@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import kalambury.event.handleAutorzy;
 import kalambury.event.handleInstrukcja;
 import kalambury.event.handleZakoncz;
@@ -35,13 +36,33 @@ public class ClientApplication extends Application {
     private MenuBar mb;
     private ArrayList<Thread> threads;
     private Canvas canvas;
+    private TextField chatTextField;
+    private ListView<String> chatListView;
+    private Client client;
 
     public static void main(String[] args) {
         launch();
     }
 
+    public TextField getChatTextField() {
+        return chatTextField;
+    }
+
+    public void setChatTextField(TextField chatTextField) {
+        this.chatTextField = chatTextField;
+    }
+
+    public ListView<String> getChatListView() {
+        return chatListView;
+    }
+
+    public void setChatListView(ListView<String> chatListView) {
+        this.chatListView = chatListView;
+    }
+
     @Override
     public void stop() throws Exception {
+        client.writeToServer(" Użytkownik zakonczył gre.");
         super.stop();
         threads.forEach(Thread::interrupt);
     }
@@ -73,7 +94,6 @@ public class ClientApplication extends Application {
 
         Button submitClientInfoButton = new Button("Graj!");
         submitClientInfoButton.setOnAction(Event -> {
-            Client client;
             try {
                 client = new Client(hostNameField.getText(), Integer
                         .parseInt(portNumberField.getText()), nameField
@@ -85,11 +105,12 @@ public class ClientApplication extends Application {
 
                 primaryStage.close();
                 primaryStage.setScene(makeChatUI(client));
+
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(ClientApplication.class.getResource("MainView.fxml"));
                 AnchorPane MainView = loader.load();
                 rootLayout.setCenter(MainView);
-
+                client.writeToServer(" Użytkownik dołączył do gry.");
                 primaryStage.show();
 
             } catch (ConnectException e) {
@@ -220,17 +241,17 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
-            canvas = new Canvas(20, 20);
+            canvas = new Canvas(500, 674);
             rootLayout.setRight(rootPane);
-            rootLayout.getChildren().add(canvas);
+            rootLayout.setLeft(canvas);
 
-            ListView<String> chatListView = new ListView<>();
+            chatListView = new ListView<>();
             chatListView.setItems(client.chatLog);
             chatListView.setPrefWidth(300);
             chatListView.setMaxWidth(300);
             chatListView.setMinWidth(300);
 
-            TextField chatTextField = new TextField();
+            chatTextField = new TextField();
             chatTextField.setText("Zgaduj...");
             chatTextField.setOnMouseClicked(event -> {
                 chatTextField.clear();
@@ -240,8 +261,28 @@ public class ClientApplication extends Application {
                 chatTextField.clear();
             });
 
-            rootPane.add(chatListView, 0, 0);
-            rootPane.add(chatTextField, 0, 1);
+            canvas.setOnMouseClicked(event -> {
+                client.writeToServer("kliknieto");
+            });
+
+            Label userName = new Label("Czat");
+            Label ranking = new Label("Aktualny Ranking");
+
+            ListView<Pair<String, Integer>> rankingTab = new ListView<>();
+
+            rankingTab.setItems(client.RankingTab);
+            rankingTab.setPrefWidth(300);
+            rankingTab.setMaxWidth(300);
+            rankingTab.setMinWidth(300);
+            rankingTab.setPrefHeight(200);
+            rankingTab.setMaxHeight(200);
+            rankingTab.setMinHeight(200);
+
+            rootPane.add(ranking, 0, 0);
+            rootPane.add(rankingTab, 0, 1);
+            rootPane.add(userName, 0, 2);
+            rootPane.add(chatListView, 0, 3);
+            rootPane.add(chatTextField, 0, 4);
 
             return scene;
 

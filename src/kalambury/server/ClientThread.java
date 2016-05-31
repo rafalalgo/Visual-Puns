@@ -78,7 +78,9 @@ public class ClientThread implements Runnable {
     }
 
     public void writeToServer(String input) {
-        outgoingMessageWriter.println(input);
+        if(input != null && input != "null" && input.length() >= 2) {
+            outgoingMessageWriter.println(input);
+        }
     }
 
     public String getClientNameFromNetwork() throws IOException {
