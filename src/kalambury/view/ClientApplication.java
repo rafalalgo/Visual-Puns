@@ -113,6 +113,70 @@ public class ClientApplication extends Application {
         return new Scene(rootPane, 600, 400);
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    public GridPane getRootPane() {
+        return rootPane;
+    }
+
+    public void setRootPane(GridPane rootPane) {
+        this.rootPane = rootPane;
+    }
+
+    public EventHandler<ActionEvent> getMEHandler() {
+        return MEHandler;
+    }
+
+    public void setMEHandler(EventHandler<ActionEvent> MEHandler) {
+        this.MEHandler = MEHandler;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public BorderPane getRootLayout() {
+        return rootLayout;
+    }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
+
+    public MenuBar getMb() {
+        return mb;
+    }
+
+    public void setMb(MenuBar mb) {
+        this.mb = mb;
+    }
+
+    public ArrayList<Thread> getThreads() {
+        return threads;
+    }
+
+    public void setThreads(ArrayList<Thread> threads) {
+        this.threads = threads;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+    }
+
     public Scene makeChatUI(Client client) {
 
         try {

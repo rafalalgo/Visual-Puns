@@ -14,12 +14,13 @@ import java.util.ArrayList;
  */
 
 public class Server implements Runnable {
+    public ObservableList<String> serverLog;
+    public ObservableList<String> clientNames;
     private int portNumber;
     private ServerSocket socket;
     private ArrayList<Socket> clients;
     private ArrayList<ClientThread> clientThreads;
-    public ObservableList<String> serverLog;
-    public ObservableList<String> clientNames;
+
     public Server(int portNumber) throws IOException {
         this.portNumber = portNumber;
         serverLog = FXCollections.observableArrayList();
@@ -28,6 +29,54 @@ public class Server implements Runnable {
         clientThreads = new ArrayList<>();
         socket = new ServerSocket(portNumber);
 
+    }
+
+    public int getPortNumber() {
+        return portNumber;
+    }
+
+    public void setPortNumber(int portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    public ServerSocket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(ServerSocket socket) {
+        this.socket = socket;
+    }
+
+    public ArrayList<Socket> getClients() {
+        return clients;
+    }
+
+    public void setClients(ArrayList<Socket> clients) {
+        this.clients = clients;
+    }
+
+    public ArrayList<ClientThread> getClientThreads() {
+        return clientThreads;
+    }
+
+    public void setClientThreads(ArrayList<ClientThread> clientThreads) {
+        this.clientThreads = clientThreads;
+    }
+
+    public ObservableList<String> getServerLog() {
+        return serverLog;
+    }
+
+    public void setServerLog(ObservableList<String> serverLog) {
+        this.serverLog = serverLog;
+    }
+
+    public ObservableList<String> getClientNames() {
+        return clientNames;
+    }
+
+    public void setClientNames(ObservableList<String> clientNames) {
+        this.clientNames = clientNames;
     }
 
     public void startServer() {
@@ -43,13 +92,13 @@ public class Server implements Runnable {
     public void run() {
 
         try {
-			while (true) {
+            while (true) {
                 Platform.runLater(() -> serverLog.add("Czekamy..."));
 
                 final Socket clientSocket = socket.accept();
 
-				clients.add(clientSocket);
-				Platform.runLater(() -> {
+                clients.add(clientSocket);
+                Platform.runLater(() -> {
                     serverLog.add("Gracz "
                             + clientSocket.getRemoteSocketAddress()
                             + " dołaczył do gry.");

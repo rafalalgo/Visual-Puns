@@ -13,7 +13,6 @@ import java.net.SocketException;
  * Created by rafalbyczek on 28.05.16.
  */
 public class ClientThread implements Runnable {
-
     private Socket clientSocket;
     private Server baseServer;
     private BufferedReader incomingMessageReader;
@@ -32,6 +31,30 @@ public class ClientThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Server getBaseServer() {
+        return baseServer;
+    }
+
+    public void setBaseServer(Server baseServer) {
+        this.baseServer = baseServer;
+    }
+
+    public BufferedReader getIncomingMessageReader() {
+        return incomingMessageReader;
+    }
+
+    public void setIncomingMessageReader(BufferedReader incomingMessageReader) {
+        this.incomingMessageReader = incomingMessageReader;
+    }
+
+    public PrintWriter getOutgoingMessageWriter() {
+        return outgoingMessageWriter;
+    }
+
+    public void setOutgoingMessageWriter(PrintWriter outgoingMessageWriter) {
+        this.outgoingMessageWriter = outgoingMessageWriter;
     }
 
     public void run() {
@@ -64,6 +87,10 @@ public class ClientThread implements Runnable {
 
     public String getClientName() {
         return this.clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public Socket getClientSocket() {

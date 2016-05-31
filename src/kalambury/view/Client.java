@@ -52,5 +52,45 @@ public class Client implements Runnable {
             }
         }
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public ObservableList<String> getChatLog() {
+        return chatLog;
+    }
+
+    public void setChatLog(ObservableList<String> chatLog) {
+        this.chatLog = chatLog;
+    }
+
+    public BufferedReader getServerToClientReader() {
+        return serverToClientReader;
+    }
+
+    public void setServerToClientReader(BufferedReader serverToClientReader) {
+        this.serverToClientReader = serverToClientReader;
+    }
+
+    public PrintWriter getClientToServerWriter() {
+        return clientToServerWriter;
+    }
+
+    public void setClientToServerWriter(PrintWriter clientToServerWriter) {
+        this.clientToServerWriter = clientToServerWriter;
+    }
 }
 
