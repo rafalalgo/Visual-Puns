@@ -61,8 +61,72 @@ public class ClientApplication extends Application {
     }
 
     @Override
+    public String toString() {
+        return "ClientApplication{" +
+                "scene=" + scene +
+                ", rootPane=" + rootPane +
+                ", MEHandler=" + MEHandler +
+                ", primaryStage=" + primaryStage +
+                ", rootLayout=" + rootLayout +
+                ", mb=" + mb +
+                ", threads=" + threads +
+                ", canvas=" + canvas +
+                ", chatTextField=" + chatTextField +
+                ", chatListView=" + chatListView +
+                ", client=" + client +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClientApplication that = (ClientApplication) o;
+
+        if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
+        if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
+        if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
+        if (primaryStage != null ? !primaryStage.equals(that.primaryStage) : that.primaryStage != null) return false;
+        if (rootLayout != null ? !rootLayout.equals(that.rootLayout) : that.rootLayout != null) return false;
+        if (mb != null ? !mb.equals(that.mb) : that.mb != null) return false;
+        if (threads != null ? !threads.equals(that.threads) : that.threads != null) return false;
+        if (canvas != null ? !canvas.equals(that.canvas) : that.canvas != null) return false;
+        if (chatTextField != null ? !chatTextField.equals(that.chatTextField) : that.chatTextField != null)
+            return false;
+        if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
+        return client != null ? client.equals(that.client) : that.client == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = scene != null ? scene.hashCode() : 0;
+        result = 31 * result + (rootPane != null ? rootPane.hashCode() : 0);
+        result = 31 * result + (MEHandler != null ? MEHandler.hashCode() : 0);
+        result = 31 * result + (primaryStage != null ? primaryStage.hashCode() : 0);
+        result = 31 * result + (rootLayout != null ? rootLayout.hashCode() : 0);
+        result = 31 * result + (mb != null ? mb.hashCode() : 0);
+        result = 31 * result + (threads != null ? threads.hashCode() : 0);
+        result = 31 * result + (canvas != null ? canvas.hashCode() : 0);
+        result = 31 * result + (chatTextField != null ? chatTextField.hashCode() : 0);
+        result = 31 * result + (chatListView != null ? chatListView.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        return result;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    @Override
+
     public void stop() throws Exception {
-        client.writeToServer(" Użytkownik zakonczył gre.");
+        client.writeToServer("Użytkownik zakonczył gre.");
         super.stop();
         threads.forEach(Thread::interrupt);
     }
@@ -110,7 +174,7 @@ public class ClientApplication extends Application {
                 loader.setLocation(ClientApplication.class.getResource("MainView.fxml"));
                 AnchorPane MainView = loader.load();
                 rootLayout.setCenter(MainView);
-                client.writeToServer(" Użytkownik dołączył do gry.");
+                client.writeToServer("Użytkownik dołączył do gry.");
                 primaryStage.show();
 
             } catch (ConnectException e) {
@@ -241,9 +305,11 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
-            canvas = new Canvas(500, 674);
+            canvas = new Canvas(740, 624);
             rootLayout.setRight(rootPane);
+
             rootLayout.setLeft(canvas);
+            primaryStage.setResizable(false);
 
             chatListView = new ListView<>();
             chatListView.setItems(client.chatLog);
@@ -257,8 +323,10 @@ public class ClientApplication extends Application {
                 chatTextField.clear();
             });
             chatTextField.setOnAction(event -> {
-                client.writeToServer(chatTextField.getText());
-                chatTextField.clear();
+                if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
+                    client.writeToServer(chatTextField.getText());
+                    chatTextField.clear();
+                }
             });
 
             canvas.setOnMouseClicked(event -> {

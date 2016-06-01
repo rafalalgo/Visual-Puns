@@ -3,7 +3,6 @@ package kalambury.controller;
 import kalambury.event.Event;
 import kalambury.event.EventNotHandledException;
 import kalambury.model.Model;
-import kalambury.view.View;
 
 /**
  * Created by rafalbyczek on 25.05.16.

@@ -2,6 +2,6 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="676.0" maxWidth="800.0" minHeight="676.0" minWidth="800.0" prefHeight="676.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="676.0" maxWidth="1074.0" minHeight="676.0" minWidth="1074.0" prefHeight="676.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
 
 </BorderPane>
