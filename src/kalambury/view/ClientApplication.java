@@ -329,9 +329,7 @@ public class ClientApplication extends Application {
                 }
             });
 
-            canvas.setOnMouseClicked(event -> {
-                client.writeToServer("kliknieto");
-            });
+            
 
             Label userName = new Label("Czat");
             Label ranking = new Label("Aktualny Ranking");

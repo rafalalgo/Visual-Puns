@@ -1,10 +1,6 @@
 package kalambury.server;
 
 import javafx.application.Platform;
-import kalambury.controller.Controller;
-import kalambury.event.Event;
-import kalambury.event.EventNotHandledException;
-import kalambury.model.Model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +12,7 @@ import java.net.SocketException;
 /**
  * Created by rafalbyczek on 28.05.16.
  */
-public class ClientThread implements Runnable, View {
+public class ClientThread implements Runnable {
     private Socket clientSocket;
     private Server baseServer;
     private BufferedReader incomingMessageReader;
@@ -144,31 +140,6 @@ public class ClientThread implements Runnable, View {
 
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
-    }
-
-    @Override
-    public void reactTo(Event e) throws EventNotHandledException {
-
-    }
-
-    @Override
-    public void setController(Controller c) {
-
-    }
-
-    @Override
-    public Controller getController() {
-        return null;
-    }
-
-    @Override
-    public void setModel(Model m) {
-
-    }
-
-    @Override
-    public Model getModel() {
-        return null;
     }
 }
 
