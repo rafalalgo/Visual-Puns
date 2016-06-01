@@ -50,6 +50,7 @@ public class ClientApplication extends Application {
     private Client client;
     private double currentOpacity = START_OPACITY;
     private double strokeWidth = 2;
+    private ColorPicker colorPicker;
 
     public static void main(String[] args) {
         launch();
@@ -366,6 +367,12 @@ public class ClientApplication extends Application {
             canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
             canvas.addEventHandler(MOUSE_RELEASED, e -> handleMouseReleased(gc, e));
 
+            colorPicker = new ColorPicker();
+            rootLayout.setBottom(colorPicker);
+            colorPicker.setMinHeight(40);
+            colorPicker.setMinWidth(100);
+            colorPicker.setValue(new Color(0, 0, 0, currentOpacity));
+
             rootLayout.setLeft(canvas);
             primaryStage.setResizable(false);
 
@@ -416,7 +423,7 @@ public class ClientApplication extends Application {
     }
 
     private void configureGraphicsContext(GraphicsContext gc) {
-        gc.setStroke(new Color(0, 0, 0, currentOpacity));
+        gc.setStroke(colorPicker.getValue());
         gc.setLineCap(StrokeLineCap.ROUND);
         gc.setLineJoin(StrokeLineJoin.ROUND);
         gc.setLineWidth(strokeWidth);
