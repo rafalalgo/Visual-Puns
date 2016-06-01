@@ -28,7 +28,6 @@ public class Server implements ServerInterfejs {
         clients = new ArrayList<>();
         clientThreads = new ArrayList<>();
         socket = new ServerSocket(portNumber);
-
     }
 
     @Override

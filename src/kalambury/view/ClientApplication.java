@@ -8,11 +8,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import kalambury.event.handleAutorzy;
@@ -23,11 +27,16 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
+import static javafx.scene.input.MouseEvent.*;
+
 /**
  * Created by rafalbyczek on 31.05.16.
  */
 
 public class ClientApplication extends Application {
+    private static final Color color = Color.CHOCOLATE;
+    private static final double START_OPACITY = 0.9;
+    private static final double OPACITY_MODIFIER = 0.001;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -39,9 +48,23 @@ public class ClientApplication extends Application {
     private TextField chatTextField;
     private ListView<String> chatListView;
     private Client client;
+    private double currentOpacity = START_OPACITY;
+    private double strokeWidth = 2;
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static Color getColor() {
+        return color;
+    }
+
+    public static double getStartOpacity() {
+        return START_OPACITY;
+    }
+
+    public static double getOpacityModifier() {
+        return OPACITY_MODIFIER;
     }
 
     public TextField getChatTextField() {
@@ -74,6 +97,8 @@ public class ClientApplication extends Application {
                 ", chatTextField=" + chatTextField +
                 ", chatListView=" + chatListView +
                 ", client=" + client +
+                ", currentOpacity=" + currentOpacity +
+                ", strokeWidth=" + strokeWidth +
                 '}';
     }
 
@@ -84,6 +109,8 @@ public class ClientApplication extends Application {
 
         ClientApplication that = (ClientApplication) o;
 
+        if (Double.compare(that.currentOpacity, currentOpacity) != 0) return false;
+        if (Double.compare(that.strokeWidth, strokeWidth) != 0) return false;
         if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
         if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
         if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
@@ -101,7 +128,9 @@ public class ClientApplication extends Application {
 
     @Override
     public int hashCode() {
-        int result = scene != null ? scene.hashCode() : 0;
+        int result;
+        long temp;
+        result = scene != null ? scene.hashCode() : 0;
         result = 31 * result + (rootPane != null ? rootPane.hashCode() : 0);
         result = 31 * result + (MEHandler != null ? MEHandler.hashCode() : 0);
         result = 31 * result + (primaryStage != null ? primaryStage.hashCode() : 0);
@@ -112,7 +141,27 @@ public class ClientApplication extends Application {
         result = 31 * result + (chatTextField != null ? chatTextField.hashCode() : 0);
         result = 31 * result + (chatListView != null ? chatListView.hashCode() : 0);
         result = 31 * result + (client != null ? client.hashCode() : 0);
+        temp = Double.doubleToLongBits(currentOpacity);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(strokeWidth);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    public double getCurrentOpacity() {
+        return currentOpacity;
+    }
+
+    public void setCurrentOpacity(double currentOpacity) {
+        this.currentOpacity = currentOpacity;
+    }
+
+    public double getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(double strokeWidth) {
+        this.strokeWidth = strokeWidth;
     }
 
     public Client getClient() {
@@ -308,6 +357,15 @@ public class ClientApplication extends Application {
             canvas = new Canvas(740, 624);
             rootLayout.setRight(rootPane);
 
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+
+            final double[] initX = new double[1];
+            final double[] initY = new double[1];
+
+            canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.handleMouseDragged(gc, e));
+            canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
+            canvas.addEventHandler(MOUSE_RELEASED, e -> handleMouseReleased(gc, e));
+
             rootLayout.setLeft(canvas);
             primaryStage.setResizable(false);
 
@@ -328,8 +386,6 @@ public class ClientApplication extends Application {
                     chatTextField.clear();
                 }
             });
-
-            
 
             Label userName = new Label("Czat");
             Label ranking = new Label("Aktualny Ranking");
@@ -357,6 +413,32 @@ public class ClientApplication extends Application {
         }
 
         return new Scene(rootPane, 600, 400);
+    }
+
+    private void configureGraphicsContext(GraphicsContext gc) {
+        gc.setStroke(new Color(0, 0, 0, currentOpacity));
+        gc.setLineCap(StrokeLineCap.ROUND);
+        gc.setLineJoin(StrokeLineJoin.ROUND);
+        gc.setLineWidth(strokeWidth);
+    }
+
+    public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
+        configureGraphicsContext(gc);
+        gc.beginPath();
+        gc.moveTo(e.getX(), e.getY());
+        gc.stroke();
+    }
+
+    public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
+        currentOpacity = START_OPACITY;
+        gc.closePath();
+    }
+
+    public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {
+        currentOpacity = Math.max(0, currentOpacity - OPACITY_MODIFIER);
+        configureGraphicsContext(gc);
+        gc.lineTo(e.getX(), e.getY());
+        gc.stroke();
     }
 
     void makeOpcjeMenu() {
