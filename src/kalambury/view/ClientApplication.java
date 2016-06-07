@@ -1,6 +1,8 @@
 package kalambury.view;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -18,14 +20,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import kalambury.event.handleAutorzy;
 import kalambury.event.handleInstrukcja;
 import kalambury.event.handleZakoncz;
+import kalambury.model.Person;
+import kalambury.server.Server;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import static javafx.scene.input.MouseEvent.*;
 
@@ -51,6 +55,24 @@ public class ClientApplication extends Application {
     private double currentOpacity = START_OPACITY;
     private double strokeWidth = 2;
     private ColorPicker colorPicker;
+    private int punkty = 10;
+    public ListView<Person> rankingTab;
+    public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
+
+    public void addPoint(String name, Integer punkty) {
+        boolean jest_juz = false;
+
+        for (Person k : RankingTab) {
+            if (k.getName() == name) {
+                jest_juz = true;
+                k.punkty += punkty;
+            }
+        }
+
+        if (!jest_juz) {
+            RankingTab.add(new Person(name, punkty));
+        }
+    }
 
     public static void main(String[] args) {
         launch();
@@ -66,22 +88,6 @@ public class ClientApplication extends Application {
 
     public static double getOpacityModifier() {
         return OPACITY_MODIFIER;
-    }
-
-    public TextField getChatTextField() {
-        return chatTextField;
-    }
-
-    public void setChatTextField(TextField chatTextField) {
-        this.chatTextField = chatTextField;
-    }
-
-    public ListView<String> getChatListView() {
-        return chatListView;
-    }
-
-    public void setChatListView(ListView<String> chatListView) {
-        this.chatListView = chatListView;
     }
 
     @Override
@@ -100,6 +106,8 @@ public class ClientApplication extends Application {
                 ", client=" + client +
                 ", currentOpacity=" + currentOpacity +
                 ", strokeWidth=" + strokeWidth +
+                ", colorPicker=" + colorPicker +
+                ", punkty=" + punkty +
                 '}';
     }
 
@@ -112,6 +120,7 @@ public class ClientApplication extends Application {
 
         if (Double.compare(that.currentOpacity, currentOpacity) != 0) return false;
         if (Double.compare(that.strokeWidth, strokeWidth) != 0) return false;
+        if (punkty != that.punkty) return false;
         if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
         if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
         if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
@@ -123,7 +132,8 @@ public class ClientApplication extends Application {
         if (chatTextField != null ? !chatTextField.equals(that.chatTextField) : that.chatTextField != null)
             return false;
         if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
-        return client != null ? client.equals(that.client) : that.client == null;
+        if (client != null ? !client.equals(that.client) : that.client != null) return false;
+        return colorPicker != null ? colorPicker.equals(that.colorPicker) : that.colorPicker == null;
 
     }
 
@@ -146,7 +156,42 @@ public class ClientApplication extends Application {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(strokeWidth);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (colorPicker != null ? colorPicker.hashCode() : 0);
+        result = 31 * result + punkty;
         return result;
+    }
+
+    public ColorPicker getColorPicker() {
+
+        return colorPicker;
+    }
+
+    public void setColorPicker(ColorPicker colorPicker) {
+        this.colorPicker = colorPicker;
+    }
+
+    public int getPunkty() {
+        return punkty;
+    }
+
+    public void setPunkty(int punkty) {
+        this.punkty = punkty;
+    }
+
+    public TextField getChatTextField() {
+        return chatTextField;
+    }
+
+    public void setChatTextField(TextField chatTextField) {
+        this.chatTextField = chatTextField;
+    }
+
+    public ListView<String> getChatListView() {
+        return chatListView;
+    }
+
+    public void setChatListView(ListView<String> chatListView) {
+        this.chatListView = chatListView;
     }
 
     public double getCurrentOpacity() {
@@ -198,8 +243,11 @@ public class ClientApplication extends Application {
         rootPane.setAlignment(Pos.CENTER);
 
         TextField nameField = new TextField();
+        nameField.setText("name");
         TextField hostNameField = new TextField();
+        hostNameField.setText("localhost");
         TextField portNumberField = new TextField();
+        portNumberField.setText("40000");
 
         Label nameLabel = new Label("Login");
         Label hostNameLabel = new Label("Host");
@@ -355,13 +403,10 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
-            canvas = new Canvas(740, 624);
+            canvas = new Canvas(740, 604);
             rootLayout.setRight(rootPane);
 
             GraphicsContext gc = canvas.getGraphicsContext2D();
-
-            final double[] initX = new double[1];
-            final double[] initY = new double[1];
 
             canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.handleMouseDragged(gc, e));
             canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
@@ -390,6 +435,17 @@ public class ClientApplication extends Application {
             chatTextField.setOnAction(event -> {
                 if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
                     client.writeToServer(chatTextField.getText());
+
+                    System.out.println(chatTextField.getText());
+                    System.out.println(Server.getWord());
+
+                    if (Pattern.matches(".*" + Server.getWord() + ".*", chatTextField.getText())) {
+                        client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
+                        client.writeToServer(getClient().getName() + " + 10 punktów!");
+                        addPoint(getClient().getName(), 10);
+                        rankingTab.refresh();
+                    }
+
                     chatTextField.clear();
                 }
             });
@@ -397,15 +453,16 @@ public class ClientApplication extends Application {
             Label userName = new Label("Czat");
             Label ranking = new Label("Aktualny Ranking");
 
-            ListView<Pair<String, Integer>> rankingTab = new ListView<>();
+            rankingTab = new ListView<>();
 
-            rankingTab.setItems(client.RankingTab);
             rankingTab.setPrefWidth(300);
             rankingTab.setMaxWidth(300);
             rankingTab.setMinWidth(300);
             rankingTab.setPrefHeight(200);
             rankingTab.setMaxHeight(200);
             rankingTab.setMinHeight(200);
+
+            rankingTab.setItems(RankingTab);
 
             rootPane.add(ranking, 0, 0);
             rootPane.add(rankingTab, 0, 1);

@@ -3,7 +3,7 @@ package kalambury.view;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
+import kalambury.model.Person;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import java.net.SocketException;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class Client implements Runnable, ViewInterfejs {
+public class Client implements ViewInterface {
     public ObservableList<String> chatLog;
-    public ObservableList<Pair<String, Integer>> RankingTab;
+    public ObservableList<Person> RankingTab;
     private Socket clientSocket;
     private BufferedReader serverToClientReader;
     private PrintWriter clientToServerWriter;
@@ -65,12 +65,12 @@ public class Client implements Runnable, ViewInterfejs {
     }
 
     @Override
-    public ObservableList<Pair<String, Integer>> getRankingTab() {
+    public ObservableList<Person> getRankingTab() {
         return RankingTab;
     }
 
     @Override
-    public void setRankingTab(ObservableList<Pair<String, Integer>> rankingTab) {
+    public void setRankingTab(ObservableList<Person> rankingTab) {
         RankingTab = rankingTab;
     }
 
@@ -93,6 +93,7 @@ public class Client implements Runnable, ViewInterfejs {
         }
     }
 
+    @Override
     public void run() {
         while (true) {
             try {

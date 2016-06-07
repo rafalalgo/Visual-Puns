@@ -1,21 +1,32 @@
 package kalambury.view;
 
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
+import kalambury.model.Person;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Created by rafalbyczek on 01.06.16.
+ * Created by rafalbyczek on 07.06.16.
  */
-public interface ViewInterfejs {
-    ObservableList<Pair<String, Integer>> getRankingTab();
+public interface ViewInterface extends Runnable {
+    @Override
+    boolean equals(Object o);
 
-    void setRankingTab(ObservableList<Pair<String, Integer>> rankingTab);
+    @Override
+    int hashCode();
+
+    ObservableList<Person> getRankingTab();
+
+    void setRankingTab(ObservableList<Person> rankingTab);
+
+    @Override
+    String toString();
 
     void writeToServer(String input);
+
+    void run();
 
     String getName();
 
