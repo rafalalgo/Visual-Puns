@@ -1,5 +1,8 @@
 package kalambury.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import kalambury.event.handleAutorzy;
 import kalambury.event.handleInstrukcja;
 import kalambury.event.handleZakoncz;
@@ -40,18 +44,17 @@ import static javafx.scene.input.MouseEvent.*;
  */
 
 public class ClientApplication extends Application implements Runnable, ClientApplicationInterface {
-    public static List<ClientApplication> ob = new ArrayList<>();
-
-    {
-        ob.add(this);
-    }
-
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
+    public static List<ClientApplication> ob = new ArrayList<>();
     public ListView<Person> rankingTab;
     public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
     public Thread clientThread;
+    public double strokeWidth = 2;
+    public ProgressBar pb;
+    public ProgressIndicator pi;
+    public Button button, button2;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -64,11 +67,12 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private ListView<String> chatListView;
     private Client client;
     private double currentOpacity = START_OPACITY;
-    public double strokeWidth = 2;
     private ColorPicker colorPicker;
     private int punkty = 5;
-    public ProgressBar pb;
-    public ProgressIndicator pi;
+
+    {
+        ob.add(this);
+    }
 
     public static void main(String[] args) {
         launch();
@@ -503,7 +507,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                         rankingTab.refresh();
                     }
 
-                    for(ClientApplication A : ob) {
+                    for (ClientApplication A : ob) {
                         System.out.print(A.client.getName());
                         A.update();
                     }
@@ -558,7 +562,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             slider.setValue(2);
 
             slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                strokeWidth = (double)newValue;
+                strokeWidth = (double) newValue;
             });
 
             slider.setAccessibleRoleDescription("Grubość linii");
@@ -568,25 +572,36 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             kontrolki.add(clear, 1, 0);
             kontrolki.add(slider, 2, 0);
 
-            Label aktdrawer =  new Label("Aktualnie rysuje " + getClient().getName());
+            Label aktdrawer = new Label("Aktualnie rysuje " + getClient().getName());
 
             rootPane.add(aktdrawer, 0, 0);
 
             pb = new ProgressBar();
-            pb.setMinWidth(colorPicker.getMinWidth() * 2.3);
+            pb.setMinWidth(colorPicker.getMinWidth() * 3);
             pb.setMinHeight(colorPicker.getMinHeight());
             pb.setProgress(1);
 
-            pi = new ProgressIndicator();
-            pi.setMinHeight(colorPicker.getMinHeight());
-            pi.setMinWidth(colorPicker.getMinWidth());
-            pi.setProgress(0);
+            Timeline task = new Timeline(
+                    new KeyFrame(
+                            Duration.ZERO,
+                            new KeyValue(pb.progressProperty(), 0)
+                    ),
+                    new KeyFrame(
+                            Duration.seconds(30),
+                            new KeyValue(pb.progressProperty(), 1)
+                    )
+            );
+
+            button = new Button("Go!");
+            button.setOnAction(actionEvent -> task.playFromStart());
+
+            // button.setVisible(false);
 
             Label czas = new Label("Czas: ");
 
             kontrolki.add(czas, 3, 0);
             kontrolki.add(pb, 4, 0);
-            kontrolki.add(pi, 5, 0);
+            kontrolki.add(button, 7, 0);
 
             rootLayout.setBottom(kontrolki);
 
