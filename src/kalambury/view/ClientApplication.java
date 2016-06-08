@@ -64,7 +64,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private ListView<String> chatListView;
     private Client client;
     private double currentOpacity = START_OPACITY;
-    private double strokeWidth = 2;
+    public double strokeWidth = 2;
     private ColorPicker colorPicker;
     private int punkty = 5;
 
@@ -526,11 +526,11 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
             System.out.println(client.chatLog.size());
 
-            rootPane.add(ranking, 0, 0);
-            rootPane.add(rankingTab, 0, 1);
-            rootPane.add(userName, 0, 2);
-            rootPane.add(chatListView, 0, 3);
-            rootPane.add(chatTextField, 0, 4);
+            rootPane.add(ranking, 0, 2);
+            rootPane.add(rankingTab, 0, 3);
+            rootPane.add(userName, 0, 4);
+            rootPane.add(chatListView, 0, 5);
+            rootPane.add(chatTextField, 0, 6);
 
             GridPane kontrolki = new GridPane();
 
@@ -550,8 +550,25 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             clear.setMinHeight(colorPicker.getMinHeight());
             clear.setMinWidth(colorPicker.getMinWidth());
 
+            Slider slider = new Slider();
+            slider.setMin(0);
+            slider.setMax(20);
+            slider.setValue(2);
+
+            slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                strokeWidth = (double)newValue;
+            });
+
+            slider.setAccessibleRoleDescription("Grubość linii");
+            slider.setAccessibleText("Grubość linii");
+
             kontrolki.add(colorPicker, 0, 0);
             kontrolki.add(clear, 1, 0);
+            kontrolki.add(slider, 2, 0);
+
+            Label aktdrawer =  new Label("Aktualnie rysuje " + getClient().getName());
+
+            rootPane.add(aktdrawer, 0, 0);
 
             rootLayout.setBottom(kontrolki);
 
