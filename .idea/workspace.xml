@@ -119,8 +119,8 @@
       <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="603" column="35" selection-start-line="603" selection-start-column="35" selection-end-line="603" selection-end-column="35" />
+            <state relative-caret-position="349">
+              <caret line="617" column="33" selection-start-line="617" selection-start-column="33" selection-end-line="617" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2512#2513#0" expanded="true" />
@@ -830,12 +830,12 @@
       <workItem from="1465337929299" duration="15000" />
       <workItem from="1465338151010" duration="6299000" />
       <workItem from="1465371462711" duration="6357000" />
-      <workItem from="1465380330291" duration="7275000" />
+      <workItem from="1465380330291" duration="7493000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89223000" />
+    <option name="totallyTimeSpent" value="89441000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -847,7 +847,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="28" width="1368" height="707" extended-state="6" />
+    <frame x="-1" y="28" width="1368" height="707" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1262,8 +1262,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="603" column="35" selection-start-line="603" selection-start-column="35" selection-end-line="603" selection-end-column="35" />
+        <state relative-caret-position="349">
+          <caret line="617" column="33" selection-start-line="617" selection-start-column="33" selection-end-line="617" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2512#2513#0" expanded="true" />

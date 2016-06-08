@@ -504,6 +504,20 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         addPoint(getClient().getName(), 10);
                         FXCollections.sort(RankingTab);
+
+                        Timeline task = new Timeline(
+                                new KeyFrame(
+                                        Duration.ZERO,
+                                        new KeyValue(pb.progressProperty(), 0)
+                                ),
+                                new KeyFrame(
+                                        Duration.seconds(30),
+                                        new KeyValue(pb.progressProperty(), 1)
+                                )
+                        );
+
+                        task.playFromStart();
+
                         rankingTab.refresh();
                     }
 
@@ -581,6 +595,15 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             pb.setMinHeight(colorPicker.getMinHeight());
             pb.setProgress(1);
 
+            Label czas = new Label("Czas: ");
+
+            kontrolki.add(czas, 3, 0);
+            kontrolki.add(pb, 4, 0);
+
+            rootLayout.setBottom(kontrolki);
+
+            (new Thread(this)).start();
+            client.writeToServer("Nowa runda! Start!");
             Timeline task = new Timeline(
                     new KeyFrame(
                             Duration.ZERO,
@@ -592,21 +615,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                     )
             );
 
-            button = new Button("Go!");
-            button.setOnAction(actionEvent -> task.playFromStart());
-
-            // button.setVisible(false);
-
-            Label czas = new Label("Czas: ");
-
-            kontrolki.add(czas, 3, 0);
-            kontrolki.add(pb, 4, 0);
-            kontrolki.add(button, 7, 0);
-
-            rootLayout.setBottom(kontrolki);
-
-            (new Thread(this)).start();
-            client.writeToServer("Nowa runda! Start!");
+            task.playFromStart();
             return scene;
 
         } catch (IOException e) {
