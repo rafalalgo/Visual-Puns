@@ -3,7 +3,7 @@ package kalambury.model;
 /**
  * Created by rafalbyczek on 07.06.16.
  */
-public class Person {
+public class Person implements Comparable<Person>{
     private String name;
     public Integer punkty;
 
@@ -31,13 +31,13 @@ public class Person {
 
     @Override
     public String toString() {
-        String A = name;
-
-        for(int j = 30 -  name.length(); j >= 0; j--) {
+        String A = "" + punkty;
+        if(punkty == 0) A += " ";
+        for(int j = 15; j >= 0; j--) {
             A += " ";
         }
 
-        A += punkty;
+        A += name;
 
         return A;
     }
@@ -63,5 +63,12 @@ public class Person {
 
     public Person(){
 
+    }
+
+
+    @Override
+    public int compareTo(Person o) {
+        if(this.punkty < o.punkty) return 1;
+        return -1;
     }
 }

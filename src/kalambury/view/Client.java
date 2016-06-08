@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.regex.Pattern;
 
 /**
  * Created by rafalbyczek on 31.05.16.
@@ -89,7 +90,13 @@ public class Client implements ViewInterface {
     @Override
     public void writeToServer(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
-            clientToServerWriter.println(name + " : " + input);
+
+            if(Pattern.matches(".*zgadł hasło.*", input) || Pattern.matches(".*punktów.*", input)) {
+                clientToServerWriter.println(input);
+            }
+            else {
+                clientToServerWriter.println(name + " : " + input);
+            }
         }
     }
 

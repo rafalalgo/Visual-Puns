@@ -41,6 +41,8 @@ public class ClientApplication extends Application {
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
+    public ListView<Person> rankingTab;
+    public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -56,23 +58,6 @@ public class ClientApplication extends Application {
     private double strokeWidth = 2;
     private ColorPicker colorPicker;
     private int punkty = 10;
-    public ListView<Person> rankingTab;
-    public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
-
-    public void addPoint(String name, Integer punkty) {
-        boolean jest_juz = false;
-
-        for (Person k : RankingTab) {
-            if (k.getName() == name) {
-                jest_juz = true;
-                k.punkty += punkty;
-            }
-        }
-
-        if (!jest_juz) {
-            RankingTab.add(new Person(name, punkty));
-        }
-    }
 
     public static void main(String[] args) {
         launch();
@@ -88,6 +73,21 @@ public class ClientApplication extends Application {
 
     public static double getOpacityModifier() {
         return OPACITY_MODIFIER;
+    }
+
+    public void addPoint(String name, Integer punkty) {
+        boolean jest_juz = false;
+
+        for (Person k : RankingTab) {
+            if (k.getName() == name) {
+                jest_juz = true;
+                k.punkty += punkty;
+            }
+        }
+
+        if (!jest_juz) {
+            RankingTab.add(new Person(name, punkty));
+        }
     }
 
     @Override
@@ -134,7 +134,6 @@ public class ClientApplication extends Application {
         if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
         if (client != null ? !client.equals(that.client) : that.client != null) return false;
         return colorPicker != null ? colorPicker.equals(that.colorPicker) : that.colorPicker == null;
-
     }
 
     @Override
@@ -364,7 +363,6 @@ public class ClientApplication extends Application {
 
         try {
             this.primaryStage.setTitle("Kalambury");
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("RootLayout.fxml"));
             rootLayout = loader.load();
@@ -432,18 +430,38 @@ public class ClientApplication extends Application {
             chatTextField.setOnMouseClicked(event -> {
                 chatTextField.clear();
             });
+
+
             chatTextField.setOnAction(event -> {
                 if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
                     client.writeToServer(chatTextField.getText());
 
-                    System.out.println(chatTextField.getText());
                     System.out.println(Server.getWord());
 
                     if (Pattern.matches(".*" + Server.getWord() + ".*", chatTextField.getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
                         addPoint(getClient().getName(), 10);
+                        FXCollections.sort(RankingTab);
                         rankingTab.refresh();
+                    }
+
+                    String A = client.chatLog.get(client.chatLog.size() - 1);
+
+                    if (client.chatLog.size() != 0) {
+                        System.out.println(A);
+
+                        if (Pattern.matches(".*punktów.*", A)) {
+                            addPoint(A.substring(0, A.indexOf("+") - 1), 10);
+                            FXCollections.sort(RankingTab);
+                            rankingTab.refresh();
+                        }
+
+                        if (Pattern.matches(".*Użytkownik.*", A)) {
+                            addPoint(A.substring(0, A.indexOf(":") - 1), 0);
+                            FXCollections.sort(RankingTab);
+                            rankingTab.refresh();
+                        }
                     }
 
                     chatTextField.clear();
@@ -463,6 +481,8 @@ public class ClientApplication extends Application {
             rankingTab.setMinHeight(200);
 
             rankingTab.setItems(RankingTab);
+
+            System.out.println(client.chatLog.size());
 
             rootPane.add(ranking, 0, 0);
             rootPane.add(rankingTab, 0, 1);
