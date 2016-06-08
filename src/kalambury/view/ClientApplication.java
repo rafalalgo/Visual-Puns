@@ -30,6 +30,7 @@ import kalambury.server.Server;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static javafx.scene.input.MouseEvent.*;
@@ -39,6 +40,12 @@ import static javafx.scene.input.MouseEvent.*;
  */
 
 public class ClientApplication extends Application implements Runnable, ClientApplicationInterface {
+    public static List<ClientApplication> ob = new ArrayList<>();
+
+    {
+        ob.add(this);
+    }
+
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
@@ -59,7 +66,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private double currentOpacity = START_OPACITY;
     private double strokeWidth = 2;
     private ColorPicker colorPicker;
-    private int punkty = 10;
+    private int punkty = 5;
 
     public static void main(String[] args) {
         launch();
@@ -86,7 +93,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
             if (Pattern.matches(".*punktów.*", A)) {
                 try {
-                    addPoint((A.substring(0, A.indexOf("+") - 1)).trim(), 10);
+                    addPoint((A.substring(0, A.indexOf("+") - 1)).trim(), 5);
                     FXCollections.sort(RankingTab);
                     rankingTab.refresh();
                 } catch (java.lang.ArrayIndexOutOfBoundsException a) {
@@ -271,6 +278,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ob.add(this);
         this.primaryStage = primaryStage;
         threads = new ArrayList<>();
         primaryStage.setTitle("Kalambury");
@@ -463,12 +471,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
             canvas.addEventHandler(MOUSE_RELEASED, e -> handleMouseReleased(gc, e));
 
-            colorPicker = new ColorPicker();
-            rootLayout.setBottom(colorPicker);
-            colorPicker.setMinHeight(40);
-            colorPicker.setMinWidth(100);
-            colorPicker.setValue(new Color(0, 0, 0, currentOpacity));
-
             rootLayout.setLeft(canvas);
             primaryStage.setResizable(false);
 
@@ -491,13 +493,18 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                     if (Pattern.matches(".*" + Server.getWord() + ".*", chatTextField.getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
-                        client.writeToServer("NOWEHASLO " + Hasla.getWord());
+                        client.writeToServer("Nowa runda! Start!");
+                        Server.word = Hasla.getWord();
+                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         addPoint(getClient().getName(), 10);
                         FXCollections.sort(RankingTab);
                         rankingTab.refresh();
                     }
 
-                    update();
+                    for(ClientApplication A : ob) {
+                        System.out.print(A.client.getName());
+                        A.update();
+                    }
 
                     chatTextField.clear();
                 }
@@ -525,8 +532,31 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             rootPane.add(chatListView, 0, 3);
             rootPane.add(chatTextField, 0, 4);
 
-            (new Thread(this)).start();
+            GridPane kontrolki = new GridPane();
 
+            colorPicker = new ColorPicker();
+            rootLayout.setBottom(kontrolki);
+            colorPicker.setMinHeight(40);
+            colorPicker.setMinWidth(100);
+            colorPicker.setValue(new Color(0, 0, 0, currentOpacity));
+            colorPicker.setAccessibleText("wybierz kolor");
+
+            Button clear = new Button("Wymaż rysunek");
+
+            clear.setOnAction(event -> {
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            });
+
+            clear.setMinHeight(colorPicker.getMinHeight());
+            clear.setMinWidth(colorPicker.getMinWidth());
+
+            kontrolki.add(colorPicker, 0, 0);
+            kontrolki.add(clear, 1, 0);
+
+            rootLayout.setBottom(kontrolki);
+
+            (new Thread(this)).start();
+            client.writeToServer("Nowa runda! Start!");
             return scene;
 
         } catch (IOException e) {

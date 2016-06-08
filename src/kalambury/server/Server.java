@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 
 public class Server implements ServerInterfejs {
-    public static String word = "ach";
+    public static String word = Hasla.getWord();
 
     public ObservableList<String> serverLog;
     public ObservableList<String> clientNames;

@@ -7,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -16,13 +15,6 @@ import java.util.ArrayList;
  * Created by rafalbyczek on 08.06.16.
  */
 public interface ClientApplicationInterface {
-    static Color getColor() {
-        return ClientApplication.color;
-    }
-
-    static double getStartOpacity() {
-        return ClientApplication.START_OPACITY;
-    }
 
     void update();
 
