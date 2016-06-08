@@ -119,12 +119,12 @@
       <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="543" column="55" selection-start-line="543" selection-start-column="55" selection-end-line="543" selection-end-column="55" />
+            <state relative-caret-position="26">
+              <caret line="575" column="58" selection-start-line="575" selection-start-column="58" selection-end-line="575" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2287#2288#0" expanded="true" />
-                <element signature="e#2311#2312#0" expanded="true" />
+                <element signature="e#2347#2348#0" expanded="true" />
+                <element signature="e#2371#2372#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -242,9 +242,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
+    <option name="x" value="683" />
     <option name="y" value="28" />
-    <option name="width" value="1368" />
+    <option name="width" value="683" />
     <option name="height" value="707" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -830,12 +830,12 @@
       <workItem from="1465337929299" duration="15000" />
       <workItem from="1465338151010" duration="6299000" />
       <workItem from="1465371462711" duration="6357000" />
-      <workItem from="1465380330291" duration="4866000" />
+      <workItem from="1465380330291" duration="5501000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86814000" />
+    <option name="totallyTimeSpent" value="87449000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -847,7 +847,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="28" width="1368" height="707" extended-state="7" />
+    <frame x="683" y="28" width="683" height="707" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1262,12 +1262,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="543" column="55" selection-start-line="543" selection-start-column="55" selection-end-line="543" selection-end-column="55" />
+        <state relative-caret-position="26">
+          <caret line="575" column="58" selection-start-line="575" selection-start-column="58" selection-end-line="575" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2287#2288#0" expanded="true" />
-            <element signature="e#2311#2312#0" expanded="true" />
+            <element signature="e#2347#2348#0" expanded="true" />
+            <element signature="e#2371#2372#0" expanded="true" />
           </folding>
         </state>
       </provider>

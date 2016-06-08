@@ -67,6 +67,8 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     public double strokeWidth = 2;
     private ColorPicker colorPicker;
     private int punkty = 5;
+    public ProgressBar pb;
+    public ProgressIndicator pi;
 
     public static void main(String[] args) {
         launch();
@@ -569,6 +571,22 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             Label aktdrawer =  new Label("Aktualnie rysuje " + getClient().getName());
 
             rootPane.add(aktdrawer, 0, 0);
+
+            pb = new ProgressBar();
+            pb.setMinWidth(colorPicker.getMinWidth() * 2.3);
+            pb.setMinHeight(colorPicker.getMinHeight());
+            pb.setProgress(1);
+
+            pi = new ProgressIndicator();
+            pi.setMinHeight(colorPicker.getMinHeight());
+            pi.setMinWidth(colorPicker.getMinWidth());
+            pi.setProgress(0);
+
+            Label czas = new Label("Czas: ");
+
+            kontrolki.add(czas, 3, 0);
+            kontrolki.add(pb, 4, 0);
+            kontrolki.add(pi, 5, 0);
 
             rootLayout.setBottom(kontrolki);
 
