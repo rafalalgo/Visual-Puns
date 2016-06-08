@@ -69,6 +69,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private double currentOpacity = START_OPACITY;
     private ColorPicker colorPicker;
     private int punkty = 5;
+    public Label podpowiedz;
 
     {
         ob.add(this);
@@ -517,7 +518,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                         );
 
                         task.playFromStart();
-
+                        podpowiedz.setText("Podpowiedź: " + Server.word);
                         rankingTab.refresh();
                     }
 
@@ -546,11 +547,11 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
             System.out.println(client.chatLog.size());
 
-            rootPane.add(ranking, 0, 2);
-            rootPane.add(rankingTab, 0, 3);
-            rootPane.add(userName, 0, 4);
-            rootPane.add(chatListView, 0, 5);
-            rootPane.add(chatTextField, 0, 6);
+            rootPane.add(ranking, 0, 4);
+            rootPane.add(rankingTab, 0, 5);
+            rootPane.add(userName, 0, 6);
+            rootPane.add(chatListView, 0, 7);
+            rootPane.add(chatTextField, 0, 8);
 
             GridPane kontrolki = new GridPane();
 
@@ -597,8 +598,12 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
             Label czas = new Label("Czas: ");
 
+            podpowiedz = new Label("Podpowiedź: " + Server.word);
+
             kontrolki.add(czas, 3, 0);
             kontrolki.add(pb, 4, 0);
+
+            rootPane.add(podpowiedz, 0, 2);
 
             rootLayout.setBottom(kontrolki);
 
@@ -615,6 +620,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                     )
             );
 
+            podpowiedz.setText("Podpowiedź: " + Server.word);
             task.playFromStart();
             return scene;
 
