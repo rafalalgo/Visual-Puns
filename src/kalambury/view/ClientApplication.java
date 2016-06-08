@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -70,6 +71,10 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private ColorPicker colorPicker;
     private int punkty = 5;
     public Label podpowiedz;
+
+    private EventHandler<ActionEvent> pokazAutorow = showAuthors();
+    private EventHandler<ActionEvent> pokazInstrukcje = showInfo();
+
 
     {
         ob.add(this);
@@ -678,8 +683,8 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
         pomocMenu.getItems().addAll(instrukcja, autorzy);
 
-        instrukcja.setOnAction(MEHandler);
-        autorzy.setOnAction(MEHandler);
+        instrukcja.setOnAction(pokazInstrukcje);
+        autorzy.setOnAction(pokazAutorow);
 
         mb.getMenus().add(pomocMenu);
     }
@@ -687,5 +692,42 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     @Override
     public void run() {
         update();
+    }
+
+
+    private EventHandler<ActionEvent> showAuthors() {
+        return new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    final Parent root= FXMLLoader.load(getClass().getResource("../view/AuthorsView.fxml"));
+                    final Stage stage=new Stage();
+                    stage.setTitle("KalamburyBeta - Autorzy");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch(final IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private EventHandler<ActionEvent> showInfo() {
+        return new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    final Parent root= FXMLLoader.load(getClass().getResource("../view/InfoView.fxml"));
+                    final Stage stage=new Stage();
+                    stage.setTitle("KalamburyBeta - Instrukcja");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch(final IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
     }
 }
