@@ -2,7 +2,6 @@ package kalambury.model;
 
 import kalambury.controller.Controller;
 import kalambury.event.Event;
-import kalambury.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
