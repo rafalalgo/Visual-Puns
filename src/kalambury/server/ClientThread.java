@@ -8,11 +8,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.regex.Pattern;
 
 /**
  * Created by rafalbyczek on 28.05.16.
  */
-public class ClientThread implements Runnable {
+public class ClientThread implements Runnable, ClientThreadInterface {
     private Socket clientSocket;
     private Server baseServer;
     private BufferedReader incomingMessageReader;
@@ -72,26 +73,32 @@ public class ClientThread implements Runnable {
         return result;
     }
 
+    @Override
     public Server getBaseServer() {
         return baseServer;
     }
 
+    @Override
     public void setBaseServer(Server baseServer) {
         this.baseServer = baseServer;
     }
 
+    @Override
     public BufferedReader getIncomingMessageReader() {
         return incomingMessageReader;
     }
 
+    @Override
     public void setIncomingMessageReader(BufferedReader incomingMessageReader) {
         this.incomingMessageReader = incomingMessageReader;
     }
 
+    @Override
     public PrintWriter getOutgoingMessageWriter() {
         return outgoingMessageWriter;
     }
 
+    @Override
     public void setOutgoingMessageWriter(PrintWriter outgoingMessageWriter) {
         this.outgoingMessageWriter = outgoingMessageWriter;
     }
@@ -116,28 +123,39 @@ public class ClientThread implements Runnable {
         }
     }
 
+    @Override
     public void writeToServer(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
-            outgoingMessageWriter.println(input);
+            if(Pattern.matches(".*NOWEHASLO.*", input)) {
+                baseServer.setWord(input.substring(input.indexOf(' ') + 1));
+            }
+            else {
+                outgoingMessageWriter.println(input);
+            }
         }
     }
 
+    @Override
     public String getClientNameFromNetwork() throws IOException {
         return incomingMessageReader.readLine();
     }
 
+    @Override
     public String getClientName() {
         return this.clientName;
     }
 
+    @Override
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
+    @Override
     public Socket getClientSocket() {
         return clientSocket;
     }
 
+    @Override
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }

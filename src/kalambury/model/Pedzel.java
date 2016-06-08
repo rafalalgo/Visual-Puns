@@ -13,6 +13,34 @@ public class Pedzel {
     public static final int E = 25;
     public int radius = C;
     public Color color = Color.BLACK;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pedzel pedzel = (Pedzel) o;
+
+        if (radius != pedzel.radius) return false;
+        return color != null ? color.equals(pedzel.color) : pedzel.color == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = radius;
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedzel{" +
+                "radius=" + radius +
+                ", color=" + color +
+                '}';
+    }
+
     public Pedzel(int radius2, Color color2) {
         this.radius = radius2;
         this.color = color2;
@@ -40,33 +68,6 @@ public class Pedzel {
 
     public static int getE() {
         return E;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedzel{" +
-                "radius=" + radius +
-                ", color=" + color +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Pedzel pedzel = (Pedzel) o;
-
-        if (radius != pedzel.radius) return false;
-        return color != null ? color.equals(pedzel.color) : pedzel.color == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = radius;
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        return result;
     }
 
     public int getRadius() {

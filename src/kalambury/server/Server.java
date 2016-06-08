@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import kalambury.model.Hasla;
 import kalambury.model.Ranking;
 
 import java.awt.*;
@@ -17,11 +18,7 @@ import java.util.ArrayList;
  */
 
 public class Server implements ServerInterfejs {
-    private static String word = "word";
-
-    static {
-        word = "word";
-    }
+    public static String word = "ach";
 
     public ObservableList<String> serverLog;
     public ObservableList<String> clientNames;
@@ -29,6 +26,11 @@ public class Server implements ServerInterfejs {
 
     static{
         rankingTab = new Ranking();
+        word = getWord();
+    }
+
+    public static void setWord(){
+        word = Hasla.getWord();
     }
 
     private int portNumber;

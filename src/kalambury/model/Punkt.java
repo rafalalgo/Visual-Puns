@@ -16,28 +16,6 @@ public class Punkt implements Serializable {
     public float kat;
     public Color color;
 
-    public Punkt(float x, float y, float kat, Color color) {
-        this.x = x;
-        this.y = y;
-        this.kat = kat;
-        this.color = color;
-    }
-
-    public static long getSerialVersionUID() {
-
-        return serialVersionUID;
-    }
-
-    @Override
-    public String toString() {
-        return "Punkt{" +
-                "x=" + x +
-                ", y=" + y +
-                ", kat=" + kat +
-                ", color=" + color +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,5 +38,29 @@ public class Punkt implements Serializable {
         result = 31 * result + (color != null ? color.hashCode() : 0);
         return result;
     }
+
+    public Punkt(float x, float y, float kat, Color color) {
+        this.x = x;
+        this.y = y;
+        this.kat = kat;
+        this.color = color;
+
+    }
+
+    public static long getSerialVersionUID() {
+
+        return serialVersionUID;
+    }
+
+    @Override
+    public String toString() {
+        return "Punkt{" +
+                "x=" + x +
+                ", y=" + y +
+                ", kat=" + kat +
+                ", color=" + color +
+                '}';
+    }
+
 }
 
