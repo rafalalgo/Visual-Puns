@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import kalambury.event.handleAutorzy;
 import kalambury.event.handleInstrukcja;
 import kalambury.event.handleZakoncz;
+import kalambury.model.Hasla;
 import kalambury.model.Person;
 import kalambury.server.Server;
 
@@ -37,12 +38,13 @@ import static javafx.scene.input.MouseEvent.*;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class ClientApplication extends Application {
+public class ClientApplication extends Application implements Runnable, ClientApplicationInterface {
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
     public ListView<Person> rankingTab;
     public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
+    public Thread clientThread;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -63,23 +65,53 @@ public class ClientApplication extends Application {
         launch();
     }
 
-    public static Color getColor() {
-        return color;
-    }
-
-    public static double getStartOpacity() {
-        return START_OPACITY;
-    }
-
     public static double getOpacityModifier() {
         return OPACITY_MODIFIER;
     }
 
+    @Override
+    public void update() {
+        System.out.println(Server.getWord());
+        String A;
+
+        try {
+            A = client.chatLog.get(client.chatLog.size() - 1);
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            System.out.println("Nie udał sie update");
+            return;
+        }
+
+        if (0 != client.chatLog.size()) {
+            System.out.println(A);
+
+            if (Pattern.matches(".*punktów.*", A)) {
+                try {
+                    addPoint((A.substring(0, A.indexOf("+") - 1)).trim(), 10);
+                    FXCollections.sort(RankingTab);
+                    rankingTab.refresh();
+                } catch (java.lang.ArrayIndexOutOfBoundsException a) {
+
+                }
+            }
+
+            if (Pattern.matches(".*Użytkownik.*", A)) {
+                try {
+                    addPoint((A.substring(0, A.indexOf(":") - 1)).trim(), 0);
+                    FXCollections.sort(RankingTab);
+                    rankingTab.refresh();
+                } catch (java.lang.ArrayIndexOutOfBoundsException a) {
+
+                }
+            }
+        }
+    }
+
+    @Override
     public void addPoint(String name, Integer punkty) {
         boolean jest_juz = false;
 
         for (Person k : RankingTab) {
-            if (k.getName() == name) {
+            if (k.getName().equals(name)) {
                 jest_juz = true;
                 k.punkty += punkty;
             }
@@ -169,50 +201,62 @@ public class ClientApplication extends Application {
         this.colorPicker = colorPicker;
     }
 
+    @Override
     public int getPunkty() {
         return punkty;
     }
 
+    @Override
     public void setPunkty(int punkty) {
         this.punkty = punkty;
     }
 
+    @Override
     public TextField getChatTextField() {
         return chatTextField;
     }
 
+    @Override
     public void setChatTextField(TextField chatTextField) {
         this.chatTextField = chatTextField;
     }
 
+    @Override
     public ListView<String> getChatListView() {
         return chatListView;
     }
 
+    @Override
     public void setChatListView(ListView<String> chatListView) {
         this.chatListView = chatListView;
     }
 
+    @Override
     public double getCurrentOpacity() {
         return currentOpacity;
     }
 
+    @Override
     public void setCurrentOpacity(double currentOpacity) {
         this.currentOpacity = currentOpacity;
     }
 
+    @Override
     public double getStrokeWidth() {
         return strokeWidth;
     }
 
+    @Override
     public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
+    @Override
     public Client getClient() {
         return client;
     }
 
+    @Override
     public void setClient(Client client) {
         this.client = client;
     }
@@ -234,6 +278,7 @@ public class ClientApplication extends Application {
         primaryStage.show();
     }
 
+    @Override
     public Scene makeInitScene(Stage primaryStage) {
         GridPane rootPane = new GridPane();
         rootPane.setPadding(new Insets(20));
@@ -259,7 +304,7 @@ public class ClientApplication extends Application {
                 client = new Client(hostNameField.getText(), Integer
                         .parseInt(portNumberField.getText()), nameField
                         .getText());
-                Thread clientThread = new Thread(client);
+                clientThread = new Thread(client);
                 clientThread.setDaemon(true);
                 clientThread.start();
                 threads.add(clientThread);
@@ -335,26 +380,32 @@ public class ClientApplication extends Application {
         this.rootLayout = rootLayout;
     }
 
+    @Override
     public MenuBar getMb() {
         return mb;
     }
 
+    @Override
     public void setMb(MenuBar mb) {
         this.mb = mb;
     }
 
+    @Override
     public ArrayList<Thread> getThreads() {
         return threads;
     }
 
+    @Override
     public void setThreads(ArrayList<Thread> threads) {
         this.threads = threads;
     }
 
+    @Override
     public Canvas getCanvas() {
         return canvas;
     }
 
+    @Override
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
@@ -366,6 +417,8 @@ public class ClientApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("RootLayout.fxml"));
             rootLayout = loader.load();
+
+            addPoint(getClient().getName(), 0);
 
             scene = new Scene(rootLayout);
             MEHandler = event -> {
@@ -431,38 +484,20 @@ public class ClientApplication extends Application {
                 chatTextField.clear();
             });
 
-
             chatTextField.setOnAction(event -> {
                 if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
                     client.writeToServer(chatTextField.getText());
 
-                    System.out.println(Server.getWord());
-
                     if (Pattern.matches(".*" + Server.getWord() + ".*", chatTextField.getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
+                        client.writeToServer("NOWEHASLO " + Hasla.getWord());
                         addPoint(getClient().getName(), 10);
                         FXCollections.sort(RankingTab);
                         rankingTab.refresh();
                     }
 
-                    String A = client.chatLog.get(client.chatLog.size() - 1);
-
-                    if (client.chatLog.size() != 0) {
-                        System.out.println(A);
-
-                        if (Pattern.matches(".*punktów.*", A)) {
-                            addPoint(A.substring(0, A.indexOf("+") - 1), 10);
-                            FXCollections.sort(RankingTab);
-                            rankingTab.refresh();
-                        }
-
-                        if (Pattern.matches(".*Użytkownik.*", A)) {
-                            addPoint(A.substring(0, A.indexOf(":") - 1), 0);
-                            FXCollections.sort(RankingTab);
-                            rankingTab.refresh();
-                        }
-                    }
+                    update();
 
                     chatTextField.clear();
                 }
@@ -490,6 +525,8 @@ public class ClientApplication extends Application {
             rootPane.add(chatListView, 0, 3);
             rootPane.add(chatTextField, 0, 4);
 
+            (new Thread(this)).start();
+
             return scene;
 
         } catch (IOException e) {
@@ -506,6 +543,7 @@ public class ClientApplication extends Application {
         gc.setLineWidth(strokeWidth);
     }
 
+    @Override
     public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
         configureGraphicsContext(gc);
         gc.beginPath();
@@ -513,11 +551,13 @@ public class ClientApplication extends Application {
         gc.stroke();
     }
 
+    @Override
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
         currentOpacity = START_OPACITY;
         gc.closePath();
     }
 
+    @Override
     public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {
         currentOpacity = Math.max(0, currentOpacity - OPACITY_MODIFIER);
         configureGraphicsContext(gc);
@@ -547,5 +587,10 @@ public class ClientApplication extends Application {
         autorzy.setOnAction(MEHandler);
 
         mb.getMenus().add(pomocMenu);
+    }
+
+    @Override
+    public void run() {
+        update();
     }
 }

@@ -32,7 +32,7 @@ public class Person implements Comparable<Person>{
     @Override
     public String toString() {
         String A = "" + punkty;
-        if(punkty == 0) A += " ";
+        if(punkty == 0) A += "  ";
         for(int j = 15; j >= 0; j--) {
             A += " ";
         }
