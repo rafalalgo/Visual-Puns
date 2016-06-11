@@ -19,7 +19,7 @@ public class AuthorsViewController {
     private Button closeButton;
 
     @FXML
-    private void closeButtonAction(ActionEvent event){
+    private void closeButtonAction(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

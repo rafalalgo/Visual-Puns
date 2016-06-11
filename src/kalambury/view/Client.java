@@ -91,10 +91,9 @@ public class Client implements ViewInterface {
     public void writeToServer(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
 
-            if(Pattern.matches(".*zgadł hasło.*", input) || Pattern.matches(".*punktów.*", input) || Pattern.matches(".*Nowa runda.*", input)) {
+            if (Pattern.matches(".*zgadł hasło.*", input) || Pattern.matches(".*punktów.*", input) || Pattern.matches(".*Nowa runda.*", input) || Pattern.matches(".*Hasłem.*", input)) {
                 clientToServerWriter.println(input);
-            }
-            else {
+            } else {
                 clientToServerWriter.println(name + " : " + input);
             }
         }

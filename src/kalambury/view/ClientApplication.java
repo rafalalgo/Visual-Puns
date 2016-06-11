@@ -25,9 +25,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import kalambury.event.handleAutorzy;
-import kalambury.event.handleInstrukcja;
-import kalambury.event.handleZakoncz;
+import kalambury.event.EndController;
 import kalambury.model.Hasla;
 import kalambury.model.Person;
 import kalambury.server.Server;
@@ -56,6 +54,8 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     public ProgressBar pb;
     public ProgressIndicator pi;
     public Button button, button2;
+    public GraphicsContext gc;
+    public Label podpowiedz;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -70,11 +70,8 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private double currentOpacity = START_OPACITY;
     private ColorPicker colorPicker;
     private int punkty = 5;
-    public Label podpowiedz;
-
     private EventHandler<ActionEvent> pokazAutorow = showAuthors();
     private EventHandler<ActionEvent> pokazInstrukcje = showInfo();
-
 
     {
         ob.add(this);
@@ -445,15 +442,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                 String name = ((MenuItem) event.getTarget()).getText();
 
                 if (name.equals("Zakończ")) {
-                    new handleZakoncz().zakoncz();
-                }
-
-                if (name.equals("Instrukcja")) {
-                    new handleInstrukcja().handleInstrukcja();
-                }
-
-                if (name.equals("Autorzy")) {
-                    new handleAutorzy().handleAutorzy();
+                    new EndController().zakoncz();
                 }
             };
 
@@ -477,11 +466,17 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             canvas = new Canvas(740, 604);
             rootLayout.setRight(rootPane);
 
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc = canvas.getGraphicsContext2D();
 
-            canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.handleMouseDragged(gc, e));
-            canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
-            canvas.addEventHandler(MOUSE_RELEASED, e -> handleMouseReleased(gc, e));
+            canvas.addEventHandler(MOUSE_DRAGGED, e -> {
+                ClientApplication.this.handleMouseDragged(gc, e);
+            });
+            canvas.addEventHandler(MOUSE_PRESSED, e -> {
+                handleMousePressed(gc, e);
+            });
+            canvas.addEventHandler(MOUSE_RELEASED, e -> {
+                handleMouseReleased(gc, e);
+            });
 
             rootLayout.setLeft(canvas);
             primaryStage.setResizable(false);
@@ -499,6 +494,8 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             });
 
             chatTextField.setOnAction(event -> {
+                nie_zgadl();
+
                 if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
                     client.writeToServer(chatTextField.getText());
 
@@ -632,7 +629,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return new Scene(rootPane, 600, 400);
     }
 
@@ -653,6 +649,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
     @Override
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
+        nie_zgadl();
         currentOpacity = START_OPACITY;
         gc.closePath();
     }
@@ -694,19 +691,18 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         update();
     }
 
-
     private EventHandler<ActionEvent> showAuthors() {
         return new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    final Parent root= FXMLLoader.load(getClass().getResource("../view/AuthorsView.fxml"));
-                    final Stage stage=new Stage();
+                    final Parent root = FXMLLoader.load(getClass().getResource("../view/AuthorsView.fxml"));
+                    final Stage stage = new Stage();
                     stage.setTitle("KalamburyBeta - Autorzy");
                     stage.setScene(new Scene(root));
                     stage.show();
 
-                } catch(final IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -718,16 +714,44 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    final Parent root= FXMLLoader.load(getClass().getResource("../view/InfoView.fxml"));
-                    final Stage stage=new Stage();
+                    final Parent root = FXMLLoader.load(getClass().getResource("../view/InfoView.fxml"));
+                    final Stage stage = new Stage();
                     stage.setTitle("KalamburyBeta - Instrukcja");
                     stage.setScene(new Scene(root));
                     stage.show();
 
-                } catch(final IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
             }
         };
+    }
+
+    public void nie_zgadl() {
+        if (pb.getProgress() == (double) 1) {
+            client.writeToServer("Użytkownik " + getClient().getName() + " źle rysował!");
+            client.writeToServer(getClient().getName() + " - 10 punktów!");
+            client.writeToServer("Hasłem było " + Server.word);
+            client.writeToServer("Nowa runda! Start!");
+            Server.word = Hasla.getWord();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            addPoint(getClient().getName(), -10);
+            FXCollections.sort(RankingTab);
+
+            Timeline task = new Timeline(
+                    new KeyFrame(
+                            Duration.ZERO,
+                            new KeyValue(pb.progressProperty(), 0)
+                    ),
+                    new KeyFrame(
+                            Duration.seconds(30),
+                            new KeyValue(pb.progressProperty(), 1)
+                    )
+            );
+
+            task.playFromStart();
+            podpowiedz.setText("Podpowiedź: " + Server.word);
+            rankingTab.refresh();
+        }
     }
 }

@@ -1,8 +1,5 @@
 package kalambury.model;
 
-import kalambury.controller.Controller;
-import kalambury.event.Event;
-
 import java.util.ArrayList;
 import java.util.List;
 
