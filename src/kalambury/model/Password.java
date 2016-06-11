@@ -15,8 +15,8 @@ import java.util.Random;
  */
 
 public class Password {
-    public static Random rNum = new Random();
-    public static List<String> slowa = new ArrayList<>();
+    private static Random rNum = new Random();
+    private static List<String> slowa = new ArrayList<>();
 
     static {
 

@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 
 public class ServerApplication extends Application {
-    public static ArrayList<Thread> threads;
+    private static ArrayList<Thread> threads;
 
     public static void main(String[] args) {
         launch();

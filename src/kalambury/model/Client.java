@@ -17,20 +17,23 @@ import java.util.regex.Pattern;
  */
 
 public class Client implements Runnable, ClientInterface {
-    public ObservableList<String> chatLog;
+    private ObservableList<String> chatLog;
     private Socket clientSocket;
     private BufferedReader serverToClientReader;
     private PrintWriter clientToServerWriter;
     private String name;
 
     public Client(String hostName, int portNumber, String name) throws IOException {
-
         clientSocket = new Socket(hostName, portNumber);
         serverToClientReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         clientToServerWriter = new PrintWriter(clientSocket.getOutputStream(), true);
         chatLog = FXCollections.observableArrayList();
         this.name = name;
         clientToServerWriter.println(name);
+    }
+
+    public ObservableList<String> getChatLog() {
+        return chatLog;
     }
 
     @Override

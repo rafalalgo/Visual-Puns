@@ -14,7 +14,7 @@ public class ChatArea {
 
     public ChatArea(Client client) {
         chatListView = new ListView<>();
-        chatListView.setItems(client.chatLog);
+        chatListView.setItems(client.getChatLog());
         chatListView.setPrefWidth(300);
         chatListView.setMaxWidth(300);
         chatListView.setMinWidth(300);

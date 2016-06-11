@@ -16,11 +16,6 @@ import java.util.regex.Pattern;
  */
 public class ClientThread implements Runnable {
     private Socket clientSocket;
-
-    public Server getBaseServer() {
-        return baseServer;
-    }
-
     private Server baseServer;
     private BufferedReader incomingMessageReader;
     private PrintWriter outgoingMessageWriter;
@@ -39,6 +34,10 @@ public class ClientThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Server getBaseServer() {
+        return baseServer;
     }
 
     public void run() {

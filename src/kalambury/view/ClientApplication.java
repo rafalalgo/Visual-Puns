@@ -2,8 +2,6 @@ package kalambury.view;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import kalambury.controller.*;
+import kalambury.controller.DrawingController;
+import kalambury.controller.HelpMenuController;
+import kalambury.controller.MenuController;
+import kalambury.controller.OptionMenuController;
 import kalambury.model.*;
 import kalambury.server.Server;
 
@@ -30,17 +31,16 @@ import static javafx.scene.input.MouseEvent.*;
  */
 
 public class ClientApplication extends Application {
-    public Thread clientThread;
-    public DrawingController drawingController;
-    public AreaDraw areaDraw;
-    public DrawOption drawOption;
-    public ChatArea chatArea;
-    public RankingArea rankingArea;
-    public TipArea tipArea;
-    public TimeLineTask timeLineTask;
+    private Thread clientThread;
+    private DrawingController drawingController;
+    private AreaDraw areaDraw;
+    private DrawOption drawOption;
+    private ChatArea chatArea;
+    private RankingArea rankingArea;
+    private TipArea tipArea;
+    private TimeLineTask timeLineTask;
     private Scene scene;
     private GridPane rootPane;
-    private EventHandler<ActionEvent> MEHandler;
     private Stage primaryStage;
     private BorderPane rootLayout;
     private MenuBar menuBar;
@@ -147,26 +147,10 @@ public class ClientApplication extends Application {
             rootLayout = loader.load();
 
             scene = new Scene(rootLayout);
-            MEHandler = event -> {
-                String name = ((MenuItem) event.getTarget()).getText();
-
-                if (name.equals("Zakończ")) {
-                    new EndController().zakoncz();
-                }
-
-                if (name.equals("Autorzy")) {
-                    new AuthorsViewHandler().autorzy();
-                }
-
-                if (name.equals("Instrukcja")) {
-                    new HelpMenuHandler().informacje();
-                }
-            };
-
             menuBar = new MenuBar();
 
-            OptionMenuController.makeOptionMenu(MEHandler, menuBar);
-            HelpMenuController.makeHelpMenu(MEHandler, menuBar);
+            OptionMenuController.makeOptionMenu(MenuController.menu(), menuBar);
+            HelpMenuController.makeHelpMenu(MenuController.menu(), menuBar);
 
             primaryStage.setScene(scene);
             primaryStage.setX(0);
@@ -242,10 +226,9 @@ public class ClientApplication extends Application {
             Point.addPoint(getClient().getName(), rankingArea.getBRankingTab(), 0);
 
             client.writeToServer("Nowa runda! Start!");
-
-
             tipArea.getTip().setText("Podpowiedź: " + Server.word);
             timeLineTask.getTask().playFromStart();
+
             return scene;
 
         } catch (IOException e) {

@@ -7,8 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
  * Created by rafalbyczek on 11.06.16.
  */
 public class AreaDraw {
-    public static Canvas canvas;
-    public GraphicsContext gc;
+    private Canvas canvas;
+    private GraphicsContext gc;
 
     public AreaDraw() {
         canvas = new Canvas(740, 604);

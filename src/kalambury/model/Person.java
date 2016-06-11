@@ -4,7 +4,7 @@ package kalambury.model;
  * Created by rafalbyczek on 07.06.16.
  */
 public class Person implements Comparable<Person> {
-    public Integer punkty;
+    private Integer punkty;
     private String name;
 
     public Person(String name, Integer punkty) {
@@ -19,10 +19,6 @@ public class Person implements Comparable<Person> {
 
     public Integer getPunkty() {
         return punkty;
-    }
-
-    public void setPunkty(Integer punkty) {
-        this.punkty = punkty;
     }
 
     @Override
@@ -40,7 +36,7 @@ public class Person implements Comparable<Person> {
 
     @Override
     public int compareTo(Person o) {
-        if (this.punkty < o.punkty) return 1;
+        if (this.getPunkty() < o.getPunkty()) return 1;
         return -1;
     }
 }
