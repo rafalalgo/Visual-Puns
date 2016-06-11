@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by rafalbyczek on 29.05.16.
  */
 
-public class Server implements Runnable {
+public class Server implements ServerInterface, Runnable {
     public static String word = Password.getWord();
 
     static {
@@ -40,8 +40,9 @@ public class Server implements Runnable {
         word = "word";
     }
 
+
     public static String getWord() {
-        return word;
+        return Server.word;
     }
 
     public void setWord(String word) {
@@ -72,6 +73,7 @@ public class Server implements Runnable {
         }
     }
 
+    @Override
     public void clientDisconnected(ClientThread client) {
         Platform.runLater(() -> {
             serverLog.add("Gracz "
@@ -83,6 +85,7 @@ public class Server implements Runnable {
         });
     }
 
+    @Override
     public void writeToAllSockets(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
             for (ClientThread clientThread : clientThreads) {

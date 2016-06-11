@@ -16,9 +16,8 @@ import java.util.regex.Pattern;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class Client implements Runnable {
+public class Client implements Runnable, ClientInterface {
     public ObservableList<String> chatLog;
-    public ObservableList<Person> RankingTab;
     private Socket clientSocket;
     private BufferedReader serverToClientReader;
     private PrintWriter clientToServerWriter;
@@ -34,59 +33,7 @@ public class Client implements Runnable {
         clientToServerWriter.println(name);
     }
 
-
     @Override
-    public String toString() {
-        return "Client{" +
-                "chatLog=" + chatLog +
-                ", RankingTab=" + RankingTab +
-                ", clientSocket=" + clientSocket +
-                ", serverToClientReader=" + serverToClientReader +
-                ", clientToServerWriter=" + clientToServerWriter +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Client client = (Client) o;
-
-        if (chatLog != null ? !chatLog.equals(client.chatLog) : client.chatLog != null) return false;
-        if (RankingTab != null ? !RankingTab.equals(client.RankingTab) : client.RankingTab != null) return false;
-        if (clientSocket != null ? !clientSocket.equals(client.clientSocket) : client.clientSocket != null)
-            return false;
-        if (serverToClientReader != null ? !serverToClientReader.equals(client.serverToClientReader) : client.serverToClientReader != null)
-            return false;
-        if (clientToServerWriter != null ? !clientToServerWriter.equals(client.clientToServerWriter) : client.clientToServerWriter != null)
-            return false;
-        return name != null ? name.equals(client.name) : client.name == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = chatLog != null ? chatLog.hashCode() : 0;
-        result = 31 * result + (RankingTab != null ? RankingTab.hashCode() : 0);
-        result = 31 * result + (clientSocket != null ? clientSocket.hashCode() : 0);
-        result = 31 * result + (serverToClientReader != null ? serverToClientReader.hashCode() : 0);
-        result = 31 * result + (clientToServerWriter != null ? clientToServerWriter.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
-    }
-
-    public ObservableList<Person> getRankingTab() {
-        return RankingTab;
-    }
-
-
-    public void setRankingTab(ObservableList<Person> rankingTab) {
-        RankingTab = rankingTab;
-    }
-
-
     public void writeToServer(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
 
@@ -97,7 +44,6 @@ public class Client implements Runnable {
             }
         }
     }
-
 
     public void run() {
         while (true) {
@@ -114,54 +60,9 @@ public class Client implements Runnable {
         }
     }
 
-
+    @Override
     public String getName() {
         return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public Socket getClientSocket() {
-        return clientSocket;
-    }
-
-
-    public void setClientSocket(Socket clientSocket) {
-        this.clientSocket = clientSocket;
-    }
-
-
-    public ObservableList<String> getChatLog() {
-        return chatLog;
-    }
-
-
-    public void setChatLog(ObservableList<String> chatLog) {
-        this.chatLog = chatLog;
-    }
-
-
-    public BufferedReader getServerToClientReader() {
-        return serverToClientReader;
-    }
-
-
-    public void setServerToClientReader(BufferedReader serverToClientReader) {
-        this.serverToClientReader = serverToClientReader;
-    }
-
-
-    public PrintWriter getClientToServerWriter() {
-        return clientToServerWriter;
-    }
-
-
-    public void setClientToServerWriter(PrintWriter clientToServerWriter) {
-        this.clientToServerWriter = clientToServerWriter;
     }
 }
 

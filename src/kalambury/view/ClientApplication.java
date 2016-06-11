@@ -1,31 +1,21 @@
 package kalambury.view;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import kalambury.controller.*;
-import kalambury.model.Client;
-import kalambury.model.Password;
-import kalambury.model.Person;
-import kalambury.model.Point;
+import kalambury.model.*;
 import kalambury.server.Server;
 
 import java.io.IOException;
@@ -40,22 +30,21 @@ import static javafx.scene.input.MouseEvent.*;
  */
 
 public class ClientApplication extends Application {
-    public ListView<Person> rankingTab;
-    public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
     public Thread clientThread;
-    public ProgressBar pb;
-    public Label tip;
     public DrawingController drawingController;
+    public AreaDraw areaDraw;
+    public DrawOption drawOption;
+    public ChatArea chatArea;
+    public RankingArea rankingArea;
+    public TipArea tipArea;
+    public TimeLineTask timeLineTask;
     private Scene scene;
-    private GridPane rootPane = null;
+    private GridPane rootPane;
     private EventHandler<ActionEvent> MEHandler;
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private MenuBar mb;
+    private MenuBar menuBar;
     private ArrayList<Thread> threads;
-    private Canvas canvas;
-    private TextField chatTextField;
-    private ListView<String> chatListView;
     private Client client;
     private ColorPicker colorPicker;
 
@@ -151,14 +140,11 @@ public class ClientApplication extends Application {
     }
 
     public Scene makeChatUI(Client client) {
-
         try {
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
             rootLayout = loader.load();
-
-            Point.addPoint(getClient().getName(), RankingTab, 0);
 
             scene = new Scene(rootLayout);
             MEHandler = event -> {
@@ -172,21 +158,21 @@ public class ClientApplication extends Application {
                     new AuthorsViewHandler().autorzy();
                 }
 
-                if(name.equals("Instrukcja")) {
+                if (name.equals("Instrukcja")) {
                     new HelpMenuHandler().informacje();
                 }
             };
 
-            mb = new MenuBar();
+            menuBar = new MenuBar();
 
-            OptionMenuController.makeOptionMenu(MEHandler, mb);
-            HelpMenuController.makeHelpMenu(MEHandler, mb);
+            OptionMenuController.makeOptionMenu(MEHandler, menuBar);
+            HelpMenuController.makeHelpMenu(MEHandler, menuBar);
 
-            rootLayout.setTop(mb);
             primaryStage.setScene(scene);
             primaryStage.setX(0);
             primaryStage.setY(0);
             primaryStage.show();
+            primaryStage.setResizable(false);
 
             rootPane = new GridPane();
             rootPane.setPadding(new Insets(20));
@@ -194,156 +180,72 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
-            canvas = new Canvas(740, 604);
+            areaDraw = new AreaDraw();
+            chatArea = new ChatArea(client);
+            rankingArea = new RankingArea();
+            tipArea = new TipArea(client);
+
+            areaDraw.getCanvas().addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(areaDraw.getGraphicsContext2D(), e));
+            areaDraw.getCanvas().addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(areaDraw.getGraphicsContext2D(), e));
+            areaDraw.getCanvas().addEventHandler(MOUSE_RELEASED, e -> drawingController.handleMouseReleased(areaDraw.getGraphicsContext2D(), e));
+
+            colorPicker = new ColorPicker(Color.BLACK);
+            colorPicker.setMinHeight(40);
+            colorPicker.setMinWidth(100);
+
+            drawingController = new DrawingController(colorPicker);
+
+            drawOption = new DrawOption(drawingController, areaDraw, colorPicker);
+            drawOption.getControls().add(colorPicker, 0, 0);
+            drawOption.getControls().add(drawOption.getClear(), 1, 0);
+            drawOption.getControls().add(drawOption.getSlider(), 2, 0);
+            drawOption.getControls().add(drawOption.getTime(), 3, 0);
+            drawOption.getControls().add(drawOption.getProgressBar(), 4, 0);
+
+            rootLayout.setTop(menuBar);
+            rootLayout.setBottom(drawOption.getControls());
             rootLayout.setRight(rootPane);
+            rootLayout.setLeft(areaDraw.getCanvas());
 
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+            rootPane.add(tipArea.getAktDrawer(), 0, 0);
+            rootPane.add(tipArea.getTip(), 0, 2);
+            rootPane.add(rankingArea.getRanking(), 0, 4);
+            rootPane.add(rankingArea.getRankingTab(), 0, 5);
+            rootPane.add(chatArea.getUserName(), 0, 6);
+            rootPane.add(chatArea.getChatListView(), 0, 7);
+            rootPane.add(chatArea.getChatTextField(), 0, 8);
 
-            canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(gc, e));
-            canvas.addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(gc, e));
-            canvas.addEventHandler(MOUSE_RELEASED, e -> drawingController.handleMouseReleased(gc, e));
+            timeLineTask = new TimeLineTask(drawOption);
 
-            rootLayout.setLeft(canvas);
-            primaryStage.setResizable(false);
+            chatArea.getChatTextField().setOnAction(event -> {
+                if (chatArea.getChatTextField().getText().length() >= 2) {
+                    client.writeToServer(chatArea.getChatTextField().getText());
 
-            chatListView = new ListView<>();
-            chatListView.setItems(client.chatLog);
-            chatListView.setPrefWidth(300);
-            chatListView.setMaxWidth(300);
-            chatListView.setMinWidth(300);
-
-            chatTextField = new TextField();
-            chatTextField.setText("Zgaduj...");
-            chatTextField.setOnMouseClicked(event -> {
-                chatTextField.clear();
-            });
-
-            chatTextField.setOnAction(event -> {
-                if (chatTextField.getText() != null && chatTextField.getText() != "null" && chatTextField.getText().length() >= 2) {
-                    client.writeToServer(chatTextField.getText());
-
-                    if (Pattern.matches(".*" + Server.getWord() + ".*", chatTextField.getText())) {
+                    if (Pattern.matches(".*" + Server.getWord() + ".*", chatArea.getChatTextField().getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
                         client.writeToServer("Nowa runda! Start!");
                         Server.word = Password.getWord();
-                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                        Point.addPoint(getClient().getName(), RankingTab, 10);
-                        FXCollections.sort(RankingTab);
+                        areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+                        Point.addPoint(getClient().getName(), rankingArea.getBRankingTab(), 10);
+                        FXCollections.sort(rankingArea.getBRankingTab());
 
-                        Timeline task = new Timeline(
-                                new KeyFrame(
-                                        Duration.ZERO,
-                                        new KeyValue(pb.progressProperty(), 0)
-                                ),
-                                new KeyFrame(
-                                        Duration.seconds(30),
-                                        new KeyValue(pb.progressProperty(), 1)
-                                )
-                        );
-
-                        task.playFromStart();
-                        tip.setText("Podpowiedź: " + Server.word);
-                        rankingTab.refresh();
+                        timeLineTask.getTask().playFromStart();
+                        tipArea.getTip().setText("Podpowiedź: " + Server.word);
+                        rankingArea.getRankingTab().refresh();
                     }
 
-                    chatTextField.clear();
+                    chatArea.getChatTextField().clear();
                 }
             });
 
-            Label userName = new Label("Czat");
-            Label ranking = new Label("Aktualny Ranking");
-
-            rankingTab = new ListView<>();
-
-            rankingTab.setPrefWidth(300);
-            rankingTab.setMaxWidth(300);
-            rankingTab.setMinWidth(300);
-            rankingTab.setPrefHeight(200);
-            rankingTab.setMaxHeight(200);
-            rankingTab.setMinHeight(200);
-
-            rankingTab.setItems(RankingTab);
-
-            System.out.println(client.chatLog.size());
-
-            rootPane.add(ranking, 0, 4);
-            rootPane.add(rankingTab, 0, 5);
-            rootPane.add(userName, 0, 6);
-            rootPane.add(chatListView, 0, 7);
-            rootPane.add(chatTextField, 0, 8);
-
-            GridPane kontrolki = new GridPane();
-
-            colorPicker = new ColorPicker();
-
-            drawingController = new DrawingController(colorPicker);
-
-            rootLayout.setBottom(kontrolki);
-            colorPicker.setMinHeight(40);
-            colorPicker.setMinWidth(100);
-            colorPicker.setValue(new Color(0, 0, 0, drawingController.getCurrentOpacity()));
-            colorPicker.setAccessibleText("wybierz kolor");
-
-            Button clear = new Button("Wymaż rysunek");
-
-            clear.setOnAction(event -> {
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            });
-
-            clear.setMinHeight(colorPicker.getMinHeight());
-            clear.setMinWidth(colorPicker.getMinWidth());
-
-            Slider slider = new Slider();
-            slider.setMin(0);
-            slider.setMax(20);
-            slider.setValue(2);
-
-            slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                drawingController.setStrokeWidth((double) newValue);
-            });
-
-            slider.setAccessibleRoleDescription("Grubość linii");
-            slider.setAccessibleText("Grubość linii");
-
-            kontrolki.add(colorPicker, 0, 0);
-            kontrolki.add(clear, 1, 0);
-            kontrolki.add(slider, 2, 0);
-
-            Label aktdrawer = new Label("Aktualnie rysuje " + getClient().getName());
-
-            rootPane.add(aktdrawer, 0, 0);
-
-            pb = new ProgressBar();
-            pb.setMinWidth(colorPicker.getMinWidth() * 3);
-            pb.setMinHeight(colorPicker.getMinHeight());
-            pb.setProgress(1);
-
-            Label czas = new Label("Czas: ");
-
-            tip = new Label("Podpowiedź: " + Server.word);
-
-            kontrolki.add(czas, 3, 0);
-            kontrolki.add(pb, 4, 0);
-
-            rootPane.add(tip, 0, 2);
-
-            rootLayout.setBottom(kontrolki);
+            Point.addPoint(getClient().getName(), rankingArea.getBRankingTab(), 0);
 
             client.writeToServer("Nowa runda! Start!");
-            Timeline task = new Timeline(
-                    new KeyFrame(
-                            Duration.ZERO,
-                            new KeyValue(pb.progressProperty(), 0)
-                    ),
-                    new KeyFrame(
-                            Duration.seconds(30),
-                            new KeyValue(pb.progressProperty(), 1)
-                    )
-            );
 
-            tip.setText("Podpowiedź: " + Server.word);
-            task.playFromStart();
+
+            tipArea.getTip().setText("Podpowiedź: " + Server.word);
+            timeLineTask.getTask().playFromStart();
             return scene;
 
         } catch (IOException e) {

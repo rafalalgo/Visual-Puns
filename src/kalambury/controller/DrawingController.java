@@ -20,10 +20,6 @@ public class DrawingController {
         colorPicker = a;
     }
 
-    public double getCurrentOpacity() {
-        return currentOpacity;
-    }
-
     public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }

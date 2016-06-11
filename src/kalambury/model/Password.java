@@ -15,25 +15,8 @@ import java.util.Random;
  */
 
 public class Password {
-
     public static Random rNum = new Random();
     public static List<String> slowa = new ArrayList<>();
-
-    public static Random getrNum() {
-        return rNum;
-    }
-
-    public static void setrNum(Random rNum) {
-        Password.rNum = rNum;
-    }
-
-    public static List<String> getSlowa() {
-        return slowa;
-    }
-
-    public static void setSlowa(List<String> slowa) {
-        Password.slowa = slowa;
-    }
 
     static {
 
@@ -45,7 +28,7 @@ public class Password {
 
             int n = Integer.parseInt(line);
 
-            while(n-- > 0){
+            while (n-- > 0) {
                 line = reader.readLine();
                 slowa.add(line);
             }
@@ -59,5 +42,4 @@ public class Password {
     public static String getWord() {
         return slowa.get(rNum.nextInt(slowa.size()));
     }
-
 }
