@@ -3,9 +3,19 @@ package kalambury.model;
 /**
  * Created by rafalbyczek on 07.06.16.
  */
-public class Person implements Comparable<Person>{
-    private String name;
+public class Person implements Comparable<Person> {
     public Integer punkty;
+    private String name;
+
+    public Person(String name, Integer punkty) {
+
+        this.name = name;
+        this.punkty = punkty;
+    }
+
+    public Person() {
+
+    }
 
     public String getName() {
         return name;
@@ -23,17 +33,11 @@ public class Person implements Comparable<Person>{
         this.punkty = punkty;
     }
 
-    public Person(String name, Integer punkty) {
-
-        this.name = name;
-        this.punkty = punkty;
-    }
-
     @Override
     public String toString() {
         String A = "" + punkty;
-        if(punkty == 0) A += "  ";
-        for(int j = 15; j >= 0; j--) {
+        if (punkty == 0) A += "  ";
+        for (int j = 15; j >= 0; j--) {
             A += " ";
         }
 
@@ -61,14 +65,9 @@ public class Person implements Comparable<Person>{
         return result;
     }
 
-    public Person(){
-
-    }
-
-
     @Override
     public int compareTo(Person o) {
-        if(this.punkty < o.punkty) return 1;
+        if (this.punkty < o.punkty) return 1;
         return -1;
     }
 }

@@ -1,4 +1,4 @@
-package kalambury.server;
+package kalambury.view;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import kalambury.server.Server;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -2,7 +2,60 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/server/ServerInterfejs.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/Controller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/ControllerCalejAplikacji.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/InformowanieUserowNowaGraHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/KtosCosNapisalHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/KtosCosNarysowalHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/KtosCosWyslalHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/NowaGraHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/ResetowanieRankinguHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/View.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/controller/ZgadywanieHaslaHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/Event.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/EventHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/EventNotHandledException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/InformowanieUserowNowaGra.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/KtosCosNapisal.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/KtosCosNarysowal.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/NowaGra.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/ObslugaZdarzen.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/ResetowanieRankingu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/ZgadywanieHaslaEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/handleAutorzy.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/event/handleInstrukcja.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/Model.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/Pedzel.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/Punkt.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/View.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/Wiadomosc.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/model/WiadomosciSpis.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/server/ServerInterfejs.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/view/ClientApplicationInterface.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/kalambury/view/ViewInterface.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/event/handleZakoncz.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/EndController.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/model/Hasla.java" afterPath="$PROJECT_DIR$/src/kalambury/model/Password.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/server/ServerApplication.java" afterPath="$PROJECT_DIR$/src/kalambury/view/ServerApplication.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/view/AuthorsView.fxml" afterPath="$PROJECT_DIR$/src/kalambury/fxml/AuthorsView.fxml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/view/Client.java" afterPath="$PROJECT_DIR$/src/kalambury/model/Client.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/view/InfoView.fxml" afterPath="$PROJECT_DIR$/src/kalambury/fxml/InfoView.fxml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/view/MainView.fxml" afterPath="$PROJECT_DIR$/src/kalambury/fxml/MainView.fxml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kalambury/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/src/kalambury/fxml/RootLayout.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/InfoViewController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/InfoViewController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Client.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Client.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Person.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Person.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/server/ClientThread.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/server/ClientThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/server/Server.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/server/Server.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/model/Person.java" afterPath="$PROJECT_DIR$/src/kalambury/model/Person.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/server/ClientThread.java" afterPath="$PROJECT_DIR$/src/kalambury/server/ClientThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/server/Server.java" afterPath="$PROJECT_DIR$/src/kalambury/server/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" afterPath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -74,22 +127,39 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kalambury/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="821">
-              <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Punkt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/model/Punkt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#1433#1434#0" expanded="true" />
+                <element signature="e#3732#3733#0" expanded="true" />
+                <element signature="e#3760#3761#0" expanded="true" />
+                <element signature="e#3840#3841#0" expanded="true" />
+                <element signature="e#3869#3870#0" expanded="true" />
+                <element signature="e#3904#3905#0" expanded="true" />
+                <element signature="e#3937#3938#0" expanded="true" />
+                <element signature="e#3987#3988#0" expanded="true" />
+                <element signature="e#4031#4032#0" expanded="true" />
+                <element signature="e#4071#4072#0" expanded="true" />
+                <element signature="e#4100#4101#0" expanded="true" />
+                <element signature="e#4151#4152#0" expanded="true" />
+                <element signature="e#4187#4188#0" expanded="true" />
+                <element signature="e#4233#4234#0" expanded="true" />
+                <element signature="e#4263#4264#0" expanded="true" />
+                <element signature="e#4321#4322#0" expanded="true" />
+                <element signature="e#4359#4360#0" expanded="true" />
+                <element signature="e#4417#4418#0" expanded="true" />
+                <element signature="e#4453#4454#0" expanded="true" />
+                <element signature="e#4529#4530#0" expanded="true" />
+                <element signature="e#4579#4580#0" expanded="true" />
+                <element signature="e#4632#4633#0" expanded="true" />
+                <element signature="e#4664#4665#0" expanded="true" />
+                <element signature="e#4731#4732#0" expanded="true" />
+                <element signature="e#4773#4774#0" expanded="true" />
+                <element signature="e#4828#4829#0" expanded="true" />
+                <element signature="e#4862#4863#0" expanded="true" />
+                <element signature="e#4933#4934#0" expanded="true" />
+                <element signature="e#4979#4980#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,21 +168,53 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kalambury/model/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="179">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3154#3155#0" expanded="true" />
+                <element signature="e#3187#3188#0" expanded="true" />
+                <element signature="e#3256#3257#0" expanded="true" />
+                <element signature="e#3295#3296#0" expanded="true" />
+                <element signature="e#4236#4237#0" expanded="true" />
+                <element signature="e#4263#4264#0" expanded="true" />
+                <element signature="e#4304#4305#0" expanded="true" />
+                <element signature="e#4336#4337#0" expanded="true" />
+                <element signature="e#4376#4377#0" expanded="true" />
+                <element signature="e#4411#4412#0" expanded="true" />
+                <element signature="e#4468#4469#0" expanded="true" />
+                <element signature="e#4516#4517#0" expanded="true" />
+                <element signature="e#4567#4568#0" expanded="true" />
+                <element signature="e#4597#4598#0" expanded="true" />
+                <element signature="e#4660#4661#0" expanded="true" />
+                <element signature="e#4698#4699#0" expanded="true" />
+                <element signature="e#4754#4755#0" expanded="true" />
+                <element signature="e#4797#4798#0" expanded="true" />
+                <element signature="e#4995#4996#0" expanded="true" />
+                <element signature="e#5038#5039#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ServerApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/server/ServerApplication.java">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/view/ServerApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
+            <state relative-caret-position="215">
+              <caret line="66" column="56" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Person.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/model/Person.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -120,25 +222,186 @@
       <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="508" column="44" selection-start-line="508" selection-start-column="44" selection-end-line="508" selection-end-column="44" />
+            <state relative-caret-position="186">
+              <caret line="354" column="76" selection-start-line="354" selection-start-column="76" selection-end-line="354" selection-end-column="76" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2541#2542#0" expanded="true" />
-                <element signature="e#2565#2566#0" expanded="true" />
+                <element signature="e#2698#2699#0" expanded="true" />
+                <element signature="e#2734#2735#0" expanded="true" />
+                <element signature="e#2787#2788#0" expanded="true" />
+                <element signature="e#2812#2813#0" expanded="true" />
+                <element signature="e#2872#2873#0" expanded="true" />
+                <element signature="e#2913#2914#0" expanded="true" />
+                <element signature="e#4532#4533#0" expanded="true" />
+                <element signature="e#4578#4579#0" expanded="true" />
+                <element signature="e#4608#4609#0" expanded="true" />
+                <element signature="e#4637#4638#0" expanded="true" />
+                <element signature="e#4678#4679#0" expanded="true" />
+                <element signature="e#4714#4715#0" expanded="true" />
+                <element signature="e#4757#4758#0" expanded="true" />
+                <element signature="e#4793#4794#0" expanded="true" />
+                <element signature="e#4854#4855#0" expanded="true" />
+                <element signature="e#4904#4905#0" expanded="true" />
+                <element signature="e#4953#4954#0" expanded="true" />
+                <element signature="e#4988#4989#0" expanded="true" />
+                <element signature="e#5054#5055#0" expanded="true" />
+                <element signature="e#5102#5103#0" expanded="true" />
+                <element signature="e#5143#5144#0" expanded="true" />
+                <element signature="e#5180#5181#0" expanded="true" />
+                <element signature="e#5240#5241#0" expanded="true" />
+                <element signature="e#5292#5293#0" expanded="true" />
+                <element signature="e#5330#5331#0" expanded="true" />
+                <element signature="e#5364#5365#0" expanded="true" />
+                <element signature="e#5418#5419#0" expanded="true" />
+                <element signature="e#5464#5465#0" expanded="true" />
+                <element signature="e#5497#5498#0" expanded="true" />
+                <element signature="e#5526#5527#0" expanded="true" />
+                <element signature="e#5570#5571#0" expanded="true" />
+                <element signature="e#5606#5607#0" expanded="true" />
+                <element signature="e#8573#8574#0" expanded="true" />
+                <element signature="e#8601#8602#0" expanded="true" />
+                <element signature="e#8642#8643#0" expanded="true" />
+                <element signature="e#8676#8677#0" expanded="true" />
+                <element signature="e#8713#8714#0" expanded="true" />
+                <element signature="e#8744#8745#0" expanded="true" />
+                <element signature="e#8794#8795#0" expanded="true" />
+                <element signature="e#8834#8835#0" expanded="true" />
+                <element signature="e#8889#8890#0" expanded="true" />
+                <element signature="e#8921#8922#0" expanded="true" />
+                <element signature="e#8990#8991#0" expanded="true" />
+                <element signature="e#9032#9033#0" expanded="true" />
+                <element signature="e#9070#9071#0" expanded="true" />
+                <element signature="e#9105#9106#0" expanded="true" />
+                <element signature="e#9160#9161#0" expanded="true" />
+                <element signature="e#9208#9209#0" expanded="true" />
+                <element signature="e#9249#9250#0" expanded="true" />
+                <element signature="e#9282#9283#0" expanded="true" />
+                <element signature="e#9338#9339#0" expanded="true" />
+                <element signature="e#9382#9383#0" expanded="true" />
+                <element signature="e#9412#9413#0" expanded="true" />
+                <element signature="e#9437#9438#0" expanded="true" />
+                <element signature="e#9474#9475#0" expanded="true" />
+                <element signature="e#9502#9503#0" expanded="true" />
+                <element signature="e#9547#9548#0" expanded="true" />
+                <element signature="e#9577#9578#0" expanded="true" />
+                <element signature="e#9634#9635#0" expanded="true" />
+                <element signature="e#9672#9673#0" expanded="true" />
+                <element signature="e#9705#9706#0" expanded="true" />
+                <element signature="e#9734#9735#0" expanded="true" />
+                <element signature="e#9778#9779#0" expanded="true" />
+                <element signature="e#9814#9815#0" expanded="true" />
+                <element signature="e#23965#23966#0" expanded="true" />
+                <element signature="e#23998#23999#0" expanded="true" />
+                <element signature="e#24060#24061#0" expanded="true" />
+                <element signature="e#24104#24105#0" expanded="true" />
+                <element signature="e#24172#24173#0" expanded="true" />
+                <element signature="e#24211#24212#0" expanded="true" />
+                <element signature="e#24250#24251#0" expanded="true" />
+                <element signature="e#24285#24286#0" expanded="true" />
+                <element signature="e#24341#24342#0" expanded="true" />
+                <element signature="e#24389#24390#0" expanded="true" />
+                <element signature="e#24423#24424#0" expanded="true" />
+                <element signature="e#24448#24449#0" expanded="true" />
+                <element signature="e#24489#24490#0" expanded="true" />
+                <element signature="e#24517#24518#0" expanded="true" />
+                <element signature="e#24557#24558#0" expanded="true" />
+                <element signature="e#24582#24583#0" expanded="true" />
+                <element signature="e#24629#24630#0" expanded="true" />
+                <element signature="e#24657#24658#0" expanded="true" />
+                <element signature="e#24690#24691#0" expanded="true" />
+                <element signature="e#24719#24720#0" expanded="true" />
+                <element signature="e#24763#24764#0" expanded="true" />
+                <element signature="e#24799#24800#0" expanded="true" />
+                <element signature="e#24833#24834#0" expanded="true" />
+                <element signature="e#24863#24864#0" expanded="true" />
+                <element signature="e#24909#24910#0" expanded="true" />
+                <element signature="e#24947#24948#0" expanded="true" />
+                <element signature="e#24983#24984#0" expanded="true" />
+                <element signature="e#25016#25017#0" expanded="true" />
+                <element signature="e#25067#25068#0" expanded="true" />
+                <element signature="e#25111#25112#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/view/Client.java">
+      <file leaf-file-name="Ranking.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/model/Ranking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
+            <state relative-caret-position="144">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+              <folding>
+                <element signature="e#2827#2828#0" expanded="true" />
+                <element signature="e#2860#2861#0" expanded="true" />
+                <element signature="e#2913#2914#0" expanded="true" />
+                <element signature="e#2957#2958#0" expanded="true" />
+                <element signature="e#3014#3015#0" expanded="true" />
+                <element signature="e#3058#3059#0" expanded="true" />
+                <element signature="e#3261#3262#0" expanded="true" />
+                <element signature="e#3305#3306#0" expanded="true" />
+                <element signature="e#4624#4625#0" expanded="true" />
+                <element signature="e#4662#4663#0" expanded="true" />
+                <element signature="e#4715#4716#0" expanded="true" />
+                <element signature="e#4759#4760#0" expanded="true" />
+                <element signature="e#4799#4800#0" expanded="true" />
+                <element signature="e#4834#4835#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthorsViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+              <folding>
+                <element signature="e#1514#1515#0" expanded="true" />
+                <element signature="e#1555#1556#0" expanded="true" />
+                <element signature="e#1593#1594#0" expanded="true" />
+                <element signature="e#1627#1628#0" expanded="true" />
+                <element signature="e#1681#1682#0" expanded="true" />
+                <element signature="e#1727#1728#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+              <folding>
+                <element signature="e#1462#1463#0" expanded="true" />
+                <element signature="e#1497#1498#0" expanded="true" />
+                <element signature="e#1535#1536#0" expanded="true" />
+                <element signature="e#1569#1570#0" expanded="true" />
+                <element signature="e#1623#1624#0" expanded="true" />
+                <element signature="e#1669#1670#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EndController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kalambury/controller/EndController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -171,13 +434,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/instrukcja/InstructionView.fxml" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/Point.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/EventNotHandlerException.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/settings.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/rysowanieModel.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/event/Controller.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/MainApp.java" />
         <option value="$PROJECT_DIR$/src/kalambury/event/Event.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/UserRanking.java" />
         <option value="$PROJECT_DIR$/src/kalambury/event/ZgadywanieHaslaEvent.java" />
@@ -213,15 +469,22 @@
         <option value="$PROJECT_DIR$/src/kalambury/controller/View.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/rysowanko.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Ranking.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/Person.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Hasla.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Pedzel.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Punkt.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/ClientApplicationInterface.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/EndController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/model/Person.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java" />
         <option value="$PROJECT_DIR$/src/kalambury/server/ClientThread.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/server/Client.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/Client.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/model/Client.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/view/ServerApplication.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/server/Server.java" />
       </list>
     </option>
   </component>
@@ -294,6 +557,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -374,6 +638,28 @@
               <option name="myItemId" value="kalambury" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kalambury" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -399,7 +685,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -424,13 +709,16 @@
       <recent name="kalambury.view" />
       <recent name="kalambury.server" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/instrukcja" />
-    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="kalambury.controller" />
       <recent name="kalambury.model" />
       <recent name="kalambury.event" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/kalambury/fxml" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/instrukcja" />
     </key>
   </component>
   <component name="RunManager" selected="Application.ChatTest">
@@ -854,7 +1142,7 @@
     </configuration>
     <configuration default="false" name="Server" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="kalambury.server.ServerApplication" />
+      <option name="MAIN_CLASS_NAME" value="kalambury.view.ServerApplication" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -933,11 +1221,12 @@
       <workItem from="1465338151010" duration="6299000" />
       <workItem from="1465371462711" duration="6357000" />
       <workItem from="1465380330291" duration="8512000" />
+      <workItem from="1465607569196" duration="665000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90460000" />
+    <option name="totallyTimeSpent" value="91125000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -960,12 +1249,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924694" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924694" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26795095" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26795095" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32522798" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -981,7 +1271,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1006,20 +1295,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/kalambury/event/ZgadywanieHaslaEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="50" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/event/InformowanieUserowNowaGra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/event/KtosCosNarysowal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -1185,13 +1460,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/event/handleZakoncz.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/event/handleInstrukcja.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1199,7 +1467,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/RootLayout.fxml">
+    <entry file="file://$PROJECT_DIR$/src/kalambury/fxml/RootLayout.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
@@ -1216,7 +1484,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/MainView.fxml">
+    <entry file="file://$PROJECT_DIR$/src/kalambury/fxml/MainView.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
@@ -1241,47 +1509,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Ranking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Hasla.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="21" column="36" selection-start-line="21" selection-start-column="35" selection-end-line="23" selection-end-column="5" />
-          <folding>
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#603#604#0" expanded="true" />
-            <element signature="e#648#649#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/Punkt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1297,65 +1529,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-38">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187">
-          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/InfoView.fxml">
+    <entry file="file://$PROJECT_DIR$/src/kalambury/fxml/InfoView.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
@@ -1366,14 +1543,292 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Password.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="508" column="44" selection-start-line="508" selection-start-column="44" selection-end-line="508" selection-end-column="44" />
+        <state relative-caret-position="72">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="35" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="e#526#527#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Ranking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2541#2542#0" expanded="true" />
-            <element signature="e#2565#2566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+          <folding>
+            <element signature="e#2827#2828#0" expanded="true" />
+            <element signature="e#2860#2861#0" expanded="true" />
+            <element signature="e#2913#2914#0" expanded="true" />
+            <element signature="e#2957#2958#0" expanded="true" />
+            <element signature="e#3014#3015#0" expanded="true" />
+            <element signature="e#3058#3059#0" expanded="true" />
+            <element signature="e#3261#3262#0" expanded="true" />
+            <element signature="e#3305#3306#0" expanded="true" />
+            <element signature="e#4624#4625#0" expanded="true" />
+            <element signature="e#4662#4663#0" expanded="true" />
+            <element signature="e#4715#4716#0" expanded="true" />
+            <element signature="e#4759#4760#0" expanded="true" />
+            <element signature="e#4799#4800#0" expanded="true" />
+            <element signature="e#4834#4835#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+          <folding>
+            <element signature="e#1514#1515#0" expanded="true" />
+            <element signature="e#1555#1556#0" expanded="true" />
+            <element signature="e#1593#1594#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+            <element signature="e#1681#1682#0" expanded="true" />
+            <element signature="e#1727#1728#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/EndController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+          <folding>
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1497#1498#0" expanded="true" />
+            <element signature="e#1535#1536#0" expanded="true" />
+            <element signature="e#1569#1570#0" expanded="true" />
+            <element signature="e#1623#1624#0" expanded="true" />
+            <element signature="e#1669#1670#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="102" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3154#3155#0" expanded="true" />
+            <element signature="e#3187#3188#0" expanded="true" />
+            <element signature="e#3256#3257#0" expanded="true" />
+            <element signature="e#3295#3296#0" expanded="true" />
+            <element signature="e#4236#4237#0" expanded="true" />
+            <element signature="e#4263#4264#0" expanded="true" />
+            <element signature="e#4304#4305#0" expanded="true" />
+            <element signature="e#4336#4337#0" expanded="true" />
+            <element signature="e#4376#4377#0" expanded="true" />
+            <element signature="e#4411#4412#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4516#4517#0" expanded="true" />
+            <element signature="e#4567#4568#0" expanded="true" />
+            <element signature="e#4597#4598#0" expanded="true" />
+            <element signature="e#4660#4661#0" expanded="true" />
+            <element signature="e#4698#4699#0" expanded="true" />
+            <element signature="e#4754#4755#0" expanded="true" />
+            <element signature="e#4797#4798#0" expanded="true" />
+            <element signature="e#4995#4996#0" expanded="true" />
+            <element signature="e#5038#5039#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#3732#3733#0" expanded="true" />
+            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3840#3841#0" expanded="true" />
+            <element signature="e#3869#3870#0" expanded="true" />
+            <element signature="e#3904#3905#0" expanded="true" />
+            <element signature="e#3937#3938#0" expanded="true" />
+            <element signature="e#3987#3988#0" expanded="true" />
+            <element signature="e#4031#4032#0" expanded="true" />
+            <element signature="e#4071#4072#0" expanded="true" />
+            <element signature="e#4100#4101#0" expanded="true" />
+            <element signature="e#4151#4152#0" expanded="true" />
+            <element signature="e#4187#4188#0" expanded="true" />
+            <element signature="e#4233#4234#0" expanded="true" />
+            <element signature="e#4263#4264#0" expanded="true" />
+            <element signature="e#4321#4322#0" expanded="true" />
+            <element signature="e#4359#4360#0" expanded="true" />
+            <element signature="e#4417#4418#0" expanded="true" />
+            <element signature="e#4453#4454#0" expanded="true" />
+            <element signature="e#4529#4530#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
+            <element signature="e#4632#4633#0" expanded="true" />
+            <element signature="e#4664#4665#0" expanded="true" />
+            <element signature="e#4731#4732#0" expanded="true" />
+            <element signature="e#4773#4774#0" expanded="true" />
+            <element signature="e#4828#4829#0" expanded="true" />
+            <element signature="e#4862#4863#0" expanded="true" />
+            <element signature="e#4933#4934#0" expanded="true" />
+            <element signature="e#4979#4980#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/view/ServerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="66" column="56" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="354" column="76" selection-start-line="354" selection-start-column="76" selection-end-line="354" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2698#2699#0" expanded="true" />
+            <element signature="e#2734#2735#0" expanded="true" />
+            <element signature="e#2787#2788#0" expanded="true" />
+            <element signature="e#2812#2813#0" expanded="true" />
+            <element signature="e#2872#2873#0" expanded="true" />
+            <element signature="e#2913#2914#0" expanded="true" />
+            <element signature="e#4532#4533#0" expanded="true" />
+            <element signature="e#4578#4579#0" expanded="true" />
+            <element signature="e#4608#4609#0" expanded="true" />
+            <element signature="e#4637#4638#0" expanded="true" />
+            <element signature="e#4678#4679#0" expanded="true" />
+            <element signature="e#4714#4715#0" expanded="true" />
+            <element signature="e#4757#4758#0" expanded="true" />
+            <element signature="e#4793#4794#0" expanded="true" />
+            <element signature="e#4854#4855#0" expanded="true" />
+            <element signature="e#4904#4905#0" expanded="true" />
+            <element signature="e#4953#4954#0" expanded="true" />
+            <element signature="e#4988#4989#0" expanded="true" />
+            <element signature="e#5054#5055#0" expanded="true" />
+            <element signature="e#5102#5103#0" expanded="true" />
+            <element signature="e#5143#5144#0" expanded="true" />
+            <element signature="e#5180#5181#0" expanded="true" />
+            <element signature="e#5240#5241#0" expanded="true" />
+            <element signature="e#5292#5293#0" expanded="true" />
+            <element signature="e#5330#5331#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5418#5419#0" expanded="true" />
+            <element signature="e#5464#5465#0" expanded="true" />
+            <element signature="e#5497#5498#0" expanded="true" />
+            <element signature="e#5526#5527#0" expanded="true" />
+            <element signature="e#5570#5571#0" expanded="true" />
+            <element signature="e#5606#5607#0" expanded="true" />
+            <element signature="e#8573#8574#0" expanded="true" />
+            <element signature="e#8601#8602#0" expanded="true" />
+            <element signature="e#8642#8643#0" expanded="true" />
+            <element signature="e#8676#8677#0" expanded="true" />
+            <element signature="e#8713#8714#0" expanded="true" />
+            <element signature="e#8744#8745#0" expanded="true" />
+            <element signature="e#8794#8795#0" expanded="true" />
+            <element signature="e#8834#8835#0" expanded="true" />
+            <element signature="e#8889#8890#0" expanded="true" />
+            <element signature="e#8921#8922#0" expanded="true" />
+            <element signature="e#8990#8991#0" expanded="true" />
+            <element signature="e#9032#9033#0" expanded="true" />
+            <element signature="e#9070#9071#0" expanded="true" />
+            <element signature="e#9105#9106#0" expanded="true" />
+            <element signature="e#9160#9161#0" expanded="true" />
+            <element signature="e#9208#9209#0" expanded="true" />
+            <element signature="e#9249#9250#0" expanded="true" />
+            <element signature="e#9282#9283#0" expanded="true" />
+            <element signature="e#9338#9339#0" expanded="true" />
+            <element signature="e#9382#9383#0" expanded="true" />
+            <element signature="e#9412#9413#0" expanded="true" />
+            <element signature="e#9437#9438#0" expanded="true" />
+            <element signature="e#9474#9475#0" expanded="true" />
+            <element signature="e#9502#9503#0" expanded="true" />
+            <element signature="e#9547#9548#0" expanded="true" />
+            <element signature="e#9577#9578#0" expanded="true" />
+            <element signature="e#9634#9635#0" expanded="true" />
+            <element signature="e#9672#9673#0" expanded="true" />
+            <element signature="e#9705#9706#0" expanded="true" />
+            <element signature="e#9734#9735#0" expanded="true" />
+            <element signature="e#9778#9779#0" expanded="true" />
+            <element signature="e#9814#9815#0" expanded="true" />
+            <element signature="e#23965#23966#0" expanded="true" />
+            <element signature="e#23998#23999#0" expanded="true" />
+            <element signature="e#24060#24061#0" expanded="true" />
+            <element signature="e#24104#24105#0" expanded="true" />
+            <element signature="e#24172#24173#0" expanded="true" />
+            <element signature="e#24211#24212#0" expanded="true" />
+            <element signature="e#24250#24251#0" expanded="true" />
+            <element signature="e#24285#24286#0" expanded="true" />
+            <element signature="e#24341#24342#0" expanded="true" />
+            <element signature="e#24389#24390#0" expanded="true" />
+            <element signature="e#24423#24424#0" expanded="true" />
+            <element signature="e#24448#24449#0" expanded="true" />
+            <element signature="e#24489#24490#0" expanded="true" />
+            <element signature="e#24517#24518#0" expanded="true" />
+            <element signature="e#24557#24558#0" expanded="true" />
+            <element signature="e#24582#24583#0" expanded="true" />
+            <element signature="e#24629#24630#0" expanded="true" />
+            <element signature="e#24657#24658#0" expanded="true" />
+            <element signature="e#24690#24691#0" expanded="true" />
+            <element signature="e#24719#24720#0" expanded="true" />
+            <element signature="e#24763#24764#0" expanded="true" />
+            <element signature="e#24799#24800#0" expanded="true" />
+            <element signature="e#24833#24834#0" expanded="true" />
+            <element signature="e#24863#24864#0" expanded="true" />
+            <element signature="e#24909#24910#0" expanded="true" />
+            <element signature="e#24947#24948#0" expanded="true" />
+            <element signature="e#24983#24984#0" expanded="true" />
+            <element signature="e#25016#25017#0" expanded="true" />
+            <element signature="e#25067#25068#0" expanded="true" />
+            <element signature="e#25111#25112#0" expanded="true" />
           </folding>
         </state>
       </provider>

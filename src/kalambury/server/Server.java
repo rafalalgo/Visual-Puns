@@ -4,8 +4,9 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import kalambury.model.Hasla;
+import kalambury.model.Password;
 import kalambury.model.Ranking;
+import kalambury.view.ServerApplication;
 
 import java.awt.*;
 import java.io.IOException;
@@ -17,28 +18,22 @@ import java.util.ArrayList;
  * Created by rafalbyczek on 29.05.16.
  */
 
-public class Server implements ServerInterfejs {
-    public static String word = Hasla.getWord();
-
-    public ObservableList<String> serverLog;
-    public ObservableList<String> clientNames;
+public class Server implements Runnable {
+    public static String word = Password.getWord();
     public static Ranking rankingTab;
 
-    static{
+    static {
         rankingTab = new Ranking();
         word = getWord();
     }
 
-    public static void setWord(){
-        word = Hasla.getWord();
-    }
-
+    public ObservableList<String> serverLog;
+    public ObservableList<String> clientNames;
     private int portNumber;
     private ServerSocket socket;
     private ArrayList<Socket> clients;
     private ArrayList<ClientThread> clientThreads;
     private ArrayList<Pair<Pair<Double, Double>, Color>> Obraz = new ArrayList<>();
-
     public Server(int portNumber) throws IOException {
         this.portNumber = portNumber;
         rankingTab = new Ranking();
@@ -50,6 +45,10 @@ public class Server implements ServerInterfejs {
         word = "word";
     }
 
+    public static void setWord() {
+        word = Password.getWord();
+    }
+
     public static String getWord() {
         return word;
     }
@@ -58,7 +57,7 @@ public class Server implements ServerInterfejs {
         this.word = word;
     }
 
-    @Override
+
     public String toString() {
         return "Server{" +
                 "serverLog=" + serverLog +
@@ -72,7 +71,7 @@ public class Server implements ServerInterfejs {
                 '}';
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -91,7 +90,7 @@ public class Server implements ServerInterfejs {
 
     }
 
-    @Override
+
     public int hashCode() {
         int result = serverLog != null ? serverLog.hashCode() : 0;
         result = 31 * result + (clientNames != null ? clientNames.hashCode() : 0);
@@ -112,67 +111,67 @@ public class Server implements ServerInterfejs {
         Obraz = obraz;
     }
 
-    @Override
+
     public int getPortNumber() {
         return portNumber;
     }
 
-    @Override
+
     public void setPortNumber(int portNumber) {
         this.portNumber = portNumber;
     }
 
-    @Override
+
     public ServerSocket getSocket() {
         return socket;
     }
 
-    @Override
+
     public void setSocket(ServerSocket socket) {
         this.socket = socket;
     }
 
-    @Override
+
     public ArrayList<Socket> getClients() {
         return clients;
     }
 
-    @Override
+
     public void setClients(ArrayList<Socket> clients) {
         this.clients = clients;
     }
 
-    @Override
+
     public ArrayList<ClientThread> getClientThreads() {
         return clientThreads;
     }
 
-    @Override
+
     public void setClientThreads(ArrayList<ClientThread> clientThreads) {
         this.clientThreads = clientThreads;
     }
 
-    @Override
+
     public ObservableList<String> getServerLog() {
         return serverLog;
     }
 
-    @Override
+
     public void setServerLog(ObservableList<String> serverLog) {
         this.serverLog = serverLog;
     }
 
-    @Override
+
     public ObservableList<String> getClientNames() {
         return clientNames;
     }
 
-    @Override
+
     public void setClientNames(ObservableList<String> clientNames) {
         this.clientNames = clientNames;
     }
 
-    @Override
+
     public void startServer() {
 
         try {
@@ -208,7 +207,7 @@ public class Server implements ServerInterfejs {
         }
     }
 
-    @Override
+
     public void clientDisconnected(ClientThread client) {
 
         Platform.runLater(() -> {
@@ -221,7 +220,7 @@ public class Server implements ServerInterfejs {
         });
     }
 
-    @Override
+
     public void writeToAllSockets(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
             for (ClientThread clientThread : clientThreads) {

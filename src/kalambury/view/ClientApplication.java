@@ -24,10 +24,9 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import kalambury.event.handleAutorzy;
-import kalambury.event.handleInstrukcja;
-import kalambury.event.handleZakoncz;
-import kalambury.model.Hasla;
+import kalambury.controller.EndController;
+import kalambury.model.Client;
+import kalambury.model.Password;
 import kalambury.model.Person;
 import kalambury.server.Server;
 
@@ -43,7 +42,7 @@ import static javafx.scene.input.MouseEvent.*;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class ClientApplication extends Application implements Runnable, ClientApplicationInterface {
+public class ClientApplication extends Application implements Runnable {
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
@@ -55,6 +54,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     public ProgressBar pb;
     public ProgressIndicator pi;
     public Button button, button2;
+    public Label podpowiedz;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -69,7 +69,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     private double currentOpacity = START_OPACITY;
     private ColorPicker colorPicker;
     private int punkty = 5;
-    public Label podpowiedz;
 
     {
         ob.add(this);
@@ -83,7 +82,23 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         return OPACITY_MODIFIER;
     }
 
-    @Override
+    public static Color getColor() {
+
+        return color;
+    }
+
+    public static double getStartOpacity() {
+        return START_OPACITY;
+    }
+
+    public static List<ClientApplication> getOb() {
+        return ob;
+    }
+
+    public static void setOb(List<ClientApplication> ob) {
+        ClientApplication.ob = ob;
+    }
+
     public void update() {
         System.out.println(Server.getWord());
         String A;
@@ -120,7 +135,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         }
     }
 
-    @Override
     public void addPoint(String name, Integer punkty) {
         boolean jest_juz = false;
 
@@ -136,76 +150,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         }
     }
 
-    @Override
-    public String toString() {
-        return "ClientApplication{" +
-                "scene=" + scene +
-                ", rootPane=" + rootPane +
-                ", MEHandler=" + MEHandler +
-                ", primaryStage=" + primaryStage +
-                ", rootLayout=" + rootLayout +
-                ", mb=" + mb +
-                ", threads=" + threads +
-                ", canvas=" + canvas +
-                ", chatTextField=" + chatTextField +
-                ", chatListView=" + chatListView +
-                ", client=" + client +
-                ", currentOpacity=" + currentOpacity +
-                ", strokeWidth=" + strokeWidth +
-                ", colorPicker=" + colorPicker +
-                ", punkty=" + punkty +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ClientApplication that = (ClientApplication) o;
-
-        if (Double.compare(that.currentOpacity, currentOpacity) != 0) return false;
-        if (Double.compare(that.strokeWidth, strokeWidth) != 0) return false;
-        if (punkty != that.punkty) return false;
-        if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
-        if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
-        if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
-        if (primaryStage != null ? !primaryStage.equals(that.primaryStage) : that.primaryStage != null) return false;
-        if (rootLayout != null ? !rootLayout.equals(that.rootLayout) : that.rootLayout != null) return false;
-        if (mb != null ? !mb.equals(that.mb) : that.mb != null) return false;
-        if (threads != null ? !threads.equals(that.threads) : that.threads != null) return false;
-        if (canvas != null ? !canvas.equals(that.canvas) : that.canvas != null) return false;
-        if (chatTextField != null ? !chatTextField.equals(that.chatTextField) : that.chatTextField != null)
-            return false;
-        if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
-        if (client != null ? !client.equals(that.client) : that.client != null) return false;
-        return colorPicker != null ? colorPicker.equals(that.colorPicker) : that.colorPicker == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = scene != null ? scene.hashCode() : 0;
-        result = 31 * result + (rootPane != null ? rootPane.hashCode() : 0);
-        result = 31 * result + (MEHandler != null ? MEHandler.hashCode() : 0);
-        result = 31 * result + (primaryStage != null ? primaryStage.hashCode() : 0);
-        result = 31 * result + (rootLayout != null ? rootLayout.hashCode() : 0);
-        result = 31 * result + (mb != null ? mb.hashCode() : 0);
-        result = 31 * result + (threads != null ? threads.hashCode() : 0);
-        result = 31 * result + (canvas != null ? canvas.hashCode() : 0);
-        result = 31 * result + (chatTextField != null ? chatTextField.hashCode() : 0);
-        result = 31 * result + (chatListView != null ? chatListView.hashCode() : 0);
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        temp = Double.doubleToLongBits(currentOpacity);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(strokeWidth);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (colorPicker != null ? colorPicker.hashCode() : 0);
-        result = 31 * result + punkty;
-        return result;
-    }
-
     public ColorPicker getColorPicker() {
 
         return colorPicker;
@@ -215,67 +159,53 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         this.colorPicker = colorPicker;
     }
 
-    @Override
     public int getPunkty() {
         return punkty;
     }
 
-    @Override
     public void setPunkty(int punkty) {
         this.punkty = punkty;
     }
 
-    @Override
     public TextField getChatTextField() {
         return chatTextField;
     }
 
-    @Override
     public void setChatTextField(TextField chatTextField) {
         this.chatTextField = chatTextField;
     }
 
-    @Override
     public ListView<String> getChatListView() {
         return chatListView;
     }
 
-    @Override
     public void setChatListView(ListView<String> chatListView) {
         this.chatListView = chatListView;
     }
 
-    @Override
     public double getCurrentOpacity() {
         return currentOpacity;
     }
 
-    @Override
     public void setCurrentOpacity(double currentOpacity) {
         this.currentOpacity = currentOpacity;
     }
 
-    @Override
     public double getStrokeWidth() {
         return strokeWidth;
     }
 
-    @Override
     public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
-    @Override
     public Client getClient() {
         return client;
     }
 
-    @Override
     public void setClient(Client client) {
         this.client = client;
     }
-
-    @Override
 
     public void stop() throws Exception {
         client.writeToServer("Użytkownik zakonczył gre.");
@@ -283,7 +213,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         threads.forEach(Thread::interrupt);
     }
 
-    @Override
     public void start(Stage primaryStage) throws Exception {
         ob.add(this);
         this.primaryStage = primaryStage;
@@ -293,7 +222,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         primaryStage.show();
     }
 
-    @Override
     public Scene makeInitScene(Stage primaryStage) {
         GridPane rootPane = new GridPane();
         rootPane.setPadding(new Insets(20));
@@ -328,7 +256,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                 primaryStage.setScene(makeChatUI(client));
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(ClientApplication.class.getResource("MainView.fxml"));
+                loader.setLocation(ClientApplication.class.getResource("../fxml/MainView.fxml"));
                 AnchorPane MainView = loader.load();
                 rootLayout.setCenter(MainView);
                 client.writeToServer("Użytkownik dołączył do gry.");
@@ -395,32 +323,26 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         this.rootLayout = rootLayout;
     }
 
-    @Override
     public MenuBar getMb() {
         return mb;
     }
 
-    @Override
     public void setMb(MenuBar mb) {
         this.mb = mb;
     }
 
-    @Override
     public ArrayList<Thread> getThreads() {
         return threads;
     }
 
-    @Override
     public void setThreads(ArrayList<Thread> threads) {
         this.threads = threads;
     }
 
-    @Override
     public Canvas getCanvas() {
         return canvas;
     }
 
-    @Override
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
@@ -430,7 +352,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         try {
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ClientApplication.class.getResource("RootLayout.fxml"));
+            loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
             rootLayout = loader.load();
 
             addPoint(getClient().getName(), 0);
@@ -440,15 +362,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                 String name = ((MenuItem) event.getTarget()).getText();
 
                 if (name.equals("Zakończ")) {
-                    new handleZakoncz().zakoncz();
-                }
-
-                if (name.equals("Instrukcja")) {
-                    new handleInstrukcja().handleInstrukcja();
-                }
-
-                if (name.equals("Autorzy")) {
-                    new handleAutorzy().handleAutorzy();
+                    new EndController().zakoncz();
                 }
             };
 
@@ -501,7 +415,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
                         client.writeToServer("Nowa runda! Start!");
-                        Server.word = Hasla.getWord();
+                        Server.word = Password.getWord();
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         addPoint(getClient().getName(), 10);
                         FXCollections.sort(RankingTab);
@@ -638,7 +552,6 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         gc.setLineWidth(strokeWidth);
     }
 
-    @Override
     public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
         configureGraphicsContext(gc);
         gc.beginPath();
@@ -646,13 +559,11 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         gc.stroke();
     }
 
-    @Override
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
         currentOpacity = START_OPACITY;
         gc.closePath();
     }
 
-    @Override
     public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {
         currentOpacity = Math.max(0, currentOpacity - OPACITY_MODIFIER);
         configureGraphicsContext(gc);
@@ -685,6 +596,160 @@ public class ClientApplication extends Application implements Runnable, ClientAp
     }
 
     @Override
+    public String toString() {
+        return "ClientApplication{" +
+                "rankingTab=" + rankingTab +
+                ", RankingTab=" + RankingTab +
+                ", clientThread=" + clientThread +
+                ", strokeWidth=" + strokeWidth +
+                ", pb=" + pb +
+                ", pi=" + pi +
+                ", button=" + button +
+                ", button2=" + button2 +
+                ", scene=" + scene +
+                ", rootPane=" + rootPane +
+                ", MEHandler=" + MEHandler +
+                ", primaryStage=" + primaryStage +
+                ", rootLayout=" + rootLayout +
+                ", mb=" + mb +
+                ", threads=" + threads +
+                ", canvas=" + canvas +
+                ", chatTextField=" + chatTextField +
+                ", chatListView=" + chatListView +
+                ", client=" + client +
+                ", currentOpacity=" + currentOpacity +
+                ", colorPicker=" + colorPicker +
+                ", punkty=" + punkty +
+                ", podpowiedz=" + podpowiedz +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClientApplication that = (ClientApplication) o;
+
+        if (Double.compare(that.strokeWidth, strokeWidth) != 0) return false;
+        if (Double.compare(that.currentOpacity, currentOpacity) != 0) return false;
+        if (punkty != that.punkty) return false;
+        if (rankingTab != null ? !rankingTab.equals(that.rankingTab) : that.rankingTab != null) return false;
+        if (RankingTab != null ? !RankingTab.equals(that.RankingTab) : that.RankingTab != null) return false;
+        if (clientThread != null ? !clientThread.equals(that.clientThread) : that.clientThread != null) return false;
+        if (pb != null ? !pb.equals(that.pb) : that.pb != null) return false;
+        if (pi != null ? !pi.equals(that.pi) : that.pi != null) return false;
+        if (button != null ? !button.equals(that.button) : that.button != null) return false;
+        if (button2 != null ? !button2.equals(that.button2) : that.button2 != null) return false;
+        if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
+        if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
+        if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
+        if (primaryStage != null ? !primaryStage.equals(that.primaryStage) : that.primaryStage != null) return false;
+        if (rootLayout != null ? !rootLayout.equals(that.rootLayout) : that.rootLayout != null) return false;
+        if (mb != null ? !mb.equals(that.mb) : that.mb != null) return false;
+        if (threads != null ? !threads.equals(that.threads) : that.threads != null) return false;
+        if (canvas != null ? !canvas.equals(that.canvas) : that.canvas != null) return false;
+        if (chatTextField != null ? !chatTextField.equals(that.chatTextField) : that.chatTextField != null)
+            return false;
+        if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
+        if (client != null ? !client.equals(that.client) : that.client != null) return false;
+        if (colorPicker != null ? !colorPicker.equals(that.colorPicker) : that.colorPicker != null) return false;
+        return podpowiedz != null ? podpowiedz.equals(that.podpowiedz) : that.podpowiedz == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = rankingTab != null ? rankingTab.hashCode() : 0;
+        result = 31 * result + (RankingTab != null ? RankingTab.hashCode() : 0);
+        result = 31 * result + (clientThread != null ? clientThread.hashCode() : 0);
+        temp = Double.doubleToLongBits(strokeWidth);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (pb != null ? pb.hashCode() : 0);
+        result = 31 * result + (pi != null ? pi.hashCode() : 0);
+        result = 31 * result + (button != null ? button.hashCode() : 0);
+        result = 31 * result + (button2 != null ? button2.hashCode() : 0);
+        result = 31 * result + (scene != null ? scene.hashCode() : 0);
+        result = 31 * result + (rootPane != null ? rootPane.hashCode() : 0);
+        result = 31 * result + (MEHandler != null ? MEHandler.hashCode() : 0);
+        result = 31 * result + (primaryStage != null ? primaryStage.hashCode() : 0);
+        result = 31 * result + (rootLayout != null ? rootLayout.hashCode() : 0);
+        result = 31 * result + (mb != null ? mb.hashCode() : 0);
+        result = 31 * result + (threads != null ? threads.hashCode() : 0);
+        result = 31 * result + (canvas != null ? canvas.hashCode() : 0);
+        result = 31 * result + (chatTextField != null ? chatTextField.hashCode() : 0);
+        result = 31 * result + (chatListView != null ? chatListView.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        temp = Double.doubleToLongBits(currentOpacity);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (colorPicker != null ? colorPicker.hashCode() : 0);
+        result = 31 * result + punkty;
+        result = 31 * result + (podpowiedz != null ? podpowiedz.hashCode() : 0);
+        return result;
+    }
+
+    public ListView<Person> getRankingTab() {
+        return rankingTab;
+    }
+
+    public void setRankingTab(ListView<Person> rankingTab) {
+        this.rankingTab = rankingTab;
+    }
+
+    public void setRankingTab(ObservableList<Person> rankingTab) {
+        RankingTab = rankingTab;
+    }
+
+    public Thread getClientThread() {
+        return clientThread;
+    }
+
+    public void setClientThread(Thread clientThread) {
+        this.clientThread = clientThread;
+    }
+
+    public ProgressBar getPb() {
+        return pb;
+    }
+
+    public void setPb(ProgressBar pb) {
+        this.pb = pb;
+    }
+
+    public ProgressIndicator getPi() {
+        return pi;
+    }
+
+    public void setPi(ProgressIndicator pi) {
+        this.pi = pi;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
+
+    public Button getButton2() {
+        return button2;
+    }
+
+    public void setButton2(Button button2) {
+        this.button2 = button2;
+    }
+
+    public Label getPodpowiedz() {
+        return podpowiedz;
+    }
+
+    public void setPodpowiedz(Label podpowiedz) {
+        this.podpowiedz = podpowiedz;
+    }
+
     public void run() {
         update();
     }
