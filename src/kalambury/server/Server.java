@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import kalambury.model.ClientThread;
 import kalambury.model.Password;
 import kalambury.model.Ranking;
 import kalambury.view.ServerApplication;

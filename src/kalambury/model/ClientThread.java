@@ -1,6 +1,7 @@
-package kalambury.server;
+package kalambury.model;
 
 import javafx.application.Platform;
+import kalambury.server.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
