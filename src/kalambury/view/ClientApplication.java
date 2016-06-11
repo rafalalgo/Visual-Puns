@@ -15,16 +15,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import kalambury.controller.EndController;
+import kalambury.controller.HelpMenuController;
+import kalambury.controller.DrawingController;
+import kalambury.controller.OptionMenuController;
 import kalambury.model.Client;
 import kalambury.model.Password;
 import kalambury.model.Person;
@@ -33,7 +33,6 @@ import kalambury.server.Server;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import static javafx.scene.input.MouseEvent.*;
@@ -43,18 +42,14 @@ import static javafx.scene.input.MouseEvent.*;
  */
 
 public class ClientApplication extends Application implements Runnable {
-    private static final Color color = Color.CHOCOLATE;
-    private static final double START_OPACITY = 0.9;
-    private static final double OPACITY_MODIFIER = 0.001;
-    public static List<ClientApplication> ob = new ArrayList<>();
     public ListView<Person> rankingTab;
     public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
     public Thread clientThread;
-    public double strokeWidth = 2;
     public ProgressBar pb;
     public ProgressIndicator pi;
     public Button button, button2;
     public Label podpowiedz;
+    DrawingController drawingController;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -66,37 +61,11 @@ public class ClientApplication extends Application implements Runnable {
     private TextField chatTextField;
     private ListView<String> chatListView;
     private Client client;
-    private double currentOpacity = START_OPACITY;
     private ColorPicker colorPicker;
     private int punkty = 5;
 
-    {
-        ob.add(this);
-    }
-
     public static void main(String[] args) {
         launch();
-    }
-
-    public static double getOpacityModifier() {
-        return OPACITY_MODIFIER;
-    }
-
-    public static Color getColor() {
-
-        return color;
-    }
-
-    public static double getStartOpacity() {
-        return START_OPACITY;
-    }
-
-    public static List<ClientApplication> getOb() {
-        return ob;
-    }
-
-    public static void setOb(List<ClientApplication> ob) {
-        ClientApplication.ob = ob;
     }
 
     public void update() {
@@ -183,22 +152,6 @@ public class ClientApplication extends Application implements Runnable {
         this.chatListView = chatListView;
     }
 
-    public double getCurrentOpacity() {
-        return currentOpacity;
-    }
-
-    public void setCurrentOpacity(double currentOpacity) {
-        this.currentOpacity = currentOpacity;
-    }
-
-    public double getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    public void setStrokeWidth(double strokeWidth) {
-        this.strokeWidth = strokeWidth;
-    }
-
     public Client getClient() {
         return client;
     }
@@ -214,7 +167,6 @@ public class ClientApplication extends Application implements Runnable {
     }
 
     public void start(Stage primaryStage) throws Exception {
-        ob.add(this);
         this.primaryStage = primaryStage;
         threads = new ArrayList<>();
         primaryStage.setTitle("Kalambury");
@@ -368,8 +320,8 @@ public class ClientApplication extends Application implements Runnable {
 
             mb = new MenuBar();
 
-            makeOpcjeMenu();
-            makePomocMenu();
+            OptionMenuController.makeOptionMenu(MEHandler, mb);
+            HelpMenuController.makeHelpMenu(MEHandler, mb);
 
             rootLayout.setTop(mb);
             primaryStage.setScene(scene);
@@ -388,9 +340,9 @@ public class ClientApplication extends Application implements Runnable {
 
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.handleMouseDragged(gc, e));
-            canvas.addEventHandler(MOUSE_PRESSED, e -> handleMousePressed(gc, e));
-            canvas.addEventHandler(MOUSE_RELEASED, e -> handleMouseReleased(gc, e));
+            canvas.addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(gc, e));
+            canvas.addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(gc, e));
+            canvas.addEventHandler(MOUSE_RELEASED, e -> drawingController.handleMouseReleased(gc, e));
 
             rootLayout.setLeft(canvas);
             primaryStage.setResizable(false);
@@ -436,11 +388,6 @@ public class ClientApplication extends Application implements Runnable {
                         rankingTab.refresh();
                     }
 
-                    for (ClientApplication A : ob) {
-                        System.out.print(A.client.getName());
-                        A.update();
-                    }
-
                     chatTextField.clear();
                 }
             });
@@ -470,10 +417,13 @@ public class ClientApplication extends Application implements Runnable {
             GridPane kontrolki = new GridPane();
 
             colorPicker = new ColorPicker();
+
+            drawingController = new DrawingController(colorPicker);
+
             rootLayout.setBottom(kontrolki);
             colorPicker.setMinHeight(40);
             colorPicker.setMinWidth(100);
-            colorPicker.setValue(new Color(0, 0, 0, currentOpacity));
+            colorPicker.setValue(new Color(0, 0, 0, drawingController.getCurrentOpacity()));
             colorPicker.setAccessibleText("wybierz kolor");
 
             Button clear = new Button("Wymaż rysunek");
@@ -491,7 +441,7 @@ public class ClientApplication extends Application implements Runnable {
             slider.setValue(2);
 
             slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                strokeWidth = (double) newValue;
+                drawingController.setStrokeWidth((double) newValue);
             });
 
             slider.setAccessibleRoleDescription("Grubość linii");
@@ -545,161 +495,16 @@ public class ClientApplication extends Application implements Runnable {
         return new Scene(rootPane, 600, 400);
     }
 
-    private void configureGraphicsContext(GraphicsContext gc) {
-        gc.setStroke(colorPicker.getValue());
-        gc.setLineCap(StrokeLineCap.ROUND);
-        gc.setLineJoin(StrokeLineJoin.ROUND);
-        gc.setLineWidth(strokeWidth);
-    }
-
-    public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
-        configureGraphicsContext(gc);
-        gc.beginPath();
-        gc.moveTo(e.getX(), e.getY());
-        gc.stroke();
-    }
-
-    public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
-        currentOpacity = START_OPACITY;
-        gc.closePath();
-    }
-
-    public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {
-        currentOpacity = Math.max(0, currentOpacity - OPACITY_MODIFIER);
-        configureGraphicsContext(gc);
-        gc.lineTo(e.getX(), e.getY());
-        gc.stroke();
-    }
-
-    void makeOpcjeMenu() {
-        Menu opcjeMenu = new Menu("Opcje");
-        MenuItem zakoncz = new MenuItem("Zakończ");
-
-        opcjeMenu.getItems().addAll(zakoncz);
-
-        zakoncz.setOnAction(MEHandler);
-
-        mb.getMenus().add(opcjeMenu);
-    }
-
-    void makePomocMenu() {
-        Menu pomocMenu = new Menu("Pomoc");
-        MenuItem instrukcja = new MenuItem("Instrukcja");
-        MenuItem autorzy = new MenuItem("Autorzy");
-
-        pomocMenu.getItems().addAll(instrukcja, autorzy);
-
-        instrukcja.setOnAction(MEHandler);
-        autorzy.setOnAction(MEHandler);
-
-        mb.getMenus().add(pomocMenu);
-    }
-
-    @Override
-    public String toString() {
-        return "ClientApplication{" +
-                "rankingTab=" + rankingTab +
-                ", RankingTab=" + RankingTab +
-                ", clientThread=" + clientThread +
-                ", strokeWidth=" + strokeWidth +
-                ", pb=" + pb +
-                ", pi=" + pi +
-                ", button=" + button +
-                ", button2=" + button2 +
-                ", scene=" + scene +
-                ", rootPane=" + rootPane +
-                ", MEHandler=" + MEHandler +
-                ", primaryStage=" + primaryStage +
-                ", rootLayout=" + rootLayout +
-                ", mb=" + mb +
-                ", threads=" + threads +
-                ", canvas=" + canvas +
-                ", chatTextField=" + chatTextField +
-                ", chatListView=" + chatListView +
-                ", client=" + client +
-                ", currentOpacity=" + currentOpacity +
-                ", colorPicker=" + colorPicker +
-                ", punkty=" + punkty +
-                ", podpowiedz=" + podpowiedz +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ClientApplication that = (ClientApplication) o;
-
-        if (Double.compare(that.strokeWidth, strokeWidth) != 0) return false;
-        if (Double.compare(that.currentOpacity, currentOpacity) != 0) return false;
-        if (punkty != that.punkty) return false;
-        if (rankingTab != null ? !rankingTab.equals(that.rankingTab) : that.rankingTab != null) return false;
-        if (RankingTab != null ? !RankingTab.equals(that.RankingTab) : that.RankingTab != null) return false;
-        if (clientThread != null ? !clientThread.equals(that.clientThread) : that.clientThread != null) return false;
-        if (pb != null ? !pb.equals(that.pb) : that.pb != null) return false;
-        if (pi != null ? !pi.equals(that.pi) : that.pi != null) return false;
-        if (button != null ? !button.equals(that.button) : that.button != null) return false;
-        if (button2 != null ? !button2.equals(that.button2) : that.button2 != null) return false;
-        if (scene != null ? !scene.equals(that.scene) : that.scene != null) return false;
-        if (rootPane != null ? !rootPane.equals(that.rootPane) : that.rootPane != null) return false;
-        if (MEHandler != null ? !MEHandler.equals(that.MEHandler) : that.MEHandler != null) return false;
-        if (primaryStage != null ? !primaryStage.equals(that.primaryStage) : that.primaryStage != null) return false;
-        if (rootLayout != null ? !rootLayout.equals(that.rootLayout) : that.rootLayout != null) return false;
-        if (mb != null ? !mb.equals(that.mb) : that.mb != null) return false;
-        if (threads != null ? !threads.equals(that.threads) : that.threads != null) return false;
-        if (canvas != null ? !canvas.equals(that.canvas) : that.canvas != null) return false;
-        if (chatTextField != null ? !chatTextField.equals(that.chatTextField) : that.chatTextField != null)
-            return false;
-        if (chatListView != null ? !chatListView.equals(that.chatListView) : that.chatListView != null) return false;
-        if (client != null ? !client.equals(that.client) : that.client != null) return false;
-        if (colorPicker != null ? !colorPicker.equals(that.colorPicker) : that.colorPicker != null) return false;
-        return podpowiedz != null ? podpowiedz.equals(that.podpowiedz) : that.podpowiedz == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = rankingTab != null ? rankingTab.hashCode() : 0;
-        result = 31 * result + (RankingTab != null ? RankingTab.hashCode() : 0);
-        result = 31 * result + (clientThread != null ? clientThread.hashCode() : 0);
-        temp = Double.doubleToLongBits(strokeWidth);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (pb != null ? pb.hashCode() : 0);
-        result = 31 * result + (pi != null ? pi.hashCode() : 0);
-        result = 31 * result + (button != null ? button.hashCode() : 0);
-        result = 31 * result + (button2 != null ? button2.hashCode() : 0);
-        result = 31 * result + (scene != null ? scene.hashCode() : 0);
-        result = 31 * result + (rootPane != null ? rootPane.hashCode() : 0);
-        result = 31 * result + (MEHandler != null ? MEHandler.hashCode() : 0);
-        result = 31 * result + (primaryStage != null ? primaryStage.hashCode() : 0);
-        result = 31 * result + (rootLayout != null ? rootLayout.hashCode() : 0);
-        result = 31 * result + (mb != null ? mb.hashCode() : 0);
-        result = 31 * result + (threads != null ? threads.hashCode() : 0);
-        result = 31 * result + (canvas != null ? canvas.hashCode() : 0);
-        result = 31 * result + (chatTextField != null ? chatTextField.hashCode() : 0);
-        result = 31 * result + (chatListView != null ? chatListView.hashCode() : 0);
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        temp = Double.doubleToLongBits(currentOpacity);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (colorPicker != null ? colorPicker.hashCode() : 0);
-        result = 31 * result + punkty;
-        result = 31 * result + (podpowiedz != null ? podpowiedz.hashCode() : 0);
-        return result;
-    }
-
     public ListView<Person> getRankingTab() {
         return rankingTab;
     }
 
-    public void setRankingTab(ListView<Person> rankingTab) {
-        this.rankingTab = rankingTab;
-    }
-
     public void setRankingTab(ObservableList<Person> rankingTab) {
         RankingTab = rankingTab;
+    }
+
+    public void setRankingTab(ListView<Person> rankingTab) {
+        this.rankingTab = rankingTab;
     }
 
     public Thread getClientThread() {
