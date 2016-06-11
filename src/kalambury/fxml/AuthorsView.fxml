@@ -7,6 +7,6 @@
 <Pane fx:id="AuthorsView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kalambury.controller.AuthorsViewController">
    <children>
       <Button fx:id="closeButton" layoutX="218.0" layoutY="291.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Zamknij" />
-      <Text layoutX="46.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autorzy projektu:&#10;&#10;Rafał Byczek&#10;Michał Stobierski (będzie comeback, obiecuję; ja chcę zdać!)" textAlignment="CENTER" wrappingWidth="428.000001272012" />
+      <Text layoutX="46.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autorzy projektu:&#10;&#10;Rafał Byczek&#10;Michał Stobierski" textAlignment="CENTER" wrappingWidth="428.000001272012" />
    </children>
 </Pane>

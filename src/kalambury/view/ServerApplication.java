@@ -30,14 +30,6 @@ public class ServerApplication extends Application {
         launch();
     }
 
-    public static ArrayList<Thread> getThreads() {
-        return threads;
-    }
-
-    public static void setThreads(ArrayList<Thread> threads) {
-        ServerApplication.threads = threads;
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         threads = new ArrayList<>();

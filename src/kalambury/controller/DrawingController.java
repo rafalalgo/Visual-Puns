@@ -3,7 +3,6 @@ package kalambury.controller;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 
@@ -11,13 +10,15 @@ import javafx.scene.shape.StrokeLineJoin;
  * Created by rafalbyczek on 11.06.16.
  */
 public class DrawingController {
-    private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
+    ColorPicker colorPicker;
     private double currentOpacity = START_OPACITY;
     private double strokeWidth = 2;
 
-    ColorPicker colorPicker;
+    public DrawingController(ColorPicker a) {
+        colorPicker = a;
+    }
 
     public double getCurrentOpacity() {
         return currentOpacity;
@@ -27,16 +28,13 @@ public class DrawingController {
         this.strokeWidth = strokeWidth;
     }
 
-    public DrawingController(ColorPicker a) {
-        colorPicker = a;
-    }
-
     public void configureGraphicsContext(GraphicsContext gc) {
         gc.setStroke(colorPicker.getValue());
         gc.setLineCap(StrokeLineCap.ROUND);
         gc.setLineJoin(StrokeLineJoin.ROUND);
         gc.setLineWidth(strokeWidth);
     }
+
     public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
         configureGraphicsContext(gc);
         gc.beginPath();

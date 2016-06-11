@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kalambury.controller.InfoViewController">
    <children>
-      <Text layoutX="223.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu coś będzie napisane&#10;obiecuję! :D" />
+      <Text layoutX="223.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu coś będzie! :)" />
       <Button fx:id="closeButton" layoutX="268.0" layoutY="318.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Zamknij" />
    </children>
 </Pane>

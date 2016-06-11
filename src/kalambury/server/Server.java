@@ -3,13 +3,10 @@ package kalambury.server;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import kalambury.model.ClientThread;
 import kalambury.model.Password;
-import kalambury.model.Ranking;
 import kalambury.view.ServerApplication;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,10 +18,8 @@ import java.util.ArrayList;
 
 public class Server implements Runnable {
     public static String word = Password.getWord();
-    public static Ranking rankingTab;
 
     static {
-        rankingTab = new Ranking();
         word = getWord();
     }
 
@@ -34,20 +29,15 @@ public class Server implements Runnable {
     private ServerSocket socket;
     private ArrayList<Socket> clients;
     private ArrayList<ClientThread> clientThreads;
-    private ArrayList<Pair<Pair<Double, Double>, Color>> Obraz = new ArrayList<>();
+
     public Server(int portNumber) throws IOException {
         this.portNumber = portNumber;
-        rankingTab = new Ranking();
         serverLog = FXCollections.observableArrayList();
         clientNames = FXCollections.observableArrayList();
         clients = new ArrayList<>();
         clientThreads = new ArrayList<>();
         socket = new ServerSocket(portNumber);
         word = "word";
-    }
-
-    public static void setWord() {
-        word = Password.getWord();
     }
 
     public static String getWord() {
@@ -58,133 +48,7 @@ public class Server implements Runnable {
         this.word = word;
     }
 
-
-    public String toString() {
-        return "Server{" +
-                "serverLog=" + serverLog +
-                ", clientNames=" + clientNames +
-                ", portNumber=" + portNumber +
-                ", socket=" + socket +
-                ", clients=" + clients +
-                ", clientThreads=" + clientThreads +
-                ", Obraz=" + Obraz +
-                ", word='" + word + '\'' +
-                '}';
-    }
-
-
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Server server = (Server) o;
-
-        if (portNumber != server.portNumber) return false;
-        if (serverLog != null ? !serverLog.equals(server.serverLog) : server.serverLog != null) return false;
-        if (clientNames != null ? !clientNames.equals(server.clientNames) : server.clientNames != null) return false;
-        if (socket != null ? !socket.equals(server.socket) : server.socket != null) return false;
-        if (clients != null ? !clients.equals(server.clients) : server.clients != null) return false;
-        if (clientThreads != null ? !clientThreads.equals(server.clientThreads) : server.clientThreads != null)
-            return false;
-        if (Obraz != null ? !Obraz.equals(server.Obraz) : server.Obraz != null) return false;
-        return word != null ? word.equals(server.word) : server.word == null;
-
-    }
-
-
-    public int hashCode() {
-        int result = serverLog != null ? serverLog.hashCode() : 0;
-        result = 31 * result + (clientNames != null ? clientNames.hashCode() : 0);
-        result = 31 * result + portNumber;
-        result = 31 * result + (socket != null ? socket.hashCode() : 0);
-        result = 31 * result + (clients != null ? clients.hashCode() : 0);
-        result = 31 * result + (clientThreads != null ? clientThreads.hashCode() : 0);
-        result = 31 * result + (Obraz != null ? Obraz.hashCode() : 0);
-        result = 31 * result + (word != null ? word.hashCode() : 0);
-        return result;
-    }
-
-    public ArrayList<Pair<Pair<Double, Double>, Color>> getObraz() {
-        return Obraz;
-    }
-
-    public void setObraz(ArrayList<Pair<Pair<Double, Double>, Color>> obraz) {
-        Obraz = obraz;
-    }
-
-
-    public int getPortNumber() {
-        return portNumber;
-    }
-
-
-    public void setPortNumber(int portNumber) {
-        this.portNumber = portNumber;
-    }
-
-
-    public ServerSocket getSocket() {
-        return socket;
-    }
-
-
-    public void setSocket(ServerSocket socket) {
-        this.socket = socket;
-    }
-
-
-    public ArrayList<Socket> getClients() {
-        return clients;
-    }
-
-
-    public void setClients(ArrayList<Socket> clients) {
-        this.clients = clients;
-    }
-
-
-    public ArrayList<ClientThread> getClientThreads() {
-        return clientThreads;
-    }
-
-
-    public void setClientThreads(ArrayList<ClientThread> clientThreads) {
-        this.clientThreads = clientThreads;
-    }
-
-
-    public ObservableList<String> getServerLog() {
-        return serverLog;
-    }
-
-
-    public void setServerLog(ObservableList<String> serverLog) {
-        this.serverLog = serverLog;
-    }
-
-
-    public ObservableList<String> getClientNames() {
-        return clientNames;
-    }
-
-
-    public void setClientNames(ObservableList<String> clientNames) {
-        this.clientNames = clientNames;
-    }
-
-
-    public void startServer() {
-
-        try {
-            socket = new ServerSocket(this.portNumber);
-            serverLog = FXCollections.observableArrayList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void run() {
-
         try {
             while (true) {
                 Platform.runLater(() -> serverLog.add("Czekamy..."));
@@ -208,9 +72,7 @@ public class Server implements Runnable {
         }
     }
 
-
     public void clientDisconnected(ClientThread client) {
-
         Platform.runLater(() -> {
             serverLog.add("Gracz "
                     + client.getClientSocket().getRemoteSocketAddress()
@@ -220,7 +82,6 @@ public class Server implements Runnable {
             clientThreads.remove(clientThreads.indexOf(client));
         });
     }
-
 
     public void writeToAllSockets(String input) {
         if (input != null && input != "null" && input.length() >= 2) {

@@ -21,13 +21,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import kalambury.controller.EndController;
-import kalambury.controller.HelpMenuController;
-import kalambury.controller.DrawingController;
-import kalambury.controller.OptionMenuController;
+import kalambury.controller.*;
 import kalambury.model.Client;
 import kalambury.model.Password;
 import kalambury.model.Person;
+import kalambury.model.Point;
 import kalambury.server.Server;
 
 import java.io.IOException;
@@ -41,15 +39,13 @@ import static javafx.scene.input.MouseEvent.*;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class ClientApplication extends Application implements Runnable {
+public class ClientApplication extends Application {
     public ListView<Person> rankingTab;
     public ObservableList<Person> RankingTab = FXCollections.observableArrayList();
     public Thread clientThread;
     public ProgressBar pb;
-    public ProgressIndicator pi;
-    public Button button, button2;
-    public Label podpowiedz;
-    DrawingController drawingController;
+    public Label tip;
+    public DrawingController drawingController;
     private Scene scene;
     private GridPane rootPane = null;
     private EventHandler<ActionEvent> MEHandler;
@@ -62,102 +58,13 @@ public class ClientApplication extends Application implements Runnable {
     private ListView<String> chatListView;
     private Client client;
     private ColorPicker colorPicker;
-    private int punkty = 5;
 
     public static void main(String[] args) {
         launch();
     }
 
-    public void update() {
-        System.out.println(Server.getWord());
-        String A;
-
-        try {
-            A = client.chatLog.get(client.chatLog.size() - 1);
-        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
-            System.out.println("Nie udał sie update");
-            return;
-        }
-
-        if (0 != client.chatLog.size()) {
-            System.out.println(A);
-
-            if (Pattern.matches(".*punktów.*", A)) {
-                try {
-                    addPoint((A.substring(0, A.indexOf("+") - 1)).trim(), 5);
-                    FXCollections.sort(RankingTab);
-                    rankingTab.refresh();
-                } catch (java.lang.ArrayIndexOutOfBoundsException a) {
-
-                }
-            }
-
-            if (Pattern.matches(".*Użytkownik.*", A)) {
-                try {
-                    addPoint((A.substring(0, A.indexOf(":") - 1)).trim(), 0);
-                    FXCollections.sort(RankingTab);
-                    rankingTab.refresh();
-                } catch (java.lang.ArrayIndexOutOfBoundsException a) {
-
-                }
-            }
-        }
-    }
-
-    public void addPoint(String name, Integer punkty) {
-        boolean jest_juz = false;
-
-        for (Person k : RankingTab) {
-            if (k.getName().equals(name)) {
-                jest_juz = true;
-                k.punkty += punkty;
-            }
-        }
-
-        if (!jest_juz) {
-            RankingTab.add(new Person(name, punkty));
-        }
-    }
-
-    public ColorPicker getColorPicker() {
-
-        return colorPicker;
-    }
-
-    public void setColorPicker(ColorPicker colorPicker) {
-        this.colorPicker = colorPicker;
-    }
-
-    public int getPunkty() {
-        return punkty;
-    }
-
-    public void setPunkty(int punkty) {
-        this.punkty = punkty;
-    }
-
-    public TextField getChatTextField() {
-        return chatTextField;
-    }
-
-    public void setChatTextField(TextField chatTextField) {
-        this.chatTextField = chatTextField;
-    }
-
-    public ListView<String> getChatListView() {
-        return chatListView;
-    }
-
-    public void setChatListView(ListView<String> chatListView) {
-        this.chatListView = chatListView;
-    }
-
     public Client getClient() {
         return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public void stop() throws Exception {
@@ -196,9 +103,9 @@ public class ClientApplication extends Application implements Runnable {
         Button submitClientInfoButton = new Button("Graj!");
         submitClientInfoButton.setOnAction(Event -> {
             try {
-                client = new Client(hostNameField.getText(), Integer
-                        .parseInt(portNumberField.getText()), nameField
-                        .getText());
+                client = new Client(hostNameField.getText(),
+                        Integer.parseInt(portNumberField.getText()),
+                        nameField.getText());
                 clientThread = new Thread(client);
                 clientThread.setDaemon(true);
                 clientThread.start();
@@ -243,62 +150,6 @@ public class ClientApplication extends Application implements Runnable {
         this.scene = scene;
     }
 
-    public GridPane getRootPane() {
-        return rootPane;
-    }
-
-    public void setRootPane(GridPane rootPane) {
-        this.rootPane = rootPane;
-    }
-
-    public EventHandler<ActionEvent> getMEHandler() {
-        return MEHandler;
-    }
-
-    public void setMEHandler(EventHandler<ActionEvent> MEHandler) {
-        this.MEHandler = MEHandler;
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-    public BorderPane getRootLayout() {
-        return rootLayout;
-    }
-
-    public void setRootLayout(BorderPane rootLayout) {
-        this.rootLayout = rootLayout;
-    }
-
-    public MenuBar getMb() {
-        return mb;
-    }
-
-    public void setMb(MenuBar mb) {
-        this.mb = mb;
-    }
-
-    public ArrayList<Thread> getThreads() {
-        return threads;
-    }
-
-    public void setThreads(ArrayList<Thread> threads) {
-        this.threads = threads;
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    public void setCanvas(Canvas canvas) {
-        this.canvas = canvas;
-    }
-
     public Scene makeChatUI(Client client) {
 
         try {
@@ -307,7 +158,7 @@ public class ClientApplication extends Application implements Runnable {
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
             rootLayout = loader.load();
 
-            addPoint(getClient().getName(), 0);
+            Point.addPoint(getClient().getName(), RankingTab, 0);
 
             scene = new Scene(rootLayout);
             MEHandler = event -> {
@@ -315,6 +166,14 @@ public class ClientApplication extends Application implements Runnable {
 
                 if (name.equals("Zakończ")) {
                     new EndController().zakoncz();
+                }
+
+                if (name.equals("Autorzy")) {
+                    new AuthorsViewHandler().autorzy();
+                }
+
+                if(name.equals("Instrukcja")) {
+                    new HelpMenuHandler().informacje();
                 }
             };
 
@@ -369,7 +228,7 @@ public class ClientApplication extends Application implements Runnable {
                         client.writeToServer("Nowa runda! Start!");
                         Server.word = Password.getWord();
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                        addPoint(getClient().getName(), 10);
+                        Point.addPoint(getClient().getName(), RankingTab, 10);
                         FXCollections.sort(RankingTab);
 
                         Timeline task = new Timeline(
@@ -384,7 +243,7 @@ public class ClientApplication extends Application implements Runnable {
                         );
 
                         task.playFromStart();
-                        podpowiedz.setText("Podpowiedź: " + Server.word);
+                        tip.setText("Podpowiedź: " + Server.word);
                         rankingTab.refresh();
                     }
 
@@ -462,16 +321,15 @@ public class ClientApplication extends Application implements Runnable {
 
             Label czas = new Label("Czas: ");
 
-            podpowiedz = new Label("Podpowiedź: " + Server.word);
+            tip = new Label("Podpowiedź: " + Server.word);
 
             kontrolki.add(czas, 3, 0);
             kontrolki.add(pb, 4, 0);
 
-            rootPane.add(podpowiedz, 0, 2);
+            rootPane.add(tip, 0, 2);
 
             rootLayout.setBottom(kontrolki);
 
-            (new Thread(this)).start();
             client.writeToServer("Nowa runda! Start!");
             Timeline task = new Timeline(
                     new KeyFrame(
@@ -484,7 +342,7 @@ public class ClientApplication extends Application implements Runnable {
                     )
             );
 
-            podpowiedz.setText("Podpowiedź: " + Server.word);
+            tip.setText("Podpowiedź: " + Server.word);
             task.playFromStart();
             return scene;
 
@@ -493,69 +351,5 @@ public class ClientApplication extends Application implements Runnable {
         }
 
         return new Scene(rootPane, 600, 400);
-    }
-
-    public ListView<Person> getRankingTab() {
-        return rankingTab;
-    }
-
-    public void setRankingTab(ObservableList<Person> rankingTab) {
-        RankingTab = rankingTab;
-    }
-
-    public void setRankingTab(ListView<Person> rankingTab) {
-        this.rankingTab = rankingTab;
-    }
-
-    public Thread getClientThread() {
-        return clientThread;
-    }
-
-    public void setClientThread(Thread clientThread) {
-        this.clientThread = clientThread;
-    }
-
-    public ProgressBar getPb() {
-        return pb;
-    }
-
-    public void setPb(ProgressBar pb) {
-        this.pb = pb;
-    }
-
-    public ProgressIndicator getPi() {
-        return pi;
-    }
-
-    public void setPi(ProgressIndicator pi) {
-        this.pi = pi;
-    }
-
-    public Button getButton() {
-        return button;
-    }
-
-    public void setButton(Button button) {
-        this.button = button;
-    }
-
-    public Button getButton2() {
-        return button2;
-    }
-
-    public void setButton2(Button button2) {
-        this.button2 = button2;
-    }
-
-    public Label getPodpowiedz() {
-        return podpowiedz;
-    }
-
-    public void setPodpowiedz(Label podpowiedz) {
-        this.podpowiedz = podpowiedz;
-    }
-
-    public void run() {
-        update();
     }
 }
