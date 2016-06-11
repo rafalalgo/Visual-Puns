@@ -1,4 +1,4 @@
-package kalambury.event;
+package kalambury.controller;
 
 import javafx.application.Platform;
 

@@ -25,9 +25,10 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import kalambury.event.EndController;
-import kalambury.model.Hasla;
+import kalambury.controller.EndController;
+import kalambury.model.Password;
 import kalambury.model.Person;
+import kalambury.model.Client;
 import kalambury.server.Server;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ import static javafx.scene.input.MouseEvent.*;
  * Created by rafalbyczek on 31.05.16.
  */
 
-public class ClientApplication extends Application implements Runnable, ClientApplicationInterface {
+public class ClientApplication extends Application implements Runnable {
     private static final Color color = Color.CHOCOLATE;
     private static final double START_OPACITY = 0.9;
     private static final double OPACITY_MODIFIER = 0.001;
@@ -85,7 +86,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         return OPACITY_MODIFIER;
     }
 
-    @Override
+    
     public void update() {
         System.out.println(Server.getWord());
         String A;
@@ -122,7 +123,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         }
     }
 
-    @Override
+    
     public void addPoint(String name, Integer punkty) {
         boolean jest_juz = false;
 
@@ -138,7 +139,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         }
     }
 
-    @Override
+    
     public String toString() {
         return "ClientApplication{" +
                 "scene=" + scene +
@@ -159,7 +160,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                 '}';
     }
 
-    @Override
+    
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -184,7 +185,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         return colorPicker != null ? colorPicker.equals(that.colorPicker) : that.colorPicker == null;
     }
 
-    @Override
+    
     public int hashCode() {
         int result;
         long temp;
@@ -217,67 +218,67 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         this.colorPicker = colorPicker;
     }
 
-    @Override
+    
     public int getPunkty() {
         return punkty;
     }
 
-    @Override
+    
     public void setPunkty(int punkty) {
         this.punkty = punkty;
     }
 
-    @Override
+    
     public TextField getChatTextField() {
         return chatTextField;
     }
 
-    @Override
+    
     public void setChatTextField(TextField chatTextField) {
         this.chatTextField = chatTextField;
     }
 
-    @Override
+    
     public ListView<String> getChatListView() {
         return chatListView;
     }
 
-    @Override
+    
     public void setChatListView(ListView<String> chatListView) {
         this.chatListView = chatListView;
     }
 
-    @Override
+    
     public double getCurrentOpacity() {
         return currentOpacity;
     }
 
-    @Override
+    
     public void setCurrentOpacity(double currentOpacity) {
         this.currentOpacity = currentOpacity;
     }
 
-    @Override
+    
     public double getStrokeWidth() {
         return strokeWidth;
     }
 
-    @Override
+    
     public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
-    @Override
+    
     public Client getClient() {
         return client;
     }
 
-    @Override
+    
     public void setClient(Client client) {
         this.client = client;
     }
 
-    @Override
+    
 
     public void stop() throws Exception {
         client.writeToServer("Użytkownik zakonczył gre.");
@@ -285,7 +286,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         threads.forEach(Thread::interrupt);
     }
 
-    @Override
+    
     public void start(Stage primaryStage) throws Exception {
         ob.add(this);
         this.primaryStage = primaryStage;
@@ -295,7 +296,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         primaryStage.show();
     }
 
-    @Override
+    
     public Scene makeInitScene(Stage primaryStage) {
         GridPane rootPane = new GridPane();
         rootPane.setPadding(new Insets(20));
@@ -321,7 +322,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                 client = new Client(hostNameField.getText(), Integer
                         .parseInt(portNumberField.getText()), nameField
                         .getText());
-                clientThread = new Thread(client);
+                clientThread = new Thread((Runnable) client);
                 clientThread.setDaemon(true);
                 clientThread.start();
                 threads.add(clientThread);
@@ -397,32 +398,32 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         this.rootLayout = rootLayout;
     }
 
-    @Override
+    
     public MenuBar getMb() {
         return mb;
     }
 
-    @Override
+    
     public void setMb(MenuBar mb) {
         this.mb = mb;
     }
 
-    @Override
+    
     public ArrayList<Thread> getThreads() {
         return threads;
     }
 
-    @Override
+    
     public void setThreads(ArrayList<Thread> threads) {
         this.threads = threads;
     }
 
-    @Override
+    
     public Canvas getCanvas() {
         return canvas;
     }
 
-    @Override
+    
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
@@ -503,7 +504,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
                         client.writeToServer("Nowa runda! Start!");
-                        Server.word = Hasla.getWord();
+                        Server.word = Password.getWord();
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         addPoint(getClient().getName(), 10);
                         FXCollections.sort(RankingTab);
@@ -639,7 +640,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         gc.setLineWidth(strokeWidth);
     }
 
-    @Override
+    
     public void handleMousePressed(GraphicsContext gc, MouseEvent e) {
         configureGraphicsContext(gc);
         gc.beginPath();
@@ -647,14 +648,14 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         gc.stroke();
     }
 
-    @Override
+    
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
         nie_zgadl();
         currentOpacity = START_OPACITY;
         gc.closePath();
     }
 
-    @Override
+    
     public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {
         currentOpacity = Math.max(0, currentOpacity - OPACITY_MODIFIER);
         configureGraphicsContext(gc);
@@ -686,14 +687,14 @@ public class ClientApplication extends Application implements Runnable, ClientAp
         mb.getMenus().add(pomocMenu);
     }
 
-    @Override
+    
     public void run() {
         update();
     }
 
     private EventHandler<ActionEvent> showAuthors() {
         return new EventHandler<ActionEvent>() {
-            @Override
+            
             public void handle(ActionEvent event) {
                 try {
                     final Parent root = FXMLLoader.load(getClass().getResource("../view/AuthorsView.fxml"));
@@ -711,7 +712,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
 
     private EventHandler<ActionEvent> showInfo() {
         return new EventHandler<ActionEvent>() {
-            @Override
+            
             public void handle(ActionEvent event) {
                 try {
                     final Parent root = FXMLLoader.load(getClass().getResource("../view/InfoView.fxml"));
@@ -733,7 +734,7 @@ public class ClientApplication extends Application implements Runnable, ClientAp
             client.writeToServer(getClient().getName() + " - 10 punktów!");
             client.writeToServer("Hasłem było " + Server.word);
             client.writeToServer("Nowa runda! Start!");
-            Server.word = Hasla.getWord();
+            Server.word = Password.getWord();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             addPoint(getClient().getName(), -10);
             FXCollections.sort(RankingTab);

@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import kalambury.model.Hasla;
+import kalambury.model.Password;
 import kalambury.model.Ranking;
 
 import java.awt.*;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 
 public class Server implements ServerInterfejs {
-    public static String word = Hasla.getWord();
+    public static String word = Password.getWord();
 
     public ObservableList<String> serverLog;
     public ObservableList<String> clientNames;
@@ -30,7 +30,7 @@ public class Server implements ServerInterfejs {
     }
 
     public static void setWord(){
-        word = Hasla.getWord();
+        word = Password.getWord();
     }
 
     private int portNumber;

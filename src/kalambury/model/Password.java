@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by Michal Stobierski on 2016-06-08.
  */
 
-public class Hasla {
+public class Password {
 
     public static Random rNum = new Random();
     public static List<String> slowa = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Hasla {
     }
 
     public static void setrNum(Random rNum) {
-        Hasla.rNum = rNum;
+        Password.rNum = rNum;
     }
 
     public static List<String> getSlowa() {
@@ -32,7 +32,7 @@ public class Hasla {
     }
 
     public static void setSlowa(List<String> slowa) {
-        Hasla.slowa = slowa;
+        Password.slowa = slowa;
     }
 
     static {
