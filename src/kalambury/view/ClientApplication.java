@@ -204,7 +204,7 @@ public class ClientApplication extends Application {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloHandler.zgadnieto(word, client, areaDraw, timeLineTask, tipArea);
+                        word = ZgadnietoHasloHandler.zgadnieto(new Integer((int)(100 * (1 - drawOption.getProgressBar().getProgress()))), word, client, areaDraw, timeLineTask, tipArea);
                     }
                     chatArea.getChatTextField().clear();
 

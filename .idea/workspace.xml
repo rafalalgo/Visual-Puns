@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CanvasImage.png" afterPath="$PROJECT_DIR$/CanvasImage.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Password.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/Password.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/rafalbyczek.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/rafalbyczek.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/database/Database.java" afterPath="$PROJECT_DIR$/src/kalambury/database/Database.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/database/Ranking.java" afterPath="$PROJECT_DIR$/src/kalambury/database/Ranking.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/database/clear.sql" afterPath="$PROJECT_DIR$/src/kalambury/database/clear.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/model/RankingArea.java" afterPath="$PROJECT_DIR$/src/kalambury/model/RankingArea.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" afterPath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -65,21 +56,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="211" column="52" selection-start-line="211" selection-start-column="52" selection-end-line="211" selection-end-column="52" />
+            <state relative-caret-position="92">
+              <caret line="206" column="62" selection-start-line="206" selection-start-column="62" selection-end-line="206" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZgadnietoHasloHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ZgadnietoHasloHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
+            <state relative-caret-position="180">
+              <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,8 +164,8 @@
         <option value="$PROJECT_DIR$/src/kalambury/model/RankingArea.java" />
         <option value="$PROJECT_DIR$/src/kalambury/database/Ranking.java" />
         <option value="$PROJECT_DIR$/src/kalambury/database/Database.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" />
       </list>
     </option>
   </component>
@@ -885,12 +876,12 @@
       <workItem from="1465673401687" duration="70000" />
       <workItem from="1465673490041" duration="10594000" />
       <workItem from="1465685467803" duration="9604000" />
-      <workItem from="1465720469642" duration="8128000" />
+      <workItem from="1465720469642" duration="8379000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124097000" />
+    <option name="totallyTimeSpent" value="124348000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1304,16 +1295,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/RankingArea.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -1330,9 +1311,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="211" column="52" selection-start-line="211" selection-start-column="52" selection-end-line="211" selection-end-column="52" />
+        <state relative-caret-position="92">
+          <caret line="206" column="62" selection-start-line="206" selection-start-column="62" selection-end-line="206" selection-end-column="62" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
