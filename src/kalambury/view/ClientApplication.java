@@ -11,10 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import kalambury.controller.DrawingController;
-import kalambury.controller.HelpMenuController;
-import kalambury.controller.MenuController;
-import kalambury.controller.OptionMenuController;
+import kalambury.controller.*;
 import kalambury.database.Database;
 import kalambury.model.*;
 
@@ -143,13 +140,11 @@ public class ClientApplication extends Application {
 
     public Scene makeChatUI(Client client) {
         try {
+            Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 0)");
             areaDraw = new AreaDraw();
             chatArea = new ChatArea(client);
             rankingArea = new RankingArea();
             tipArea = new TipArea(client, word);
-
-            Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 0)");
-
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
@@ -208,23 +203,17 @@ public class ClientApplication extends Application {
             chatArea.getChatTextField().setOnAction(event -> {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
-
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
-                        client.writeToServer(getClient().getName() + " + 10 punktów!");
-                        Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 10)");
-                        word = Password.getWord(word);
-                        client.writeToServer("Nowa runda! Start!");
-                        areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
-                        timeLineTask.getTask().playFromStart();
-                        tipArea.getTip().setText("Podpowiedź: " + word);
+                        word = ZgadnietoHasloHandler.zgadnieto(word, client, areaDraw, timeLineTask, tipArea);
                     }
-                    
                     chatArea.getChatTextField().clear();
+
+                    rootPane.getChildren().remove(rankingArea.getRankingTab());
+                    rankingArea = new RankingArea();
+                    rootPane.add(rankingArea.getRankingTab(), 0, 5);
                 }
             });
 
-            client.writeToServer("Nowa runda! Start!");
             tipArea.getTip().setText("Podpowiedź: " + word);
             timeLineTask.getTask().playFromStart();
 

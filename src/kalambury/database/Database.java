@@ -32,14 +32,14 @@ final public class Database {
         }
     }
 
-    private static <T, S> void insertColumn(final TableView<T> table, final Class<S> typeTag, final String name, final int minWidth) {
+    public static <T, S> void insertColumn(final TableView<T> table, final Class<S> typeTag, final String name, final int minWidth) {
         final TableColumn<T, S> firstNameCol = new TableColumn<>(name);
         firstNameCol.setMinWidth(minWidth);
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>(name));
         table.getColumns().add(firstNameCol);
     }
 
-    private ObservableList<Ranking> getRankingList() {
+    public ObservableList<Ranking> getRankingList() {
         final Collection<Ranking> data = new LinkedList<>();
 
         try(Statement statement = connection.createStatement();
@@ -96,6 +96,18 @@ final public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Integer getPoint(final String query) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next())
+                    return resultSet.getInt(1);
+            }
+        } catch (final SQLException e) {
+            throw new DatabaseException(e);
+        }
+        throw new IllegalArgumentException("Query did not returned results");
     }
 
     public String getWord(final String query) {
