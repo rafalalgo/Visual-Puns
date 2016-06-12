@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.regex.Pattern;
 
 /**
  * Created by rafalbyczek on 28.05.16.
@@ -61,13 +60,7 @@ public class ClientThread implements Runnable {
     }
 
     public void writeToServer(String input) {
-        if (input != null && input != "null" && input.length() >= 2) {
-            if (Pattern.matches(".*NOWEHASLO.*", input)) {
-                baseServer.setWord(input.substring(input.indexOf(' ') + 1));
-            } else {
-                outgoingMessageWriter.println(input);
-            }
-        }
+        outgoingMessageWriter.println(input);
     }
 
     public String getClientNameFromNetwork() throws IOException {

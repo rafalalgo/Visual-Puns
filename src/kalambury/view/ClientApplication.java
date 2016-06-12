@@ -17,7 +17,6 @@ import kalambury.controller.MenuController;
 import kalambury.controller.OptionMenuController;
 import kalambury.database.Database;
 import kalambury.model.*;
-import kalambury.server.Server;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -47,6 +46,7 @@ public class ClientApplication extends Application {
     private ArrayList<Thread> threads;
     private Client client;
     private ColorPicker colorPicker;
+    private String word;
 
     public static void main(String[] args) {
         launch();
@@ -58,12 +58,14 @@ public class ClientApplication extends Application {
 
     public void stop() throws Exception {
         client.writeToServer("Użytkownik zakonczył gre.");
+        Database.instance.deletePerson("DELETE FROM ranking WHERE nazwa = '" + getClient().getName() + "'");
         super.stop();
         threads.forEach(Thread::interrupt);
     }
 
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
         threads = new ArrayList<>();
         primaryStage.setTitle("Kalambury");
         primaryStage.setScene(makeInitScene(primaryStage));
@@ -144,7 +146,9 @@ public class ClientApplication extends Application {
             areaDraw = new AreaDraw();
             chatArea = new ChatArea(client);
             rankingArea = new RankingArea();
-            tipArea = new TipArea(client);
+            tipArea = new TipArea(client, word);
+
+            Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 0)");
 
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
@@ -205,24 +209,23 @@ public class ClientApplication extends Application {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
 
-                    if (Pattern.matches(".*" + Server.getWord() + ".*", chatArea.getChatTextField().getText())) {
+                    if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
                         Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 10)");
-                        rankingArea.update();
+                        word = Password.getWord(word);
                         client.writeToServer("Nowa runda! Start!");
-                        Server.word = Password.getWord();
                         areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
                         timeLineTask.getTask().playFromStart();
-                        tipArea.getTip().setText("Podpowiedź: " + Server.word);
+                        tipArea.getTip().setText("Podpowiedź: " + word);
                     }
-
+                    
                     chatArea.getChatTextField().clear();
                 }
             });
 
             client.writeToServer("Nowa runda! Start!");
-            tipArea.getTip().setText("Podpowiedź: " + Server.word);
+            tipArea.getTip().setText("Podpowiedź: " + word);
             timeLineTask.getTask().playFromStart();
 
             return scene;

@@ -3,6 +3,7 @@ package kalambury.server;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import kalambury.database.Database;
 import kalambury.model.ClientThread;
 import kalambury.model.Password;
 import kalambury.view.ServerApplication;
@@ -17,12 +18,6 @@ import java.util.ArrayList;
  */
 
 public class Server implements ServerInterface, Runnable {
-    public static String word = Password.getWord();
-
-    static {
-        word = getWord();
-    }
-
     public ObservableList<String> serverLog;
     public ObservableList<String> clientNames;
     private int portNumber;
@@ -31,22 +26,13 @@ public class Server implements ServerInterface, Runnable {
     private ArrayList<ClientThread> clientThreads;
 
     public Server(int portNumber) throws IOException {
+        Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES ('" + Password.initialize() + "')");
         this.portNumber = portNumber;
         serverLog = FXCollections.observableArrayList();
         clientNames = FXCollections.observableArrayList();
         clients = new ArrayList<>();
         clientThreads = new ArrayList<>();
         socket = new ServerSocket(portNumber);
-        word = "word";
-    }
-
-
-    public static String getWord() {
-        return Server.word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
     }
 
     public void run() {

@@ -23,7 +23,7 @@ final public class Database {
 
     public final Connection connection;
 
-    private Database() {
+    public Database() {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection("jdbc:postgresql://" + SERVER_ADRES + ':' + PORT + '/' + DB_NAME, USER_NAME, PASSWORD);
@@ -89,10 +89,31 @@ final public class Database {
         }
     }
 
-    public void deletePoint(final String query2, final String query) {
+    public void deletePerson(final String query) {
         try {
-            Statement stmts = connection.createStatement();
-            stmts.executeUpdate(query2);
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getWord(final String query) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next())
+                    return resultSet.getString(1);
+            }
+        } catch (final SQLException e) {
+            throw new DatabaseException(e);
+        }
+        throw new IllegalArgumentException("Query did not returned results");
+    }
+
+    public void changeWord(final String query) {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

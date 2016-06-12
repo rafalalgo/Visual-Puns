@@ -23,11 +23,6 @@ public class RankingArea {
         ranking = new Label("Aktualny Ranking");
     }
 
-    public void update() {
-        rankingTab = new TableView<>();
-        Database.instance.getRankingTable(rankingTab);
-    }
-
     public Label getRanking() {
         return ranking;
     }
