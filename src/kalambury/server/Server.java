@@ -66,7 +66,7 @@ public class Server implements ServerInterface, Runnable {
                 clientThreads.add(clientThreadHolderClass);
                 clientThread.setDaemon(true);
                 clientThread.start();
-                ServerApplication.threads.add(clientThread);
+                ServerApplication.getThreads().add(clientThread);
             }
         } catch (IOException e) {
             e.printStackTrace();

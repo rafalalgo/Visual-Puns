@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS ranking CASCADE;
+
+CREATE TABLE ranking(
+  id SERIAL NOT NULL PRIMARY KEY,
+  nazwa TEXT NOT NULL,
+  punkty INT NOT NULL
+);

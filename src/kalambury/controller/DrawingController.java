@@ -5,6 +5,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
+import kalambury.model.AreaDraw;
 
 /**
  * Created by rafalbyczek on 11.06.16.
@@ -15,9 +16,13 @@ public class DrawingController {
     ColorPicker colorPicker;
     private double currentOpacity = START_OPACITY;
     private double strokeWidth = 2;
+    private AreaDraw areaDraw;
+    private boolean canDraw;
 
-    public DrawingController(ColorPicker a) {
+    public DrawingController(ColorPicker a, AreaDraw b) {
         colorPicker = a;
+        areaDraw = b;
+        canDraw = true;
     }
 
     public void setStrokeWidth(double strokeWidth) {
@@ -41,6 +46,9 @@ public class DrawingController {
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
         currentOpacity = START_OPACITY;
         gc.closePath();
+        if(canDraw == true) {
+            areaDraw.safeToFile();
+        }
     }
 
     public void handleMouseDragged(GraphicsContext gc, MouseEvent e) {

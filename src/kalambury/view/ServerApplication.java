@@ -26,6 +26,10 @@ import java.util.ArrayList;
 public class ServerApplication extends Application {
     private static ArrayList<Thread> threads;
 
+    public static ArrayList<Thread> getThreads() {
+        return threads;
+    }
+
     public static void main(String[] args) {
         launch();
     }
@@ -50,6 +54,7 @@ public class ServerApplication extends Application {
         errorLabel.setTextFill(Color.RED);
         TextField portTextField = new TextField();
         portText.setFont(Font.font("Tahoma"));
+        portTextField.setText("40000");
 
         Button portApprovalButton = new Button("Gotowe");
         portApprovalButton.setOnAction(event -> {

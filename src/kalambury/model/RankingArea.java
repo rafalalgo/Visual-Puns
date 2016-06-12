@@ -1,43 +1,38 @@
 package kalambury.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
+import kalambury.database.Database;
+import kalambury.database.Ranking;
 
 /**
  * Created by rafalbyczek on 11.06.16.
  */
 public class RankingArea {
-    private ListView<Person> rankingTab;
-    private ObservableList<Person> RankingTab;
+    private TableView<Ranking> rankingTab = new TableView<>();
     private Label ranking;
 
     public RankingArea() {
-        RankingTab = FXCollections.observableArrayList();
-        rankingTab = new ListView<>();
-
+        Database.instance.getRankingTable(rankingTab);
         rankingTab.setPrefWidth(300);
         rankingTab.setMaxWidth(300);
         rankingTab.setMinWidth(300);
         rankingTab.setPrefHeight(200);
         rankingTab.setMaxHeight(200);
         rankingTab.setMinHeight(200);
-
-        rankingTab.setItems(RankingTab);
-
         ranking = new Label("Aktualny Ranking");
+    }
+
+    public void update() {
+        rankingTab = new TableView<>();
+        Database.instance.getRankingTable(rankingTab);
     }
 
     public Label getRanking() {
         return ranking;
     }
 
-    public ListView<Person> getRankingTab() {
+    public TableView<Ranking> getRankingTab() {
         return rankingTab;
-    }
-
-    public ObservableList<Person> getBRankingTab() {
-        return RankingTab;
     }
 }

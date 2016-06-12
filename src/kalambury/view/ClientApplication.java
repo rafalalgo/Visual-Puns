@@ -1,7 +1,6 @@
 package kalambury.view;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +15,7 @@ import kalambury.controller.DrawingController;
 import kalambury.controller.HelpMenuController;
 import kalambury.controller.MenuController;
 import kalambury.controller.OptionMenuController;
+import kalambury.database.Database;
 import kalambury.model.*;
 import kalambury.server.Server;
 
@@ -141,6 +141,11 @@ public class ClientApplication extends Application {
 
     public Scene makeChatUI(Client client) {
         try {
+            areaDraw = new AreaDraw();
+            chatArea = new ChatArea(client);
+            rankingArea = new RankingArea();
+            tipArea = new TipArea(client);
+
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
@@ -164,11 +169,6 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
-            areaDraw = new AreaDraw();
-            chatArea = new ChatArea(client);
-            rankingArea = new RankingArea();
-            tipArea = new TipArea(client);
-
             areaDraw.getCanvas().addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(areaDraw.getGraphicsContext2D(), e));
             areaDraw.getCanvas().addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(areaDraw.getGraphicsContext2D(), e));
             areaDraw.getCanvas().addEventHandler(MOUSE_RELEASED, e -> drawingController.handleMouseReleased(areaDraw.getGraphicsContext2D(), e));
@@ -177,7 +177,7 @@ public class ClientApplication extends Application {
             colorPicker.setMinHeight(40);
             colorPicker.setMinWidth(100);
 
-            drawingController = new DrawingController(colorPicker);
+            drawingController = new DrawingController(colorPicker, areaDraw);
 
             drawOption = new DrawOption(drawingController, areaDraw, colorPicker);
             drawOption.getControls().add(colorPicker, 0, 0);
@@ -208,22 +208,18 @@ public class ClientApplication extends Application {
                     if (Pattern.matches(".*" + Server.getWord() + ".*", chatArea.getChatTextField().getText())) {
                         client.writeToServer("Użytkownik " + getClient().getName() + " zgadł hasło!");
                         client.writeToServer(getClient().getName() + " + 10 punktów!");
+                        Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 10)");
+                        rankingArea.update();
                         client.writeToServer("Nowa runda! Start!");
                         Server.word = Password.getWord();
                         areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
-                        Point.addPoint(getClient().getName(), rankingArea.getBRankingTab(), 10);
-                        FXCollections.sort(rankingArea.getBRankingTab());
-
                         timeLineTask.getTask().playFromStart();
                         tipArea.getTip().setText("Podpowiedź: " + Server.word);
-                        rankingArea.getRankingTab().refresh();
                     }
 
                     chatArea.getChatTextField().clear();
                 }
             });
-
-            Point.addPoint(getClient().getName(), rankingArea.getBRankingTab(), 0);
 
             client.writeToServer("Nowa runda! Start!");
             tipArea.getTip().setText("Podpowiedź: " + Server.word);
