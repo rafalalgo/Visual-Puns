@@ -1,5 +1,6 @@
 package kalambury.controller;
 
+import javafx.scene.control.ColorPicker;
 import kalambury.database.Database;
 import kalambury.model.*;
 
@@ -7,7 +8,7 @@ import kalambury.model.*;
  * Created by rafalbyczek on 14.06.16.
  */
 public class MinalCzasHandler {
-    public static String niezgadnieto(Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea) {
+    public static String niezgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
         client.writeToServer("Użytkownik " + client.getName() + " rysował za długo!");
         client.writeToServer("Użytkownik " + client.getName() + " -50 punktów");
         client.writeToServer("Nikt nie zgadł hasła - " + word);
@@ -30,11 +31,15 @@ public class MinalCzasHandler {
 
         client.writeToServer("Teraz rysuje " + kto);
 
-        areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
-        timeLineTask.getTask().playFromStart();
-        tipArea.getTip().setText("Podpowiedź: " + word);
+        if(client.getName().equals(aktDraw)) {
+            areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+        }
+
         Database.instance.changeTime("DELETE FROM czas;");
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
+
+        timeLineTask.getTask().playFromStart();
+        tipArea.getTip().setText("Podpowiedź: " + word);
         return word;
     }
 }

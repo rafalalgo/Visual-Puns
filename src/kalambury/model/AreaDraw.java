@@ -29,7 +29,7 @@ public class AreaDraw {
     }
 
     public void safeToFile() {
-        WritableImage wim = new WritableImage((int)canvas.getWidth(), (int)canvas.getHeight());
+        WritableImage wim = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
         canvas.snapshot(null, wim);
         File file = new File("CanvasImage.png");
         try {

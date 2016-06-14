@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -15,6 +17,7 @@ import kalambury.controller.*;
 import kalambury.database.Database;
 import kalambury.model.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -44,7 +47,9 @@ public class ClientApplication extends Application {
     private Client client;
     private ColorPicker colorPicker;
     private String word;
-
+    private String aktDraw;
+    private Image image;
+    private ImageView imageView;
     public static void main(String[] args) {
         launch();
     }
@@ -148,10 +153,12 @@ public class ClientApplication extends Application {
                 Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + getClient().getName() + "', 0, 1)");
             }
 
-            areaDraw = new AreaDraw();
+            aktDraw = Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1");
+
             chatArea = new ChatArea(client);
             rankingArea = new RankingArea();
             tipArea = new TipArea(client, word);
+
             this.primaryStage.setTitle("Kalambury");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
@@ -175,6 +182,7 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
+            areaDraw = new AreaDraw();
             areaDraw.getCanvas().addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(areaDraw.getGraphicsContext2D(), e));
             areaDraw.getCanvas().addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(areaDraw.getGraphicsContext2D(), e));
             areaDraw.getCanvas().addEventHandler(MOUSE_RELEASED, e -> drawingController.handleMouseReleased(areaDraw.getGraphicsContext2D(), e));
@@ -186,6 +194,7 @@ public class ClientApplication extends Application {
             drawingController = new DrawingController(colorPicker, areaDraw, rootPane, rankingArea);
 
             drawOption = new DrawOption(drawingController, areaDraw, colorPicker);
+
             drawOption.getControls().add(colorPicker, 0, 0);
             drawOption.getControls().add(drawOption.getClear(), 1, 0);
             drawOption.getControls().add(drawOption.getSlider(), 2, 0);
@@ -195,7 +204,6 @@ public class ClientApplication extends Application {
             rootLayout.setTop(menuBar);
             rootLayout.setBottom(drawOption.getControls());
             rootLayout.setRight(rootPane);
-            rootLayout.setLeft(areaDraw.getCanvas());
 
             rootPane.add(tipArea.getAktDrawer(), 0, 0);
             rootPane.add(tipArea.getTip(), 0, 2);
@@ -205,13 +213,26 @@ public class ClientApplication extends Application {
             rootPane.add(chatArea.getChatListView(), 0, 7);
             rootPane.add(chatArea.getChatTextField(), 0, 8);
 
+            if(aktDraw.equals(client.getName())) {
+                rootLayout.setLeft(areaDraw.getCanvas());
+            } else {
+                String URL = "file:../CanvasImage.png";
+                image = new Image(new File(URL).toURI().toString());
+                imageView = new ImageView();
+                imageView.setImage(image);
+                imageView.toFront();
+                rootLayout.setLeft(imageView);
+            }
+
             timeLineTask = new TimeLineTask(drawOption);
 
             chatArea.getChatTextField().setOnAction(event -> {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloHandler.zgadnieto(new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))), word, client, areaDraw, timeLineTask, tipArea);
+                        word = ZgadnietoHasloHandler.zgadnieto(drawOption, colorPicker,
+                                new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))),
+                                word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                     }
                     chatArea.getChatTextField().clear();
                 }
@@ -233,37 +254,13 @@ public class ClientApplication extends Application {
             });
 
             scene.setOnMouseMoved(event -> {
-                rootPane.getChildren().remove(rankingArea.getRankingTab());
-                rankingArea = new RankingArea();
-                rootPane.add(rankingArea.getRankingTab(), 0, 5);
-                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
-                    timeLineTask.getTask().playFromStart();
-                }
-                word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
-                Database.instance.changeTime("DELETE FROM czas;");
-                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
-                tipArea.getTip().setText("Podpowiedź: " + word);
-                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
-                if (drawOption.getProgressBar().getProgress() == 1) {
-                    word = MinalCzasHandler.niezgadnieto(-50, word, client, areaDraw, timeLineTask, tipArea);
-                }
+                MoveMouseController.make_it(rootPane, rankingArea, word, tipArea, drawOption, colorPicker,
+                        client, areaDraw, timeLineTask, aktDraw);
             });
 
             scene.setOnKeyPressed(event -> {
-                rootPane.getChildren().remove(rankingArea.getRankingTab());
-                rankingArea = new RankingArea();
-                rootPane.add(rankingArea.getRankingTab(), 0, 5);
-                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
-                    timeLineTask.getTask().playFromStart();
-                }
-                word = Database.instance.getWord("SELECT slowo FROM slowo;");
-                Database.instance.changeTime("DELETE FROM czas;");
-                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
-                tipArea.getTip().setText("Podpowiedź: " + word);
-                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
-                if (drawOption.getProgressBar().getProgress() == 1) {
-                    word = MinalCzasHandler.niezgadnieto(-50, word, client, areaDraw, timeLineTask, tipArea);
-                }
+                KeyPressedController.make_it(rootPane, rankingArea, word, timeLineTask, tipArea,
+                        drawOption, colorPicker, client, areaDraw,aktDraw);
             });
 
             tipArea.getTip().setText("Podpowiedź: " + word);

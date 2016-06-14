@@ -1,5 +1,6 @@
 package kalambury.controller;
 
+import javafx.scene.control.ColorPicker;
 import kalambury.database.Database;
 import kalambury.model.*;
 
@@ -7,7 +8,7 @@ import kalambury.model.*;
  * Created by rafalbyczek on 12.06.16.
  */
 public class ZgadnietoHasloHandler {
-    public static String zgadnieto(Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea) {
+    public static String zgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
         client.writeToServer("Użytkownik " + client.getName() + " zgadł hasło!");
         client.writeToServer(client.getName() + " + " + ADD.toString() + "!");
         Integer punkty = new Integer(Database.instance.getPoint("SELECT punkty FROM ranking WHERE nazwa = '" + client.getName() + "';"));
@@ -29,7 +30,14 @@ public class ZgadnietoHasloHandler {
 
         client.writeToServer("Teraz rysuje " + kto);
 
-        areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+
+        if(client.getName().equals(aktDraw)) {
+            areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+        }
+
+        Database.instance.changeTime("DELETE FROM czas;");
+        Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
+
         timeLineTask.getTask().playFromStart();
         tipArea.getTip().setText("Podpowiedź: " + word);
         return word;
