@@ -56,6 +56,7 @@ public class ClientApplication extends Application {
     public void stop() throws Exception {
         client.writeToServer("Użytkownik zakonczył gre.");
         Database.instance.deletePerson("DELETE FROM ranking WHERE nazwa = '" + getClient().getName() + "'");
+        Database.instance.deletePerson("DELETE FROM gracze  WHERE name = '" + getClient().getName() + "'");
         super.stop();
         threads.forEach(Thread::interrupt);
     }
@@ -141,6 +142,12 @@ public class ClientApplication extends Application {
     public Scene makeChatUI(Client client) {
         try {
             Database.instance.addPoint("INSERT INTO ranking(nazwa, punkty) VALUES('" + getClient().getName() + "', 0)");
+            if (Database.instance.exist("SELECT * FROM gracze WHERE rysuje = 1")) {
+                Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + getClient().getName() + "', 0, 0)");
+            } else {
+                Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + getClient().getName() + "', 0, 1)");
+            }
+
             areaDraw = new AreaDraw();
             chatArea = new ChatArea(client);
             rankingArea = new RankingArea();
@@ -176,7 +183,7 @@ public class ClientApplication extends Application {
             colorPicker.setMinHeight(40);
             colorPicker.setMinWidth(100);
 
-            drawingController = new DrawingController(colorPicker, areaDraw);
+            drawingController = new DrawingController(colorPicker, areaDraw, rootPane, rankingArea);
 
             drawOption = new DrawOption(drawingController, areaDraw, colorPicker);
             drawOption.getControls().add(colorPicker, 0, 0);
@@ -204,17 +211,63 @@ public class ClientApplication extends Application {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloHandler.zgadnieto(new Integer((int)(100 * (1 - drawOption.getProgressBar().getProgress()))), word, client, areaDraw, timeLineTask, tipArea);
+                        word = ZgadnietoHasloHandler.zgadnieto(new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))), word, client, areaDraw, timeLineTask, tipArea);
                     }
                     chatArea.getChatTextField().clear();
+                }
+            });
 
-                    rootPane.getChildren().remove(rankingArea.getRankingTab());
-                    rankingArea = new RankingArea();
-                    rootPane.add(rankingArea.getRankingTab(), 0, 5);
+            primaryStage.setOnShowing(event -> {
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+            });
+
+            primaryStage.setOnHidden(event -> {
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+            });
+
+            primaryStage.setOnHiding(event -> {
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+            });
+
+            scene.setOnMouseMoved(event -> {
+                rootPane.getChildren().remove(rankingArea.getRankingTab());
+                rankingArea = new RankingArea();
+                rootPane.add(rankingArea.getRankingTab(), 0, 5);
+                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
+                    timeLineTask.getTask().playFromStart();
+                }
+                word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                tipArea.getTip().setText("Podpowiedź: " + word);
+                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
+                if (drawOption.getProgressBar().getProgress() == 1) {
+                    word = MinalCzasHandler.niezgadnieto(-50, word, client, areaDraw, timeLineTask, tipArea);
+                }
+            });
+
+            scene.setOnKeyPressed(event -> {
+                rootPane.getChildren().remove(rankingArea.getRankingTab());
+                rankingArea = new RankingArea();
+                rootPane.add(rankingArea.getRankingTab(), 0, 5);
+                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
+                    timeLineTask.getTask().playFromStart();
+                }
+                word = Database.instance.getWord("SELECT slowo FROM slowo;");
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                tipArea.getTip().setText("Podpowiedź: " + word);
+                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
+                if (drawOption.getProgressBar().getProgress() == 1) {
+                    word = MinalCzasHandler.niezgadnieto(-50, word, client, areaDraw, timeLineTask, tipArea);
                 }
             });
 
             tipArea.getTip().setText("Podpowiedź: " + word);
+            tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
             timeLineTask.getTask().playFromStart();
 
             return scene;

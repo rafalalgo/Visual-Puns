@@ -40,7 +40,7 @@ public class Client implements Runnable, ClientInterface {
     public void writeToServer(String input) {
         if (input != null && input != "null" && input.length() >= 2) {
 
-            if (Pattern.matches(".*zgadł hasło.*", input) || Pattern.matches(".*punktów.*", input) || Pattern.matches(".*Nowa runda.*", input)) {
+            if (Pattern.matches(".*Teraz rysuje.*", input) || Pattern.matches(".*zgadł hasło.*", input) || Pattern.matches(".*punktów.*", input) || Pattern.matches(".*Nowa runda.*", input)) {
                 clientToServerWriter.println(input);
             } else {
                 clientToServerWriter.println(name + " : " + input);

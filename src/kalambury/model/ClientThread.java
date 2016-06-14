@@ -35,10 +35,6 @@ public class ClientThread implements Runnable {
         }
     }
 
-    public Server getBaseServer() {
-        return baseServer;
-    }
-
     public void run() {
         try {
             this.clientName = getClientNameFromNetwork();

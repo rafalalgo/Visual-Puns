@@ -27,6 +27,8 @@ public class Server implements ServerInterface, Runnable {
 
     public Server(int portNumber) throws IOException {
         Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES ('" + Password.initialize() + "')");
+        Database.instance.changeTime("DELETE FROM czas;");
+        Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
         this.portNumber = portNumber;
         serverLog = FXCollections.observableArrayList();
         clientNames = FXCollections.observableArrayList();

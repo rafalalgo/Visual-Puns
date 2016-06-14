@@ -4,12 +4,13 @@ import kalambury.database.Database;
 import kalambury.model.*;
 
 /**
- * Created by rafalbyczek on 12.06.16.
+ * Created by rafalbyczek on 14.06.16.
  */
-public class ZgadnietoHasloHandler {
-    public static String zgadnieto(Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea) {
-        client.writeToServer("Użytkownik " + client.getName() + " zgadł hasło!");
-        client.writeToServer(client.getName() + " + " + ADD.toString() + "!");
+public class MinalCzasHandler {
+    public static String niezgadnieto(Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea) {
+        client.writeToServer("Użytkownik " + client.getName() + " rysował za długo!");
+        client.writeToServer("Użytkownik " + client.getName() + " -50 punktów");
+        client.writeToServer("Nikt nie zgadł hasła - " + word);
         Integer punkty = new Integer(Database.instance.getPoint("SELECT punkty FROM ranking WHERE nazwa = '" + client.getName() + "';"));
         punkty += ADD;
         Database.instance.deletePerson("DELETE FROM ranking WHERE nazwa = '" + client.getName() + "';");
@@ -32,6 +33,8 @@ public class ZgadnietoHasloHandler {
         areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
         timeLineTask.getTask().playFromStart();
         tipArea.getTip().setText("Podpowiedź: " + word);
+        Database.instance.changeTime("DELETE FROM czas;");
+        Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
         return word;
     }
 }

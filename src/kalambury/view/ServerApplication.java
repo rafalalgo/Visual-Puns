@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import kalambury.database.Database;
 import kalambury.server.Server;
 
 import java.io.IOException;
@@ -36,6 +37,51 @@ public class ServerApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Database.instance.deletePerson("DROP TABLE IF EXISTS ranking CASCADE;" +
+                "DROP TABLE IF EXISTS slowo CASCADE;" +
+                "DROP TABLE IF EXISTS czas CASCADE;" +
+                "DROP TABLE IF EXISTS obraz CASCADE;" +
+                "DROP TABLE IF EXISTS gracze CASCADE;");
+        Database.instance.deletePerson("DROP TABLE IF EXISTS ranking CASCADE;\n" +
+                "DROP TABLE IF EXISTS slowo CASCADE;\n" +
+                "DROP TABLE IF EXISTS czas CASCADE;\n" +
+                "DROP TABLE IF EXISTS gracze CASCADE;\n" +
+                "DROP TABLE IF EXISTS obraz CASCADE;\n" +
+                "\n" +
+                "CREATE TABLE ranking (\n" +
+                "  id     SERIAL NOT NULL PRIMARY KEY,\n" +
+                "  nazwa  TEXT   NOT NULL,\n" +
+                "  punkty INT    NOT NULL\n" +
+                ");\n" +
+                "\n" +
+                "CREATE TABLE slowo (\n" +
+                "  slowo TEXT\n" +
+                ");\n" +
+                "\n" +
+                "CREATE TABLE czas (\n" +
+                "  czas DOUBLE PRECISION\n" +
+                ");\n" +
+                "\n" +
+                "CREATE TABLE obraz (\n" +
+                "  x1 DOUBLE PRECISION,\n" +
+                "  y1 DOUBLE PRECISION,\n" +
+                "  x2 DOUBLE PRECISION,\n" +
+                "  y2 DOUBLE PRECISION,\n" +
+                "  START_OPACITY DOUBLE PRECISION,\n" +
+                "  OPACITY_MODIFIER DOUBLE PRECISION,\n" +
+                "  currentOpacity DOUBLE PRECISION,\n" +
+                "  strokeWidth DOUBLE PRECISION,\n" +
+                "  r int,\n" +
+                "  g int,\n" +
+                "  b int\n" +
+                ");\n" +
+                "\n" +
+                "CREATE TABLE gracze (\n" +
+                "  name TEXT,\n" +
+                "  ile_razy INT,\n" +
+                "  rysuje INT\n" +
+                ");\n");
+
         threads = new ArrayList<>();
         primaryStage.setTitle("Kalambury Serwer");
         primaryStage.setScene(makePortUI(primaryStage));

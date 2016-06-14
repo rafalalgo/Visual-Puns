@@ -122,7 +122,29 @@ final public class Database {
         throw new IllegalArgumentException("Query did not returned results");
     }
 
+    public boolean exist(final String query) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next())
+                    return true;
+                else
+                    return false;
+            }
+        } catch (final SQLException e) {
+            throw new DatabaseException(e);
+        }
+    }
+
     public void changeWord(final String query) {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeTime(final String query) {
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
