@@ -41,12 +41,14 @@ public class ServerApplication extends Application {
                 "DROP TABLE IF EXISTS slowo CASCADE;" +
                 "DROP TABLE IF EXISTS czas CASCADE;" +
                 "DROP TABLE IF EXISTS obraz CASCADE;" +
+                "DROP TABLE IF EXISTS tip CASCADE;" +
                 "DROP TABLE IF EXISTS gracze CASCADE;");
         Database.instance.deletePerson("DROP TABLE IF EXISTS ranking CASCADE;\n" +
                 "DROP TABLE IF EXISTS slowo CASCADE;\n" +
                 "DROP TABLE IF EXISTS czas CASCADE;\n" +
                 "DROP TABLE IF EXISTS gracze CASCADE;\n" +
                 "DROP TABLE IF EXISTS obraz CASCADE;\n" +
+                "DROP TABLE IF EXISTS tip CASCADE;" +
                 "\n" +
                 "CREATE TABLE ranking (\n" +
                 "  id     SERIAL NOT NULL PRIMARY KEY,\n" +
@@ -80,7 +82,11 @@ public class ServerApplication extends Application {
                 "  name TEXT,\n" +
                 "  ile_razy INT,\n" +
                 "  rysuje INT\n" +
-                ");\n");
+                ");\n" +
+                "CREATE TABLE tip (\n" +
+                "  ktora INT\n" +
+                ");\n"
+        );
 
         threads = new ArrayList<>();
         primaryStage.setTitle("Kalambury Serwer");

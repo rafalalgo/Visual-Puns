@@ -37,6 +37,8 @@ public class ZgadnietoHasloController {
 
         Database.instance.changeTime("DELETE FROM czas;");
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
+        Database.instance.addPoint("DELETE FROM tip;");
+        Database.instance.addPoint("INSERT INTO tip(ktora) VALUES(1);");
 
         timeLineTask.getTask().playFromStart();
         tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));

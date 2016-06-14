@@ -19,7 +19,7 @@ public class TimeLineTask {
                         new KeyValue(drawOption.getProgressBar().progressProperty(), ((double)Database.instance.getPoint("SELECT * FROM czas") / (double)1000))
                 ),
                 new KeyFrame(
-                        Duration.seconds(30 * (1 - ((double)Database.instance.getPoint("SELECT * FROM czas") / (double)1000))),
+                        Duration.seconds(60 * (1 - ((double)Database.instance.getPoint("SELECT * FROM czas") / (double)1000))),
                         new KeyValue(drawOption.getProgressBar().progressProperty(), 1)
                 )
         );

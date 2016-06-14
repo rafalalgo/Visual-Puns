@@ -29,6 +29,7 @@ public class Server implements ServerInterface, Runnable {
         Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES ('" + Password.getWord("x") + "')");
         Database.instance.changeTime("DELETE FROM czas;");
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
+        Database.instance.addPoint("INSERT INTO tip(ktora) VALUES(1);");
         this.portNumber = portNumber;
         serverLog = FXCollections.observableArrayList();
         clientNames = FXCollections.observableArrayList();
