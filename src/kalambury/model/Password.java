@@ -1,24 +1,22 @@
 package kalambury.model;
 
-import kalambury.database.Database;
-
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Michal Stobierski on 2016-06-08.
  */
 
 public class Password {
-    private static Random rNum = new Random();
-    private static List<String> slowa = new ArrayList<>();
+
+
+    public static Random rNum = new Random();
+    public static List<String> slowa = new ArrayList<>();
+    public static Map<String, MyPair> slownik = new HashMap<>();
 
     static {
 
@@ -27,26 +25,33 @@ public class Password {
         try (BufferedReader reader = Files.newBufferedReader(file, charset)) {
 
             String line = reader.readLine();
-
             int n = Integer.parseInt(line);
 
             while (n-- > 0) {
                 line = reader.readLine();
-                slowa.add(line);
+
+                String[] data = line.split("[|]");
+                List<String> tmpList = new ArrayList<>();
+                int tmpIt = 0;
+                for (String S : data) {
+                    if (tmpIt++ == 0) continue;
+                    tmpList.add(S);
+                }
+                MyPair noweHaslo = new MyPair(tmpList);
+                slownik.put(data[0], noweHaslo);
             }
 
         } catch (final IOException x) {
             System.err.format("Nie znaleziono pliku z danymi - IOException: %s%n", x);
         }
+
     }
 
     public static String getWord(String word) {
-        Database.instance.changeWord("DELETE FROM slowo WHERE slowo.slowo = '" + word + "'");
-        Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES('" + slowa.get(rNum.nextInt(slowa.size())) + "')");
-        return Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
+        return slowa.get(rNum.nextInt(slowa.size()));
     }
 
-    public static String initialize() {
-        return slowa.get(rNum.nextInt(slowa.size()));
+    public static String getHint(String haslo) {
+        return slownik.get(haslo).get();
     }
 }

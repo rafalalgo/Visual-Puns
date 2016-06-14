@@ -5,13 +5,12 @@ import kalambury.database.Database;
 import kalambury.model.*;
 
 /**
- * Created by rafalbyczek on 14.06.16.
+ * Created by rafalbyczek on 12.06.16.
  */
-public class MinalCzasHandler {
-    public static String niezgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
-        client.writeToServer("Użytkownik " + client.getName() + " rysował za długo!");
-        client.writeToServer("Użytkownik " + client.getName() + " -50 punktów");
-        client.writeToServer("Nikt nie zgadł hasła - " + word);
+public class ZgadnietoHasloController {
+    public static String zgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
+        client.writeToServer("Użytkownik " + client.getName() + " zgadł hasło!");
+        client.writeToServer(client.getName() + " + " + ADD.toString() + "!");
         Integer punkty = new Integer(Database.instance.getPoint("SELECT punkty FROM ranking WHERE nazwa = '" + client.getName() + "';"));
         punkty += ADD;
         Database.instance.deletePerson("DELETE FROM ranking WHERE nazwa = '" + client.getName() + "';");
@@ -30,6 +29,7 @@ public class MinalCzasHandler {
         Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + kto + "', " + ile.toString() + ", 1)");
 
         client.writeToServer("Teraz rysuje " + kto);
+
 
         if(client.getName().equals(aktDraw)) {
             areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());

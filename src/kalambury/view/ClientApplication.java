@@ -17,7 +17,6 @@ import kalambury.controller.*;
 import kalambury.database.Database;
 import kalambury.model.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -151,6 +150,8 @@ public class ClientApplication extends Application {
                 Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + getClient().getName() + "', 0, 0)");
             } else {
                 Database.instance.addPoint("INSERT INTO gracze(name, ile_razy, rysuje) VALUES('" + getClient().getName() + "', 0, 1)");
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
             }
 
             aktDraw = Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1");
@@ -204,6 +205,7 @@ public class ClientApplication extends Application {
             rootLayout.setTop(menuBar);
             rootLayout.setBottom(drawOption.getControls());
             rootLayout.setRight(rootPane);
+            rootLayout.setLeft(areaDraw.getCanvas());
 
             rootPane.add(tipArea.getAktDrawer(), 0, 0);
             rootPane.add(tipArea.getTip(), 0, 2);
@@ -213,16 +215,7 @@ public class ClientApplication extends Application {
             rootPane.add(chatArea.getChatListView(), 0, 7);
             rootPane.add(chatArea.getChatTextField(), 0, 8);
 
-            if(aktDraw.equals(client.getName())) {
-                rootLayout.setLeft(areaDraw.getCanvas());
-            } else {
-                String URL = "file:../CanvasImage.png";
-                image = new Image(new File(URL).toURI().toString());
-                imageView = new ImageView();
-                imageView.setImage(image);
-                imageView.toFront();
-                rootLayout.setLeft(imageView);
-            }
+            ChangeVisibleController.make_it(aktDraw, client, areaDraw, imageView);
 
             timeLineTask = new TimeLineTask(drawOption);
 
@@ -230,40 +223,65 @@ public class ClientApplication extends Application {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloHandler.zgadnieto(drawOption, colorPicker,
+                        word = ZgadnietoHasloController.zgadnieto(drawOption, colorPicker,
                                 new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))),
                                 word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                     }
                     chatArea.getChatTextField().clear();
                 }
+
+                ChangeVisibleController.make_it(aktDraw, client, areaDraw, imageView);
             });
 
             primaryStage.setOnShowing(event -> {
-                Database.instance.changeTime("DELETE FROM czas;");
-                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
             });
 
             primaryStage.setOnHidden(event -> {
-                Database.instance.changeTime("DELETE FROM czas;");
-                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
             });
 
             primaryStage.setOnHiding(event -> {
-                Database.instance.changeTime("DELETE FROM czas;");
-                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
             });
 
             scene.setOnMouseMoved(event -> {
-                MoveMouseController.make_it(rootPane, rankingArea, word, tipArea, drawOption, colorPicker,
-                        client, areaDraw, timeLineTask, aktDraw);
+                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
+                rootPane.getChildren().remove(rankingArea.getRankingTab());
+                rankingArea = new RankingArea();
+                rootPane.add(rankingArea.getRankingTab(), 0, 5);
+                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
+                    timeLineTask.getTask().playFromStart();
+                }
+                word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
+                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
+                if (drawOption.getProgressBar().getProgress() == 1) {
+                    word = MinalCzasController.niezgadnieto(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
+                }
             });
 
             scene.setOnKeyPressed(event -> {
-                KeyPressedController.make_it(rootPane, rankingArea, word, timeLineTask, tipArea,
-                        drawOption, colorPicker, client, areaDraw,aktDraw);
+                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
+                rootPane.getChildren().remove(rankingArea.getRankingTab());
+                rankingArea = new RankingArea();
+                rootPane.add(rankingArea.getRankingTab(), 0, 5);
+                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
+                    timeLineTask.getTask().playFromStart();
+                }
+                word = Database.instance.getWord("SELECT slowo FROM slowo;");
+                Database.instance.changeTime("DELETE FROM czas;");
+                Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
+                tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
+                tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
+                if (drawOption.getProgressBar().getProgress() == 1) {
+                    word = MinalCzasController.niezgadnieto(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
+                }
             });
 
-            tipArea.getTip().setText("Podpowiedź: " + word);
+            tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
             tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
             timeLineTask.getTask().playFromStart();
 

@@ -26,7 +26,7 @@ public class Server implements ServerInterface, Runnable {
     private ArrayList<ClientThread> clientThreads;
 
     public Server(int portNumber) throws IOException {
-        Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES ('" + Password.initialize() + "')");
+        Database.instance.changeWord("INSERT INTO slowo(slowo) VALUES ('" + Password.getWord("x") + "')");
         Database.instance.changeTime("DELETE FROM czas;");
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
         this.portNumber = portNumber;

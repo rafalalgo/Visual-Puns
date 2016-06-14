@@ -55,7 +55,7 @@ public class DrawingController {
     public void handleMouseReleased(GraphicsContext gc, MouseEvent e) {
         currentOpacity = START_OPACITY;
         gc.closePath();
-        if(canDraw == true) {
+        if (canDraw == true) {
             areaDraw.safeToFile();
         }
     }
