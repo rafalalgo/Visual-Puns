@@ -39,7 +39,7 @@ public class ZgadnietoHasloController {
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");
 
         timeLineTask.getTask().playFromStart();
-        tipArea.getTip().setText("Podpowiedź: " + word);
+        tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
         return word;
     }
 }
