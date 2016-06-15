@@ -165,7 +165,7 @@ public class ClientApplication extends Application {
             rankingArea = new RankingArea();
             tipArea = new TipArea(word);
 
-            this.primaryStage.setTitle("Kalambury");
+            this.primaryStage.setTitle("Kalambury - " + client.getName());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(ClientApplication.class.getResource("../fxml/RootLayout.fxml"));
             rootLayout = loader.load();

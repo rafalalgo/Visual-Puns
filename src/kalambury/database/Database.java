@@ -6,24 +6,57 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Properties;
 
 /**
  * Created by Rafał Byczek on 12.06.16.
  */
 final public class Database {
     public static final Database instance = new Database();
-    private static final String SERVER_ADRES = "localhost";
-    private static final String PORT = "5432";
-    private static final String DB_NAME = "projektPO";
-    private static final String USER_NAME = "rafalbyczek";
-    private static final String PASSWORD = "Rafciob.960";
+    private String SERVER_ADRES;
+    private String PORT;
+    private String DB_NAME;
+    private String USER_NAME;
+    private String PASSWORD;
+
+    public void loadParams()  {
+        Properties props = new Properties();
+        InputStream is = null;
+
+        try {
+            File f = new File("config.properties");
+            is = new FileInputStream(f);
+        } catch (Exception e) {
+            is = null;
+        }
+
+        try {
+            if(is == null) {
+                is = getClass().getResourceAsStream("config.properties");
+            }
+
+            props.load(is);
+        } catch (Exception e) {
+
+        }
+
+        SERVER_ADRES = props.getProperty("SERVER_ADRES");
+        PORT = props.getProperty("PORT");
+        DB_NAME = props.getProperty("DB_NAME");
+        USER_NAME = props.getProperty("USER_NAME");
+        PASSWORD = props.getProperty("PASSWORD");
+    }
 
     public final Connection connection;
 
     public Database() {
+        loadParams();
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection("jdbc:postgresql://" + SERVER_ADRES + ':' + PORT + '/' + DB_NAME, USER_NAME, PASSWORD);
