@@ -10,7 +10,7 @@ import javafx.scene.control.MenuItem;
  * Created by rafalbyczek on 11.06.16.
  */
 public class HelpMenuController {
-    public static void makeHelpMenu(EventHandler<ActionEvent> MEHandler, MenuBar mb) {
+    public static void make_it(EventHandler<ActionEvent> MEHandler, MenuBar mb) {
         Menu pomocMenu = new Menu("Pomoc");
         MenuItem instrukcja = new MenuItem("Instrukcja");
         MenuItem autorzy = new MenuItem("Autorzy");

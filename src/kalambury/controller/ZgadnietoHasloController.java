@@ -8,7 +8,7 @@ import kalambury.model.*;
  * Created by rafalbyczek on 12.06.16.
  */
 public class ZgadnietoHasloController {
-    public static String zgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
+    public static String make_it(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
         client.writeToServer("Użytkownik " + client.getName() + " zgadł hasło!");
         client.writeToServer(client.getName() + " + " + ADD.toString() + "!");
         Integer punkty = new Integer(Database.instance.getPoint("SELECT punkty FROM ranking WHERE nazwa = '" + client.getName() + "';"));

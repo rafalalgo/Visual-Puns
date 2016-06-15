@@ -8,9 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kalambury.controller.*;
@@ -168,8 +166,8 @@ public class ClientApplication extends Application {
             scene = new Scene(rootLayout);
             menuBar = new MenuBar();
 
-            OptionMenuController.makeOptionMenu(MenuController.menu(), menuBar);
-            HelpMenuController.makeHelpMenu(MenuController.menu(), menuBar);
+            OptionMenuController.make_it(MenuController.menu(), menuBar);
+            HelpMenuController.make_it(MenuController.menu(), menuBar);
 
             primaryStage.setScene(scene);
             primaryStage.setX(0);
@@ -223,7 +221,7 @@ public class ClientApplication extends Application {
                 if (chatArea.getChatTextField().getText().length() >= 2) {
                     client.writeToServer(chatArea.getChatTextField().getText());
                     if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloController.zgadnieto(drawOption, colorPicker,
+                        word = ZgadnietoHasloController.make_it(drawOption, colorPicker,
                                 new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))),
                                 word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                     }
@@ -258,7 +256,7 @@ public class ClientApplication extends Application {
                 Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
                 tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
                 if (drawOption.getProgressBar().getProgress() == 1) {
-                    word = MinalCzasController.niezgadnieto(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
+                    word = MinalCzasController.make_it(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                 }
 
                 if(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1").equals(client.getName())) {
@@ -280,6 +278,19 @@ public class ClientApplication extends Application {
                 ChangeVisibleController.make_it(
                         Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"),
                         client, areaDraw, imageView);
+
+                if(rootLayout.getLeft().isVisible() == false) {
+                    FlowPane rootNode = new FlowPane();
+                    Scene scene = new Scene(rootNode, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+                    primaryStage.setScene(scene);
+                    Image image = new Image("file:../CanvasImage.png");
+                    ImageView imageView = new ImageView(image);
+                    imageView.setScaleY(0.5);
+                    imageView.setScaleX(0.5);
+                    imageView.setVisible(true);
+                    rootNode.getChildren().add(imageView);
+                    primaryStage.show();
+                }
             });
 
             scene.setOnKeyPressed(event -> {
@@ -295,7 +306,7 @@ public class ClientApplication extends Application {
                 Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
                 tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
                 if (drawOption.getProgressBar().getProgress() == 1) {
-                    word = MinalCzasController.niezgadnieto(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
+                    word = MinalCzasController.make_it(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                 }
                 if(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1").equals(client.getName())) {
                     tipArea.getTip().setText("Masz narysować: " + word + " - powodzenia!");

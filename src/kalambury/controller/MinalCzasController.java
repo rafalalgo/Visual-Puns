@@ -8,7 +8,7 @@ import kalambury.model.*;
  * Created by rafalbyczek on 14.06.16.
  */
 public class MinalCzasController {
-    public static String niezgadnieto(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
+    public static String make_it(DrawOption drawOption, ColorPicker colorPicker, Integer ADD, String word, Client client, AreaDraw areaDraw, TimeLineTask timeLineTask, TipArea tipArea, String aktDraw) {
         client.writeToServer("Użytkownik " + client.getName() + " rysował za długo!");
         client.writeToServer("Użytkownik " + client.getName() + " -50 punktów");
         client.writeToServer("Nikt nie zgadł hasła - " + word);

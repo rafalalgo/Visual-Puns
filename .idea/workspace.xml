@@ -2,17 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/kalambury/controller/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CanvasImage.png" afterPath="$PROJECT_DIR$/CanvasImage.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/TipArea.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/TipArea.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewHandler.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/AuthorsViewHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/HelpMenuController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/HelpMenuController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/MinalCzasController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/MinalCzasController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/OptionMenuController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/OptionMenuController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/ZgadnietoHasloController.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/controller/ZgadnietoHasloController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/AreaDraw.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/model/AreaDraw.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" afterPath="$PROJECT_DIR$/out/production/Projekt/kalambury/view/ClientApplication.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java" afterPath="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/model/TimeLineTask.java" afterPath="$PROJECT_DIR$/src/kalambury/model/TimeLineTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/model/TipArea.java" afterPath="$PROJECT_DIR$/src/kalambury/model/TipArea.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/model/slownik.txt" afterPath="$PROJECT_DIR$/src/kalambury/model/slownik.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/server/Server.java" afterPath="$PROJECT_DIR$/src/kalambury/server/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" afterPath="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kalambury/view/ServerApplication.java" afterPath="$PROJECT_DIR$/src/kalambury/view/ServerApplication.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,95 +49,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChangeVisibleController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ChangeVisibleController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ClientApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="321" column="72" selection-start-line="321" selection-start-column="72" selection-end-line="321" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ZgadnietoHasloController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="40" column="68" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimeLineTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/model/TimeLineTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="31" column="67" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TipArea.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/model/TipArea.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Password.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/model/Password.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-108">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyPair.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/model/MyPair.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kalambury/view/ServerApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="87" column="22" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
+            <state relative-caret-position="90">
+              <caret line="289" column="47" selection-start-line="289" selection-start-column="47" selection-end-line="289" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -141,8 +64,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -157,17 +80,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/kalambury/controller/EndController.java" />
         <option value="$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java" />
         <option value="$PROJECT_DIR$/src/kalambury/server/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/kalambury/server/Client.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/Client.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/MouseController.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/InfoViewHandler.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/HelpMenuHandler.java" />
         <option value="$PROJECT_DIR$/src/kalambury/fxml/InfoView.fxml" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java" />
@@ -181,14 +100,10 @@
         <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHaslo.java" />
         <option value="$PROJECT_DIR$/src/kalambury/database/Ranking.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/RankingArea.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/database/Database.java" />
         <option value="$PROJECT_DIR$/src/kalambury/database/clear.sql" />
         <option value="$PROJECT_DIR$/src/kalambury/database/create.sql" />
         <option value="$PROJECT_DIR$/src/kalambury/model/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Client.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/Controller.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/model/AreaDraw.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloHandler.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/MinalCzasHandler.java" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/DrawingController.java" />
@@ -197,16 +112,24 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/19ca067f-d686-4bb9-b368-b01545601bf6/console.sql" />
         <option value="$PROJECT_DIR$/src/kalambury/fxml/AuthorsView.fxml" />
         <option value="$PROJECT_DIR$/src/kalambury/controller/HideShowWindowController.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/ChangeVisibleController.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/MyPair.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/Password.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/TipArea.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/ServerApplication.java" />
         <option value="$PROJECT_DIR$/src/kalambury/server/Server.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java" />
-        <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java" />
         <option value="$PROJECT_DIR$/src/kalambury/model/slownik.txt" />
         <option value="$PROJECT_DIR$/src/kalambury/model/TimeLineTask.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/controller/ChangeVisibleController.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/database/DatabaseInterface.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/database/Database.java" />
+        <option value="$PROJECT_DIR$/src/kalambury/model/AreaDraw.java" />
         <option value="$PROJECT_DIR$/src/kalambury/view/ClientApplication.java" />
       </list>
     </option>
@@ -285,6 +208,32 @@
               <option name="myItemId" value="kalambury" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kalambury" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -305,6 +254,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kalambury" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fxml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Projekt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kalambury" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -348,21 +341,23 @@
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/instrukcja" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="kalambury.database" />
+      <recent name="kalambury.controller" />
       <recent name="kalambury.model" />
       <recent name="kalambury.server" />
       <recent name="kalambury.view" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/kalambury/fxml" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="kalambury.controller" />
       <recent name="kalambury.model" />
       <recent name="kalambury.event" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/kalambury/fxml" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/instrukcja" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Game">
@@ -856,12 +851,12 @@
       <workItem from="1465919372471" duration="4720000" />
       <workItem from="1465934297407" duration="19000" />
       <workItem from="1465934675657" duration="7147000" />
-      <workItem from="1465942719874" duration="4162000" />
+      <workItem from="1465942719874" duration="7582000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161978000" />
+    <option name="totallyTimeSpent" value="165398000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -964,7 +959,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/kalambury/server/ClientThreadInterface.java" />
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="502">
@@ -1009,24 +1003,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/Ranking.java" />
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/controller/InfoViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/MenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="27" column="10" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1044,13 +1024,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -1098,7 +1071,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/database/clear.sql" />
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/Controller.java" />
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/image/Image.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
@@ -1113,24 +1085,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/controller/HelpMenuHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/model/AreaDraw.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1161,30 +1119,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/database/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
-          <folding>
-            <marker date="1465897067863" expanded="true" signature="1754:1808" ph="SELECT nazwa... ranking" />
-            <marker date="1465897067863" expanded="true" signature="1754:1809" ph="SELECT * FRO... ranking" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/Password.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-108">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1194,7 +1134,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1211,14 +1151,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="40" column="67" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="67" />
           <folding />
         </state>
       </provider>
@@ -1247,22 +1179,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="40" column="68" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ChangeVisibleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kalambury/model/slownik.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1271,10 +1187,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/MinalCzasController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ZgadnietoHasloController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/OptionMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/HelpMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
-          <caret line="321" column="72" selection-start-line="321" selection-start-column="72" selection-end-line="321" selection-end-column="72" />
+          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/AuthorsViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/controller/ChangeVisibleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/database/DatabaseInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/database/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <folding>
+            <element signature="e#2543#2544#0" expanded="true" />
+            <element signature="e#2574#2575#0" expanded="true" />
+            <element signature="e#2625#2626#0" expanded="true" />
+            <element signature="e#2663#2664#0" expanded="true" />
+            <element signature="e#2715#2716#0" expanded="true" />
+            <element signature="e#2751#2752#0" expanded="true" />
+            <element signature="e#2825#2826#0" expanded="true" />
+            <element signature="e#2870#2871#0" expanded="true" />
+            <marker date="1465947643169" expanded="true" signature="1754:1808" ph="SELECT nazwa... ranking" />
+            <marker date="1465947643169" expanded="true" signature="1754:1809" ph="SELECT * FRO... ranking" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/model/AreaDraw.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="35" column="67" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kalambury/view/ClientApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="289" column="47" selection-start-line="289" selection-start-column="47" selection-end-line="289" selection-end-column="47" />
           <folding />
         </state>
       </provider>

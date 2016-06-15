@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  * Created by Dom on 2016-06-08.
  */
 
-public class AuthorsViewController {
+public class AuthorsViewController implements Controller {
     @FXML
     private Button closeButton;
 
@@ -19,5 +19,9 @@ public class AuthorsViewController {
         stage.close();
     }
 
+    @Override
+    public void make_it() {
+
+    }
 }
 

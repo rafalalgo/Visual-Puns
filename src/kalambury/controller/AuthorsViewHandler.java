@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by rafalbyczek on 11.06.16.
  */
-public class AuthorsViewHandler {
+public class AuthorsViewHandler implements Controller {
     public void autorzy() {
         try {
             final Parent root = FXMLLoader.load(getClass().getResource("../fxml/AuthorsView.fxml"));
@@ -22,5 +22,10 @@ public class AuthorsViewHandler {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void make_it() {
+
     }
 }
