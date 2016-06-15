@@ -182,6 +182,9 @@ public class ClientApplication extends Application {
             rootPane.setHgap(10);
             rootPane.setVgap(10);
 
+            image = new Image("file:CanvasImage.png");
+            imageView = new ImageView(image);
+
             areaDraw = new AreaDraw();
             areaDraw.getCanvas().addEventHandler(MOUSE_DRAGGED, e -> ClientApplication.this.drawingController.handleMouseDragged(areaDraw.getGraphicsContext2D(), e));
             areaDraw.getCanvas().addEventHandler(MOUSE_PRESSED, e -> drawingController.handleMousePressed(areaDraw.getGraphicsContext2D(), e));
@@ -208,7 +211,7 @@ public class ClientApplication extends Application {
             rootPane.add(chatArea.getChatListView(), 0, 7);
             rootPane.add(chatArea.getChatTextField(), 0, 8);
 
-            ChangeVisibleController.make_it(aktDraw, client, areaDraw, imageView);
+            ChangeVisibleController.make_it(rootLayout, aktDraw, client, areaDraw, imageView);
 
             timeLineTask = new TimeLineTask(drawOption);
 
@@ -216,30 +219,49 @@ public class ClientApplication extends Application {
                 client.writeToServer(chatArea.getChatTextField().getText());
                 TryAnswerController.make_it(word, chatArea, drawOption, colorPicker, client, areaDraw, timeLineTask, tipArea, aktDraw);
                 chatArea.getChatTextField().clear();
-                ChangeVisibleController.make_it(aktDraw, client, areaDraw, imageView);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                }
             });
 
             primaryStage.setOnShowing(event -> {
-                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
+                HideShowWindowController.make_it(rootLayout, aktDraw, client, areaDraw, imageView, drawOption);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                }
             });
 
             primaryStage.setOnHidden(event -> {
-                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
+                HideShowWindowController.make_it(rootLayout, aktDraw, client, areaDraw, imageView, drawOption);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                }
             });
 
             primaryStage.setOnHiding(event -> {
-                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
+                HideShowWindowController.make_it(rootLayout, aktDraw, client, areaDraw, imageView, drawOption);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                }
             });
 
             scene.setOnMouseMoved(event -> {
-                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
-                rootPane.getChildren().remove(rankingArea.getRankingTab());
-                rankingArea = new RankingArea();
-                rootPane.add(rankingArea.getRankingTab(), 0, 5);
-                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
-                    timeLineTask.getTask().playFromStart();
-                }
-
+                RefreshWindowController.make_it(rootLayout, aktDraw, client, areaDraw, imageView, drawOption, rootPane, rankingArea, word, timeLineTask);
                 word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
                 Database.instance.changeTime("DELETE FROM czas;");
                 Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
@@ -249,17 +271,21 @@ public class ClientApplication extends Application {
                 }
 
                 TipTypeController.make_it(client, tipArea, word, drawOption);
-                ChangeVisibleController.make_it(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
+
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                } else {
+                    rootLayout.setLeft(areaDraw.getCanvas());
+                }
             });
 
             scene.setOnKeyPressed(event -> {
-                HideShowWindowController.make_it(aktDraw, client, areaDraw, imageView, drawOption);
-                rootPane.getChildren().remove(rankingArea.getRankingTab());
-                rankingArea = new RankingArea();
-                rootPane.add(rankingArea.getRankingTab(), 0, 5);
-                if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
-                    timeLineTask.getTask().playFromStart();
-                }
+                RefreshWindowController.make_it(rootLayout, aktDraw, client, areaDraw, imageView, drawOption, rootPane, rankingArea, word, timeLineTask);
                 word = Database.instance.getWord("SELECT slowo FROM slowo;");
                 Database.instance.changeTime("DELETE FROM czas;");
                 Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
@@ -269,12 +295,30 @@ public class ClientApplication extends Application {
                 }
 
                 TipTypeController.make_it(client, tipArea, word, drawOption);
-                ChangeVisibleController.make_it(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
+                ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
+
+                if (areaDraw.getCanvas().isVisible() == false) {
+                    image = new Image("file:CanvasImage.png");
+                    imageView = new ImageView(image);
+                    rootLayout.setLeft(imageView);
+                } else {
+                    rootLayout.setLeft(areaDraw.getCanvas());
+                }
             });
 
             TipTypeController.make_it(client, tipArea, word, drawOption);
             tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
             timeLineTask.getTask().playFromStart();
+
+            ChangeVisibleController.make_it(rootLayout, Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1;"), client, areaDraw, imageView);
+
+            if (areaDraw.getCanvas().isVisible() == false) {
+                image = new Image("file:CanvasImage.png");
+                imageView = new ImageView(image);
+                rootLayout.setLeft(imageView);
+            } else {
+                rootLayout.setLeft(areaDraw.getCanvas());
+            }
 
             return scene;
 

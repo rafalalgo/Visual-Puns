@@ -28,6 +28,7 @@ public class AreaDraw {
         return gc;
     }
 
+
     public void safeToFile() {
         WritableImage wim = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
         canvas.snapshot(null, wim);
