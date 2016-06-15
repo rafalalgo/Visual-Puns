@@ -18,6 +18,7 @@ public class AreaDraw {
     public AreaDraw() {
         canvas = new Canvas(740, 604);
         gc = canvas.getGraphicsContext2D();
+        safeToFile();
     }
 
     public Canvas getCanvas() {

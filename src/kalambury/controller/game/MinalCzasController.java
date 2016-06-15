@@ -34,10 +34,8 @@ public class MinalCzasController {
 
         client.writeToServer("Teraz rysuje " + kto);
 
-        if(client.getName().equals(aktDraw)) {
-            areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
-            areaDraw.safeToFile();
-        }
+        areaDraw.getGraphicsContext2D().clearRect(0, 0, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
+        areaDraw.safeToFile();
 
         Database.instance.changeTime("DELETE FROM czas;");
         Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('0')");

@@ -18,6 +18,9 @@ import kalambury.database.Database;
 import kalambury.server.Server;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +40,9 @@ public class ServerApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Path path = Paths.get("CanvasImage.png");
+        Files.deleteIfExists(path);
+
         Database.instance.deletePerson("DROP TABLE IF EXISTS ranking CASCADE;" +
                 "DROP TABLE IF EXISTS slowo CASCADE;" +
                 "DROP TABLE IF EXISTS czas CASCADE;" +
