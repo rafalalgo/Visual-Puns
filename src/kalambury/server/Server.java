@@ -4,8 +4,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import kalambury.database.Database;
-import kalambury.model.ClientThread;
-import kalambury.model.Password;
+import kalambury.model.client.ClientThread;
+import kalambury.model.dictionary.Password;
 import kalambury.view.ServerApplication;
 
 import java.io.IOException;
