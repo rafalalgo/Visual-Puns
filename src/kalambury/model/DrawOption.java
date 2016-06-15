@@ -39,6 +39,12 @@ public class DrawOption {
         progressBar.setMinHeight(colorPicker.getMinHeight());
         progressBar.setProgress(1);
 
+        controls.add(colorPicker, 0, 0);
+        controls.add(getClear(), 1, 0);
+        controls.add(getSlider(), 2, 0);
+        controls.add(getTime(), 3, 0);
+        controls.add(getProgressBar(), 4, 0);
+
     }
 
     public ProgressBar getProgressBar() {

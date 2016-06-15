@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kalambury.controller.*;
@@ -18,7 +20,6 @@ import kalambury.model.*;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import static javafx.scene.input.MouseEvent.*;
 
@@ -194,12 +195,6 @@ public class ClientApplication extends Application {
 
             drawOption = new DrawOption(drawingController, areaDraw, colorPicker);
 
-            drawOption.getControls().add(colorPicker, 0, 0);
-            drawOption.getControls().add(drawOption.getClear(), 1, 0);
-            drawOption.getControls().add(drawOption.getSlider(), 2, 0);
-            drawOption.getControls().add(drawOption.getTime(), 3, 0);
-            drawOption.getControls().add(drawOption.getProgressBar(), 4, 0);
-
             rootLayout.setTop(menuBar);
             rootLayout.setBottom(drawOption.getControls());
             rootLayout.setRight(rootPane);
@@ -218,16 +213,9 @@ public class ClientApplication extends Application {
             timeLineTask = new TimeLineTask(drawOption);
 
             chatArea.getChatTextField().setOnAction(event -> {
-                if (chatArea.getChatTextField().getText().length() >= 2) {
-                    client.writeToServer(chatArea.getChatTextField().getText());
-                    if (Pattern.matches(".*" + word + ".*", chatArea.getChatTextField().getText())) {
-                        word = ZgadnietoHasloController.make_it(drawOption, colorPicker,
-                                new Integer((int) (100 * (1 - drawOption.getProgressBar().getProgress()))),
-                                word, client, areaDraw, timeLineTask, tipArea, aktDraw);
-                    }
-                    chatArea.getChatTextField().clear();
-                }
-
+                client.writeToServer(chatArea.getChatTextField().getText());
+                TryAnswerController.make_it(word, chatArea, drawOption, colorPicker, client, areaDraw, timeLineTask, tipArea, aktDraw);
+                chatArea.getChatTextField().clear();
                 ChangeVisibleController.make_it(aktDraw, client, areaDraw, imageView);
             });
 
@@ -251,6 +239,7 @@ public class ClientApplication extends Application {
                 if (!word.equals(Database.instance.getWord("SELECT slowo FROM slowo;"))) {
                     timeLineTask.getTask().playFromStart();
                 }
+
                 word = Database.instance.getWord("SELECT slowo FROM slowo LIMIT 1;");
                 Database.instance.changeTime("DELETE FROM czas;");
                 Database.instance.changeTime("INSERT INTO czas(czas) VALUES ('" + new Integer((int) (drawOption.getProgressBar().getProgress() * 1000)) + "')");
@@ -259,38 +248,8 @@ public class ClientApplication extends Application {
                     word = MinalCzasController.make_it(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                 }
 
-                if(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1").equals(client.getName())) {
-                    tipArea.getTip().setText("Masz narysować: " + word + " - powodzenia!");
-                    tipArea.getTip().setWrapText(true);
-                } else {
-                    if(Pattern.matches(".*powodzenia.*",  tipArea.getTip().getText())) {
-                        tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
-                        tipArea.getTip().setWrapText(true);
-                    }
-                    if((int)(drawOption.getProgressBar().getProgress() * 1000) > 510 && Database.instance.getPoint("SELECT ktora FROM tip") == 1) {
-                        Database.instance.addPoint("DELETE FROM tip;");
-                        Database.instance.addPoint("INSERT INTO tip(ktora) VALUES(2);");
-                        tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
-                        tipArea.getTip().setWrapText(true);
-                    }
-                }
-
-                ChangeVisibleController.make_it(
-                        Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"),
-                        client, areaDraw, imageView);
-
-                if(rootLayout.getLeft().isVisible() == false) {
-                    FlowPane rootNode = new FlowPane();
-                    Scene scene = new Scene(rootNode, areaDraw.getCanvas().getWidth(), areaDraw.getCanvas().getHeight());
-                    primaryStage.setScene(scene);
-                    Image image = new Image("file:../CanvasImage.png");
-                    ImageView imageView = new ImageView(image);
-                    imageView.setScaleY(0.5);
-                    imageView.setScaleX(0.5);
-                    imageView.setVisible(true);
-                    rootNode.getChildren().add(imageView);
-                    primaryStage.show();
-                }
+                TipTypeController.make_it(client, tipArea, word, drawOption);
+                ChangeVisibleController.make_it(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
             });
 
             scene.setOnKeyPressed(event -> {
@@ -308,44 +267,12 @@ public class ClientApplication extends Application {
                 if (drawOption.getProgressBar().getProgress() == 1) {
                     word = MinalCzasController.make_it(drawOption, colorPicker, -50, word, client, areaDraw, timeLineTask, tipArea, aktDraw);
                 }
-                if(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1").equals(client.getName())) {
-                    tipArea.getTip().setText("Masz narysować: " + word + " - powodzenia!");
-                    tipArea.getTip().setWrapText(true);
-                } else {
-                    if(Pattern.matches(".*powodzenia.*",  tipArea.getTip().getText())) {
-                        tipArea.getTip().setText("Podpowiedź " + Password.getHint(word));
-                        tipArea.getTip().setWrapText(true);
-                    }
 
-                    if((int)(drawOption.getProgressBar().getProgress() * 1000) > 505 && Database.instance.getPoint("SELECT ktora FROM tip") == 1) {
-                        Database.instance.addPoint("DELETE FROM tip;");
-                        Database.instance.addPoint("INSERT INTO tip(ktora) VALUES(2);");
-                        tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
-                        tipArea.getTip().setWrapText(true);
-                    }
-                }
-
-                ChangeVisibleController.make_it(
-                        Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"),
-                        client, areaDraw, imageView);
+                TipTypeController.make_it(client, tipArea, word, drawOption);
+                ChangeVisibleController.make_it(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"), client, areaDraw, imageView);
             });
 
-            if(Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1").equals(client.getName())) {
-                tipArea.getTip().setText("Masz narysować: " + word + " - powodzenia!");
-                tipArea.getTip().setWrapText(true);
-            } else {
-                if(Pattern.matches(".*powodzenia.*",  tipArea.getTip().getText())) {
-                    tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
-                    tipArea.getTip().setWrapText(true);
-                }
-
-                if((int)(drawOption.getProgressBar().getProgress() * 1000) > 506 && Database.instance.getPoint("SELECT ktora FROM tip") == 1) {
-                    Database.instance.addPoint("DELETE FROM tip;");
-                    Database.instance.addPoint("INSERT INTO tip(ktora) VALUES(2);");
-                    tipArea.getTip().setText("Podpowiedź: " + Password.getHint(word));
-                    tipArea.getTip().setWrapText(true);
-                }
-            }
+            TipTypeController.make_it(client, tipArea, word, drawOption);
             tipArea.getAktDrawer().setText("Aktualnie rysuje " + Database.instance.getWord("SELECT name FROM gracze WHERE rysuje = 1"));
             timeLineTask.getTask().playFromStart();
 
