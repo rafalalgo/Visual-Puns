@@ -1,7 +1,10 @@
 ** Projekt - Gra Kalambury. **
 
-**Skład:**
+**Wykonawca:**
 Rafał Byczek
 
-**Założenia:**
-Projekt składał się będzie z dwóch części klienta i serwera i będzie polegał ma rysowaniu przez jednego z graczy hasła generowanego przez aplikację, a reszta graczy będzie próbować zgadnąć rysowane hasło na czacie. Za poprawne zgadnięcie hasła, mieszczące się w czasie przeznaczonym na dane hasło, zawodnik dostaje punkty. Na ekranie będzie się wyświetlał bieżący ranking punktów zawodników. To co chcielibyśmy osiągnąć to coś na kształt [Gry Kalambury na Kurniku](http://www.kurnik.pl/kalambury/). Naszymi głównymi priorytetami jest to, żeby to w ogóle działało w czasie rzeczywistym i dobrze wyglądało. Ewentualne przyszłe funkcjonalności na wypadek, gdyby nam zostało czasu, spróbujemy z Michałem zrobić różne tryby rozgrywki, np. jednoczesne rysowanie przez kilku zawodników, co umożliwiłoby tworzenie drużyn grających razem. A już taki plan maksimum maksimum to utworzenie jak na kurniku, możliwość tworzenia wielu pokoi do gry.
+**Krótka Instrukcja:**
+Do poprawnego działania aplikacja potrzebuje lokalnie utworzonego użytkownika bazy danych postgres,którego to dane jak i dane samej bazy należy skonfigurować za pomocą pliku config.properties, w głównym katalogu aplikacji. Uruchamianie przebiega następująco, najpierw należy skompilować i uruchomić ServerApplication, które to pełni funkcję lokalnego serwera do gry, a następnie, można dodawać graczy do gry poprzez uruchamianie ClientAppliaction. 
+
+**Opis:**
+Z graczy, którzy grają w danym momencie jest wybierany ten, który rysował najdawniej z nich wszystkich. Na jego ekranie pojawia się płótno do rysowania i hasło, które ma narysować w czasie jednej minuty. Na ekranach innych graczy jest wyświetlany aktualnie rysowany obraz, a także wskazówki naprowadzające na hasło do zgadnięcia. Gracze mogą rozmawiać ze sobą za pomocą chatu, który zawiera aplikacja, a aktualny ranking jest na bieżąco aktualizowany. Punkty spadają liniowo od 100 do 0 przez okres minuty, a gracz który miał rysować w rundzie, w której hasło nie zostało zgadnięte dostaje minus 50 punktów kary.
