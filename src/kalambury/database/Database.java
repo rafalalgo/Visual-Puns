@@ -17,6 +17,7 @@ import java.util.Properties;
 /**
  * Created by Rafał Byczek on 12.06.16.
  */
+
 final public class Database {
     public static final Database instance = new Database();
     private String SERVER_ADRES;

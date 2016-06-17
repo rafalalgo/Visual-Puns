@@ -1,4 +1,5 @@
 package kalambury.model.dictionary;
+
 import kalambury.database.Database;
 
 import java.io.BufferedReader;
@@ -8,6 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+/**
+ * Created by rafalbyczek on 31.05.16.
+ */
 
 public class Password {
     public static Random rNum = new Random();

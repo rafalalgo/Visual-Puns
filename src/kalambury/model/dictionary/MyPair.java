@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Michał Stobierski on 2016-06-14.
+ * Created by rafalbyczek on 31.05.16.
  */
 
 class MyPair {
